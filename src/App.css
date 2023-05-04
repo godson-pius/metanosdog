@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap');
+
+* {
+    font-family: 'Urbanist', sans-serif !important;
+}
+
+.active {
+    color: #000;
+}
+
+.hrl {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.vendor__active {
+    background-color: #f4dbad;
+    color: #9c6706 !important;
+    padding: 0.75rem;
+}

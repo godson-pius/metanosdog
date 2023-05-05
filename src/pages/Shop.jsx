@@ -110,7 +110,7 @@ const Shop = () => {
             { products.map((product, index) => {
               return (
               <div key={index} className="product w-full bg-slate-800 rounded-xl hover:shadow-xl hover:scale-105 duration-700">
-                <div style={{ backgroundImage: "url('https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/41/109817/1.jpg?8356')" }} className="product__image bg-orange-100 w-full h-40 rounded-t-xl bg-cover bg-center">
+                <div style={{ backgroundImage: `url(${product?.productImage})` }} className="product__image bg-orange-100 w-full h-40 rounded-t-xl bg-cover bg-center">
                   <div className="flex text-xs items-center bg-black p-1 rounded-md text-white absolute m-3 justify-center gap-1 font-bold">
                     <FiStar size={13} className='' />
                     <span>4.9</span>

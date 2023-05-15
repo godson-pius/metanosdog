@@ -17,11 +17,12 @@ import VendorSettings from '../pages/vendor/VendorSettings'
 import Product from '../pages/Product'
 import Cart from '../pages/Cart'
 import Shop from '../pages/Shop'
+import NHome from '../pages/New/NHome'
 
 const Index = () => {
   return (
     <Router basename='/'>
-        <Navbar />
+        {/* <Navbar /> */}
         
         <Routes>
             <Route path='/' element={ <Home /> } />
@@ -31,6 +32,7 @@ const Index = () => {
             <Route path='/shop' element={ <Shop /> } />
             <Route path='/cart' element={ <Cart /> } />
             <Route path='/vendor-signup' element={ <VendorSignup /> } />
+            <Route path='/vendor-signup/:ref' element={ <VendorSignup /> } />
             <Route path='/vendor-signin' element={ <VendorSignin /> } />
             <Route path='/vendor-dashboard' element={ <Dashboard /> } />
             <Route path='/vendor-products' element={ <VendorProducts /> } />
@@ -39,9 +41,13 @@ const Index = () => {
             <Route path='/vendor-settings' element={ <VendorSettings /> } />
             <Route path='/vendor' element={ <Vendor /> } />
             <Route path='/user-dashboard' element={ <UserDashboard /> } />
+
+
+            {/* New Designs */}
+            <Route path='/new' element={ <NHome /> } />
         </Routes>
 
-        <Footer />
+        {/* <Footer /> */}
     </Router>
   )
 }

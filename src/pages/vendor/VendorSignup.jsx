@@ -1,10 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
-import {handleVendorReg, handleVendorSignInPayment} from "../../api";
-import {useFlutterwave, closePaymentModal} from "flutterwave-react-v3";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { handleGenerateRefId, handleVendorReg, handleVendorSignInPayment } from "../../api";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const VendorSignup = () => {
+    const { ref } = useParams()
     const [shopName, setShopName] = useState("");
     const [shopType, setShopType] = useState("");
     const [managerFullname, setManagerFullname] = useState("");
@@ -14,6 +15,10 @@ const VendorSignup = () => {
     const [cemailAddress, setCEmailAddress] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCPassword] = useState("");
+    const [refId, setRefId] = useState(handleGenerateRefId());
+    const [referralId, setReferralId] = useState()
+
+
 
     const navigate = useNavigate();
     const submitBtn = useRef();
@@ -22,7 +27,7 @@ const VendorSignup = () => {
     const config = {
         public_key: 'FLWPUBK_TEST-3e1a371f3d4cf1fbe79c81aa128a13ea-X',
         tx_ref: Date.now(),
-        amount: 4000,
+        amount: 3000,
         currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
@@ -36,6 +41,7 @@ const VendorSignup = () => {
             logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
         },
     };
+
     const handleFlutterPayment = useFlutterwave(config);
     const [paid, setPaid] = useState("")
 
@@ -80,6 +86,7 @@ const VendorSignup = () => {
                     managerPhone,
                     additionalPhone,
                     emailAddress,
+                    refId,
                     password,
                 };
 
@@ -194,8 +201,14 @@ const VendorSignup = () => {
         });
     }
 
+    const getReferralId = () => {
+        (ref) ? setReferralId(ref) : console.log('Not referred');
+    }
+    
+
     useEffect(() => {
         window.scrollTo(0, 0);
+        getReferralId()
     }, []);
 
     return (
@@ -306,6 +319,18 @@ const VendorSignup = () => {
                                 placeholder="Confirm email address"
                             />
 
+<input
+                                type="text"
+                                name="referralId"
+                                id="referralId"
+                                readOnly
+                                value={referralId}
+                                onChange={(e) => setReferralId(e.target.value)}
+                                required
+                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                                placeholder="RefId"
+                            />
+
                             <input
                                 type="password"
                                 name="password"
@@ -339,15 +364,16 @@ const VendorSignup = () => {
                                     id="accept"
                                     required
                                 />
+
                                 <span className="text-sm mt-3 font-bold">
-                  I have read and accepted the{" "}
+                                    I have read and accepted the{" "}
                                     <Link
                                         to="/"
                                         className="text-orange-100 hover:text-orange-800 duration-500"
                                     >
-                    e-contract Meta Nosdog
-                  </Link>
-                </span>
+                                        e-contract Meta Nosdog
+                                    </Link>
+                                </span>
                             </div>
 
                             <button

@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { customAlphabet } from 'nanoid'
 
 const API = "http://localhost:4000/api";
 
@@ -173,6 +174,11 @@ const removeItemFromCart = async(id) => {
   }catch (e) {
     return e
   }
+}
+
+export const handleGenerateRefId = () => {
+  const refId = customAlphabet('1234567890metanosdog', 7);
+  return refId()
 }
 
 export {

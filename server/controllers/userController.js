@@ -2,11 +2,11 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 
 const handleRegistration = async(req, res) => {
-    const { firstname, lastname, email, password, shippingAddress } = req.body
+    const { firstname, lastname, email, password, shippingAddress, refId } = req.body
     const securePassword = await bcrypt.hash(password, 10)
 
     try {
-        const user = await User.create({ firstname, lastname, email, password: securePassword, shippingAddress })
+        const user = await User.create({ firstname, lastname, email, password: securePassword, shippingAddress, refId })
         res.status(200).json('successful')
     } catch (error) {
         res.status(500).json({ error: error })

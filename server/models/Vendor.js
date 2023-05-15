@@ -14,6 +14,10 @@ const vendorSchema = new mongoose.Schema({
     
     emailAddress: { type: String,  unique: true, required: true },
 
+    refId: { type: String, required: true },
+
+    children: { type: Array, default: [] },
+
     password: { type: String, required: true },
 
 }, { timestamps: true });

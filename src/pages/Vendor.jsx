@@ -25,7 +25,7 @@ const Vendor = () => {
             </p>
             <Link
               to="/vendor-signup"
-              className="bg-orange-400 shadow-lg p-2 rounded text-white hover:bg-white hover:text-orange-400 duration-500"
+              className="bg-green-400 shadow-lg p-2 rounded text-white hover:bg-white hover:text-orange-400 duration-500"
             >
               Sign up
             </Link>

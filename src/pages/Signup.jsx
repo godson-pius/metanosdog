@@ -98,7 +98,7 @@ const Signup = () => {
     <>
       <div className="w-full py-20">
         <div className="w-full justify-center flex px-10 md:px-72">
-          <div className="w-full bg-orange-400 flex flex-col items-center rounded p-10">
+          <div className="w-full bg-[#7AC751] flex flex-col items-center rounded p-10">
             <h1 className="text-3xl text-white mb-10">Sign Up</h1>
             <form className="w-full flex flex-col" onSubmit={handleReg}>
               <input

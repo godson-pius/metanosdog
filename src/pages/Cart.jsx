@@ -65,7 +65,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="w-full" data-aos="fade-in" data-aos-duration="2000">
+      <div className="w-full bg-green-100" data-aos="fade-in" data-aos-duration="2000">
         <div className="w-full py-10">
           <h1 className="text-3xl font-bold md:mx-12 mx-2">Your Cart</h1>
 
@@ -75,7 +75,7 @@ const Cart = () => {
 
               { carts.map((cart, index) => {
                 return (
-                  <div key={index} className="each w-full bg-orange-100 p-5 rounded flex justify-between items-center duration-500 hover:translate-y-[-3px]">
+                  <div key={index} className="each w-full bg-green-100 p-5 rounded flex justify-between items-center duration-500 hover:translate-y-[-3px]">
                 <div className="each__content">
                   <h1 className="font-bold text-sm">{cart?.productName}</h1>
                   <p className="text-gray-400 text-xs">Product</p>
@@ -90,12 +90,12 @@ const Cart = () => {
                   <input
                     type="number"
                     onChange={(e) => handleTotal(e)}
-                    className="rounded-full p-1 bg-transparent ring-2 ring-orange-300 w-16 text-sm text-center"
+                    className="rounded-full p-1 bg-transparent ring-2 ring-green-300 w-16 text-sm text-center"
                   />
                   {/* <p className="text-gray-400 text-xs">Quantity</p> */}
                 </div>
 
-                <div className="each__content flex items-center gap-1 ring-2 ring-orange-300 p-2 w-28 rounded-full justify-center hover:text-white hover:bg-orange-200 cursor-pointer duration-500">
+                <div className="each__content flex items-center gap-1 ring-2 ring-green-300 p-2 w-28 rounded-full justify-center hover:text-white hover:bg-orange-200 cursor-pointer duration-500">
                   <p className="text-black text-sm">${Intl.NumberFormat().format(total)}</p>
                 </div>
 
@@ -103,17 +103,17 @@ const Cart = () => {
                   <FiX
                     onClick={(e) => handleRemoveProduct(cart?.productName, cart?._id, e)}
                     size={20}
-                    className="font-bold cursor-pointer ring-2 ring-orange-300 hover:bg-orange-200 rounded-full p-1"
+                    className="font-bold cursor-pointer ring-2 ring-green-300 hover:bg-green-200 rounded-full p-1"
                   />
                 </div>
-              </div>
+               </div>
                 )
               }) }
               
 
             </div>
 
-            <div className="cart bg-orange-300 w-96 p-4 rounded">
+            <div className="cart bg-green-300 w-96 p-4 rounded">
               <h1 className="font-bold mb-3">Order summary</h1>
               <hr />
 
@@ -127,17 +127,17 @@ const Cart = () => {
                 <p>$0</p>
               </div>
 
-              <div className="subtotal flex justify-between rounded-full text-sm bg-orange-200 p-3 mt-4">
+              <div className="subtotal flex justify-between rounded-full text-sm bg-green-200 p-3 mt-4">
                 <p>Total</p>
                 <p className="font-bold">$635</p>
               </div>
 
               <div className="flex gap-2">
-                <button className="w-full text-xs bg-orange-600 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-orange-100">
+                <button className="w-full text-xs bg-green-600 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-orange-100">
                   PAY THROUGH US
                 </button>
 
-                <button className="w-full text-xs bg-orange-400 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-orange-100">
+                <button className="w-full text-xs bg-green-400 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-orange-100">
                   PAY DIRECT
                 </button>
               </div>
@@ -153,15 +153,15 @@ const Cart = () => {
 
             <input
               type="text"
-              className="w-full p-1 ring-2 ring-orange-400 mt-3 outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic rounded"
+              className="w-full p-1 ring-2 ring-green-400 mt-3 outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic rounded"
               placeholder="Billing address"
             />
 
             <div className="flex gap-2">
-              <button className="w-full text-sm bg-orange-600 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-orange-100 hover:translate-y-1">
+              <button className="w-full text-sm bg-green-600 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-orange-100 hover:translate-y-1">
                 PAY THROUGH US
               </button>
-              <button className="w-full text-sm bg-orange-300 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-orange-100 hover:translate-y-1">
+              <button className="w-full text-sm bg-green-300 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-orange-100 hover:translate-y-1">
                 PAY DIRECT
               </button>
             </div>

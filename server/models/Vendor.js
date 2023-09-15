@@ -10,13 +10,19 @@ const vendorSchema = new mongoose.Schema({
 
     managerPhone: { type: String, required: true }, 
 
+    balance: { type: Number, default: 0 }, 
+
     additionalPhone: { type: String, required: true },
     
     emailAddress: { type: String,  unique: true, required: true },
 
     refId: { type: String, required: true },
 
+    parentId: { type: String, required: true },
+
     children: { type: Array, default: [] },
+
+    generation: { type: Array, default: [] },
 
     password: { type: String, required: true },
 

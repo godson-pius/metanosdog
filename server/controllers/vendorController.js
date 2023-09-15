@@ -22,11 +22,13 @@ const handleRegistration = async (req, res) => {
       managerPhone,
       additionalPhone,
       emailAddress,
+      refId,
       password: securedPassword,
     });
     res.status(200).json("success");
   } catch (error) {
     res.status(500).json({ error: error });
+    console.log(error)
   }
 };
 

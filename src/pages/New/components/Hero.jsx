@@ -16,7 +16,7 @@ const Hero = () => {
     return (
         <>
             <section className='px-20 flex items-start'>
-                <div className="categories bg-[#F7F8FA] flex flex-col divide-y w-56 p-5 text-[#555555] text-sm">
+                <div className="categories bg-[#F7F8FA] flex flex-col  w-56 p-5 text-[#555555] text-sm">
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>All</Link>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>New Arrivals</Link>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>Real Estate</Link>
@@ -28,19 +28,19 @@ const Hero = () => {
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>Clothing</Link>
                 </div>
 
-                <section className="banner bg-[#F1FAFF] m-3 p-5 flex items-center px-10 gap-32">
-                    <div className="left_side">
-                        <h4 className='text-[#7AC751] uppercase text-xl'>Top Collections 2023</h4>
-                        <h2 className='text-5xl font-bold mt-2'>We Serve Your <br /> Dream <span className='border-b-4 border-[#7AC751]'>Furniture</span></h2>
+                <section className="banner bg-[#F1FAFF] m-3 p-5 flex items-center px-10 gap-32 xl:h-[445px]">
+                    <div className="left_side ">
+                        <h4 className='text-[#7AC751] uppercase text-xl '>Top Collections 2023</h4>
+                        <h2 className='text-5xl font-bold mt-2 '>We Serve Your <br /> Dream <span className='border-b-4 border-[#7AC751]'>Furniture</span></h2>
 
-                        <p className='text-[#555555] my-6 text-2xl font-thin'>Get 50% of all products</p>
-                        <button className='uppercase bg-[#7AC751] text-white p-2 rounded text-sm'>Shop Now</button>
+                        <p className='text-[#555555] my-6 text-2xl font-thin '>Get 50% of all products</p>
+                        <button className='uppercase bg-[#7AC751] text-white p-2 rounded text-sm '>Shop Now</button>
                     </div>
 
                     <img src={furniture} alt="Banner Image" className='w-80 h-80' />
                 </section>
 
-                <section className="single m-3 grid grid-cols-2 gap-3">
+                <section className="single m-3 grid grid-cols-2 gap-3 md:h-[445px] lg:h-[445px] xl:h-[445px] lg:mr-0">
                     <motion.div 
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }} 

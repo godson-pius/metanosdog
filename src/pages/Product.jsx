@@ -156,19 +156,19 @@ const Product = () => {
             {/* Ratings */}
             <div className="rating flex items-end gap-2">
               <div className="stars flex">
-                <span className="text-orange-300 text-xl">
+                <span className="text-green-300 text-xl">
                   <HiStar />
                 </span>
-                <span className="text-orange-300 text-xl">
+                <span className="text-green-300 text-xl">
                   <HiStar />
                 </span>
-                <span className="text-orange-300 text-xl">
+                <span className="text-green-300 text-xl">
                   <HiStar />
                 </span>
-                <span className="text-orange-300 text-xl">
+                <span className="text-green-300 text-xl">
                   <HiOutlineStar />
                 </span>
-                <span className="text-orange-300 text-xl">
+                <span className="text-green-300 text-xl">
                   <HiOutlineStar />
                 </span>
               </div>
@@ -177,7 +177,7 @@ const Product = () => {
             </div>
 
             {/* Price */}
-            <h1 className="font-bold text-xl mt-2 text-orange-600">${ (product.length > 0) ? Intl.NumberFormat().format(product[0]?.productPrice) : null}</h1>
+            <h1 className="font-bold text-xl mt-2 text-green-600">${ (product.length > 0) ? Intl.NumberFormat().format(product[0]?.productPrice) : null}</h1>
 
             {/* Description */}
             <p className="text-sm mt-5 text-gray-600">
@@ -262,16 +262,16 @@ const Product = () => {
           <div className="w-full flex mb-7 justify-center gap-7 items-center">
             <p
               onClick={showDescription}
-              className={`text-gray-600 text-sm hover:text-orange-300 cursor-pointer duration-500 ${
-                isDescription ? "font-bold text-orange-400" : null
+              className={`text-gray-600 text-sm hover:text-green-300 cursor-pointer duration-500 ${
+                isDescription ? "font-bold text-green-400" : null
               }`}
             >
               Description
             </p>
             <p
               onClick={showReview}
-              className={`text-gray-600 text-sm hover:text-orange-300 cursor-pointer duration-500 ${
-                isReview ? "font-bold text-orange-400" : null
+              className={`text-gray-600 text-sm hover:text-green-300 cursor-pointer duration-500 ${
+                isReview ? "font-bold text-green-400" : null
               }`}
             >
               Review
@@ -296,19 +296,19 @@ const Product = () => {
                               <div className="flex justify-between">
                                 <h1 className="font-bold">{e.user}</h1>
                                 <div className="stars flex">
-                                <span className="text-orange-300 text-xl">
+                                <span className="text-green-300 text-xl">
                                   <HiStar />
                                 </span>
-                                          <span className="text-orange-300 text-xl">
+                                          <span className="text-green-300 text-xl">
                                   <HiStar />
                                 </span>
-                                          <span className="text-orange-300 text-xl">
+                                          <span className="text-green-300 text-xl">
                                   <HiStar />
                                 </span>
-                                          <span className="text-orange-300 text-xl">
+                                          <span className="text-green-300 text-xl">
                                   <HiOutlineStar />
                                 </span>
-                                          <span className="text-orange-300 text-xl">
+                                          <span className="text-green-300 text-xl">
                                   <HiOutlineStar />
                                 </span>
                                 </div>
@@ -319,8 +319,8 @@ const Product = () => {
 
                               {/* Date */}
                               <div className="flex items-center mt-3 gap-2">
-                                <FiCalendar className="text-orange-400" />
-                                <p className="text-xs text-orange-400">{moment(`${e.updatedAt}`, "YYYYMMDD").fromNow()}</p>
+                                <FiCalendar className="text-green-400" />
+                                <p className="text-xs text-green-400">{moment(`${e.updatedAt}`, "YYYYMMDD").fromNow()}</p>
                               </div>
                             </div>
                         )
@@ -348,7 +348,7 @@ const Product = () => {
                       value={`${currentUser?.firstname} ${currentUser?.lastname}`}
                     />
 
-                    <select className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3" onChange={(e) => setRate(e.target.value)}>
+                    <select className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-green-200 mb-3" onChange={(e) => setRate(e.target.value)}>
                       <option value="null" disabled selected>
                         Rate product
                       </option>
@@ -359,9 +359,9 @@ const Product = () => {
                       <option value="5">Excellent (5)</option>
                     </select>
 
-                    <textarea className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200" onChange={(e) => setReview(e.target.value)}></textarea>
+                    <textarea className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-green-200" onChange={(e) => setReview(e.target.value)}></textarea>
 
-                    <button type="submit" className='w-full bg-orange-300 p-2 text-black font-bold hover:shadow-lg duration-700 mt-4 hover:text-white'>Post review</button>
+                    <button type="submit" className='w-full bg-green-300 p-2 text-black font-bold hover:shadow-lg duration-700 mt-4 hover:text-white'>Post review</button>
                   </form>
                 </div>
               </div>

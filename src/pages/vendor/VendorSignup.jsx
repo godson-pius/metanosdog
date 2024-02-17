@@ -87,6 +87,7 @@ const VendorSignup = () => {
                     additionalPhone,
                     emailAddress,
                     refId,
+                    parentId: referralId,
                     password,
                 };
 
@@ -170,6 +171,8 @@ const VendorSignup = () => {
                         managerPhone,
                         additionalPhone,
                         emailAddress,
+                        refId,
+                        parentId: referralId,
                         password,
                     };
 

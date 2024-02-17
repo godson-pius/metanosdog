@@ -18,7 +18,7 @@ const vendorSchema = new mongoose.Schema({
 
     refId: { type: String, required: true },
 
-    parentId: { type: String, required: true },
+    parentId: { type: String, default: null },
 
     children: { type: Array, default: [] },
 

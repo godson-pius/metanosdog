@@ -17,13 +17,12 @@ const VendorSignup = () => {
     const [cpassword, setCPassword] = useState("");
     const [refId, setRefId] = useState(handleGenerateRefId());
     const [referralId, setReferralId] = useState()
-
-
-
     const navigate = useNavigate();
     const submitBtn = useRef();
+    const [paid, setPaid] = useState("")
 
-    // Flutterwave
+
+    // Flutterwave configuration
     const config = {
         public_key: 'FLWPUBK_TEST-3e1a371f3d4cf1fbe79c81aa128a13ea-X',
         tx_ref: Date.now(),
@@ -43,7 +42,6 @@ const VendorSignup = () => {
     };
 
     const handleFlutterPayment = useFlutterwave(config);
-    const [paid, setPaid] = useState("")
 
     const handleReg = async (e) => {
         e.preventDefault();
@@ -244,7 +242,7 @@ const VendorSignup = () => {
                                 required
                                 className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
                             >
-                                <option value="null">
+                                <option disabled value="null">
                                     Are an individual or Business Entity / Company
                                 </option>
                                 <option value="individual">Individual</option>

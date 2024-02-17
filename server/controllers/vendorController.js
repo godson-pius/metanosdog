@@ -20,16 +20,17 @@ const handleRegistration = async (req, res) => {
   var refReward;
 
   try {
-    // const vendor = await Vendor.create({
-    //   shopName,
-    //   shopType,
-    //   managerFullname,
-    //   managerPhone,
-    //   additionalPhone,
-    //   emailAddress,
-    //   refId,
-    //   password: securedPassword,
-    // });
+    const vendor = await Vendor.create({
+      shopName,
+      shopType,
+      managerFullname,
+      managerPhone,
+      additionalPhone,
+      emailAddress,
+      refId,
+      parentId,
+      password: securedPassword,
+    });
 
     const parentVendor = await Vendor.findOne({ refId: parentId })
     if (parentVendor) {

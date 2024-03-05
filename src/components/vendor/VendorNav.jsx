@@ -31,7 +31,7 @@ const VendorNav = () => {
   return (
     <>
       <div className="fixed">
-        <nav className="w-12 p-4 md:w-48 h-screen py-7 md:px-5 text-white bg-[#fceacb] flex flex-col gap-6 items-center">
+        <nav className="w-12 p-4 md:w-56 h-screen py-7 md:px-5 text-white bg-[#fceacb] flex flex-col gap-6 items-center">
           <div className="w-full firm flex items-center gap-2">
             <div className="p-3 ml-[-6px] md:ml-[0px] bg-orange-300 rounded-full shadow border-2 border-white"></div>
             <h1 onClick={navigateToHome} className="text-black font-bold text-md hidden md:block cursor-pointer">
@@ -105,7 +105,7 @@ const VendorNav = () => {
           </div>
 
           {/* User */}
-          <div className="w-full flex items-center gap-2">
+          <div className="w-full flex items-center gap-2 mt-16">
             <div className="user p-1 ml-[-5px] md:ml-[0px] md:p-2 bg-[#49def187] rounded-full flex justify-center items-center">
               <FiUserCheck size={17} />
             </div>

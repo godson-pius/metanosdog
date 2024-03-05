@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const basePrice = mongoose.Schema({
+const basePrice = new mongoose.Schema({
 
     price: { type: Number, required: ['Base Price is required'] }
 

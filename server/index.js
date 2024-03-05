@@ -9,7 +9,8 @@ const vendorRoute = require("./routes/vendorRoute")
 const ticketRoute = require("./routes/ticketRoute")
 const cartRoute = require("./routes/cartRoute")
 const reviewRoute = require("./routes/reviewRoute")
-const referralRoute = require("./routes/referralRoute")
+const referralRoute = require("./routes/referralRoute");
+const BasePrice = require("./models/BasePrice");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -27,6 +28,10 @@ app.use('/api/ticket', ticketRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/review', reviewRoute)
 app.use('/api/referral', referralRoute)
+app.get('/api/basePrice', async(req, res) => {
+  const price = await BasePrice.find({})
+  res.status(200).json({ price, status: 200 })
+})
 
 // DB SET-UP
 mongoose.set('strictQuery', false);

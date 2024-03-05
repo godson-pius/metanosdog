@@ -30,8 +30,6 @@ const Products = () => {
     setProductSlug(_productName.replace(/ /g, '-'));
   }
 
-  console.log("productImage");
-
   const handleProductImage = (e) => {
     const file = e.target.files[0];
     setProductImage(file);
@@ -39,15 +37,15 @@ const Products = () => {
     transformFile(file);
   };
 
-  const transformFile = (file) =>{
+  const transformFile = (file) => {
     const reader = new FileReader()
 
-    if(file){
+    if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setProductImage(reader.result);
       };
-    }else{
+    } else {
       setProductImage("");
     }
   };
@@ -62,7 +60,7 @@ const Products = () => {
     }
   };
 
-  const handleAddProduct = async(e) => {
+  const handleAddProduct = async (e) => {
     e.preventDefault();
 
     submitBtn.current.innerHTML = "Please wait...";
@@ -96,7 +94,7 @@ const Products = () => {
       setProductImage("")
 
       setIsShowForm(false);
-      
+
       setTimeout(() => {
         /*toast.info(`${productName} have been published on Marketplace.`) */
         toast.info(productName + `  have been published on Marketplace.`)
@@ -105,39 +103,39 @@ const Products = () => {
 
   }
 
-  const handleChoice = async(choice, id) => {
+  const handleChoice = async (choice, id) => {
     if (choice === true && id !== undefined) {
-        const res = await deleteProduct(id);
-        if (res.status === 'success') {
-          toast.success("Product was deleted successfully!");
-        } else {
-          toast.error("Failed! Please try again");
-        }
+      const res = await deleteProduct(id);
+      if (res.status === 'success') {
+        toast.success("Product was deleted successfully!");
+      } else {
+        toast.error("Failed! Please try again");
+      }
     }
   }
 
-  const handleDeleteProduct = async(_productName, _productId) => {
+  const handleDeleteProduct = async (_productName, _productId) => {
     toast.info(<DelOption pname={_productName} pId={_productId} />, { autoClose: false });
   }
 
-  const DelOption = ({pname, pId}) => {
+  const DelOption = ({ pname, pId }) => {
     return (
       <>
         <h1>Are you sure you delete <i>{pname}</i>?</h1>
         <div className="flex gap-2">
-        <button
-          className="bg-red-500 w-full text-white p-1 rounded mt-2"
-          onClick={() => handleChoice(true, pId)}
-        >
-          Yes, delete
-        </button>
+          <button
+            className="bg-red-500 w-full text-white p-1 rounded mt-2"
+            onClick={() => handleChoice(true, pId)}
+          >
+            Yes, delete
+          </button>
 
-        <button
-          className="bg-sky-500 w-full text-white p-1 rounded mt-2 shadow-lg"
-          onClick={() => handleChoice(false)}
-        >
-          Cancel
-        </button>
+          <button
+            className="bg-sky-500 w-full text-white p-1 rounded mt-2 shadow-lg"
+            onClick={() => handleChoice(false)}
+          >
+            Cancel
+          </button>
         </div>
       </>
     );
@@ -177,13 +175,16 @@ const Products = () => {
     }
   }
 
-  useEffect(async() => {
+  useEffect(async () => {
     await handleVendorProducts();
     setInterval(() => {
       handleVendorProducts();
     }, 5000)
     window.scrollTo(0, 0);
+
+    return () => {};
   }, []);
+
   return (
     <>
       <div
@@ -199,7 +200,7 @@ const Products = () => {
             <div className="w-full flex justify-end">
               <button
                 onClick={() => setIsShowForm(true)}
-                className="bg-orange-400 flex items-center gap-2 p-2 rounded-full md:rounded-full text-white hover:translate-y-1 duration-500 hover:shadow"
+                className="bg-orange-400 flex items-center gap-2 p-2 rounded md:rounded-full text-white hover:translate-y-1 duration-500 hover:shadow"
               >
                 <span className="hidden md:block">Add Product</span>
                 <FiPlusCircle size={20} />
@@ -208,54 +209,55 @@ const Products = () => {
             <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-3">
               {/* Traverse through product array in state */}
 
-              {setIsProducts
+              {isProducts
                 ? products.map((product, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className="w-full flex bg-white rounded duration-700 hover:scale-105 hover:translate-y-4 hover:shadow-lg"
-                      >
-                        <img
-                          className="w-32 h-auto" 
-                          src={product.productImage}
-                          alt=""
-                        />
-                        
+                  return (
+                    <div
+                      key={index}
+                      className="w-full flex bg-white rounded duration-700 hover:scale-105 hover:translate-y-4 hover:shadow-lg"
+                    >
+                      {/* <div className={`w-32 h-auto bg-[url('${product.productImage}')] rounded-lg bg-cover bg-center`}></div> */}
+                      <img
+                        className="w-32 h-auto"
+                        src={product.productImage}
+                        alt=""
+                      />
 
-                        <div className="mt-3 flex flex-col items-start px-3">
-                          <h1 className="font-bold text-xl">
-                            {product.productName}
-                          </h1>
-                          <p className="text-sm text-gray-500 mt-1">
-                            {product.productDesc.length <= 200
-                              ? product.productDesc.substr(0, 200)
-                              : `${product.productDesc.substr(0, 200)}.....`}
-                          </p>
-                          <p className="text-md text-orange-700 mt-3 font-bold">
-                            ${ Intl.NumberFormat().format(product.productPrice) }
-                          </p>
 
-                          <div className="w-full justify-end flex py-2 gap-4">
-                            <FiTrash2
-                              onClick={() => handleDeleteProduct(product.productName, product._id)}
-                              size={20}
-                              className="cursor-pointer duration-700 hover:text-red-400"
-                            />
-                            <FiEdit
-                              size={20}
-                              onClick={() => handleUpdateProductForm(index)}
-                              className="cursor-pointer duration-700 hover:text-sky-400"
-                            />
-                            <FiUploadCloud
-                              size={20}
-                              onClick={() => toast.info('Publish feature coming soon')}
-                              className="cursor-pointer duration-700 hover:text-green-400"
-                            />
-                          </div>
+                      <div className="mt-3 flex flex-col items-start px-3">
+                        <h1 className="font-bold text-xl">
+                          {product.productName}
+                        </h1>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {product.productDesc.length <= 200
+                            ? product.productDesc.substr(0, 200)
+                            : `${product.productDesc.substr(0, 200)}.....`}
+                        </p>
+                        <p className="text-md text-orange-700 mt-3 font-bold">
+                          ${Intl.NumberFormat().format(product.productPrice)}
+                        </p>
+
+                        <div className="w-full justify-end flex py-2 gap-4">
+                          <FiTrash2
+                            onClick={() => handleDeleteProduct(product.productName, product._id)}
+                            size={20}
+                            className="cursor-pointer duration-700 hover:text-red-400"
+                          />
+                          <FiEdit
+                            size={20}
+                            onClick={() => handleUpdateProductForm(index)}
+                            className="cursor-pointer duration-700 hover:text-sky-400"
+                          />
+                          <FiUploadCloud
+                            size={20}
+                            onClick={() => toast.info('Publish feature coming soon')}
+                            className="cursor-pointer duration-700 hover:text-green-400"
+                          />
                         </div>
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
                 : null}
 
               {isProducts === false ? (
@@ -290,11 +292,11 @@ const Products = () => {
                 />
 
                 <input
-                    type="text"
-                    required
-                    readOnly
-                    defaultValue={productSlug}
-                    className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"
+                  type="text"
+                  required
+                  readOnly
+                  defaultValue={productSlug}
+                  className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"
                 />
 
                 <input
@@ -325,16 +327,16 @@ const Products = () => {
                   accept="image/"
                   placeholder="Enter product image"
                   required
-                  onChange={ handleProductImage}
+                  onChange={handleProductImage}
                   className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"
                 />
                 {productImage ? <>
-                          <img
-                          className="w-32 h-auto border-2 rounded border-white" 
-                          src= {productImage} alt=""
-                        />
-                        </>: <p>Image preview</p>}<br></br>
-                        
+                  <img
+                    className="w-32 h-auto border-2 rounded border-white"
+                    src={productImage} alt=""
+                  />
+                </> : <p>Image preview</p>}<br></br>
+
 
                 <textarea
                   className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"
@@ -409,12 +411,12 @@ const Products = () => {
                   className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"
                 />
                 {productImage ? <>
-                          <img
-                          className="w-32 h-auto border-2 rounded border-white" 
-                          src= {productImage} alt=""
-                        />
-                        </>: <p>Image preview</p>}<br></br>
-                        
+                  <img
+                    className="w-32 h-auto border-2 rounded border-white"
+                    src={productImage} alt=""
+                  />
+                </> : <p>Image preview</p>}<br></br>
+
 
                 <textarea
                   className="w-full px-3 rounded p-1 bg-transparent ring-2 ring-white text-white placeholder:text-gray-200 outline-none focus:ring-orange-300 duration-500 mb-4"

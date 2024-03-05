@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { handleGenerateRefId, handleVendorReg, handleVendorSignInPayment } from "../../api";
+import { getBasePrice, handleGenerateRefId, handleVendorReg, handleVendorSignInPayment } from "../../api";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 const VendorSignup = () => {
@@ -20,13 +20,14 @@ const VendorSignup = () => {
     const navigate = useNavigate();
     const submitBtn = useRef();
     const [paid, setPaid] = useState("")
+    const [basePrice, setBasePrice] = useState()
 
 
     // Flutterwave configuration
     const config = {
         public_key: 'FLWPUBK_TEST-3e1a371f3d4cf1fbe79c81aa128a13ea-X',
         tx_ref: Date.now(),
-        amount: 3000,
+        amount: basePrice,
         currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
@@ -206,10 +207,18 @@ const VendorSignup = () => {
         (ref) ? setReferralId(ref) : console.log('Not referred');
     }
     
+    const handleGetRegistrationFee = async() => {
+        const res = await getBasePrice();
+        if (res.status == 200) {
+            setBasePrice(res.price[0].price)
+        }
+    }
+    
 
     useEffect(() => {
         window.scrollTo(0, 0);
         getReferralId()
+        handleGetRegistrationFee()
     }, []);
 
     return (

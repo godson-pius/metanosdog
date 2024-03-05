@@ -181,6 +181,15 @@ export const handleGenerateRefId = () => {
   return refId()
 }
 
+export const getBasePrice = async() => {
+  try {
+    const response = await Axios.get(`${API}/basePrice`)
+   return response.data
+ }catch (e) {
+   return e
+ }
+}
+
 export {
   handleUserReg,
   handleUserLogin,

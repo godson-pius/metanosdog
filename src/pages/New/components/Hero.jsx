@@ -12,11 +12,11 @@ import 'swiper/css/pagination'
 import { EffectCoverflow, Navigation } from 'swiper'
 
 
-const Hero = () => {
+const Hero = ({active}) => {
     return (
         <>
             <section className='px-20 flex items-start'>
-                <div className="categories bg-[#F7F8FA] flex flex-col  w-56 p-5 text-[#555555] text-sm">
+                <div className={`${active ? 'flex': 'hidden'} lg:flex categories gap-7 sm:text-center lg:gap-0 bg-[#f6f7f9] lg:bg-transparent flex flex-col z-50 lg:static absolute top-0 left-0 w-[60vw] lg:w-56 p-5 h-[100vh] lg:h-auto lg:text-left text-[#555555] text-sm`}>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>All</Link>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>New Arrivals</Link>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>Real Estate</Link>

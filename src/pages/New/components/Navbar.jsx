@@ -7,12 +7,17 @@ import shop from '../../../assets/icons/shop.png'
 import notification from '../../../assets/icons/notification.png'
 import user from '../../../assets/icons/user.png'
 import hamburger from '../../../assets/icons/hamburger.png'
+import { FiMenu } from "react-icons/fi";
+import { CiSearch } from "react-icons/ci";
 
-const Navbar = () => {
-  const colour = colors
+
+
+const Navbar = ({active, setActive}) => {
+  const colour = colors;
+
   return (
     <>
-      <section className={`top w-full flex justify-between py-3 px-20 text-white bg-[#7AC751]`}>
+      <section className={`hidden top w-full lg:flex justify-between py-3 px-20 text-white bg-[#7AC751]`}>
         <h1>Welcome back,</h1>
 
         <div className="auth flex justify-between gap-5">
@@ -26,15 +31,20 @@ const Navbar = () => {
         </div>
       </section>
 
-      <header className={`w-full flex gap-5 lg:gap-0 px-10 md:px-20 py-5 justify-between items-center`}>
+      <header className={`w-full flex gap-5 lg:gap-0 px-10 md:px-20 lg:py-5 md:py-5 py-2 justify-between items-center`}>
         <img src={logo} alt="Logo" className='w-16 h-16' />
 
         {/* Search bar */}
-        <div className={`w-[50rem] flex border-2 border-[#7AC751] rounded-xl`}>
+        <div className={`hidden w-[50rem] lg:flex border-2 border-[#7AC751] rounded-xl`}>
           <input type="text" className='w-full rounded-l-lg px-4' placeholder='search here' />
           <button className={`bg-[#7AC751] p-3 rounded-r-lg`}>
             <img src={search} alt="Search" width={20} />
           </button>
+        </div>
+
+        <div className='lg:hidden flex text-4xl gap-2'>
+          <CiSearch />
+          <FiMenu onClick={() => setActive(!active)}/>
         </div>
 
 

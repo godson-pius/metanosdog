@@ -15,7 +15,7 @@ import { EffectCoverflow, Navigation } from 'swiper'
 const Hero = ({active}) => {
     return (
         <>
-            <section className='px-20 flex items-start'>
+            <section className='px-4 lg:px-20 flex sm:flex-wrap lg:flex-nowrap items-start'>
                 <div className={`${active ? 'flex': 'hidden'} lg:flex categories gap-7 sm:text-center lg:gap-0 bg-[#f6f7f9] lg:bg-transparent flex flex-col z-50 lg:static absolute top-0 left-0 w-[60vw] lg:w-56 p-5 h-[100vh] lg:h-auto lg:text-left text-[#555555] text-sm`}>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>All</Link>
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>New Arrivals</Link>
@@ -28,7 +28,7 @@ const Hero = ({active}) => {
                     <Link className='p-2 hover:scale-105 hover:shadow-lg hover:bg-[#7AC751] hover:text-white hover:rounded-lg duration-1000'>Clothing</Link>
                 </div>
 
-                <section className="banner bg-[#F1FAFF] m-3 p-5 flex items-center px-10 gap-32 xl:h-[445px]">
+                <section className="banner bg-[#F1FAFF] w-[100%] m-3 p-5 flex items-center px-10 gap-32 xl:h-[445px]">
                     <div className="left_side ">
                         <h4 className='text-[#7AC751] uppercase text-xl '>Top Collections 2023</h4>
                         <h2 className='text-5xl font-bold mt-2 '>We Serve Your <br /> Dream <span className='border-b-4 border-[#7AC751]'>Furniture</span></h2>
@@ -40,7 +40,7 @@ const Hero = ({active}) => {
                     <img src={furniture} alt="Banner Image" className='w-80 h-80' />
                 </section>
 
-                <section className="single m-3 grid grid-cols-2 gap-3 md:h-[445px] lg:h-[445px] xl:h-[445px] lg:mr-0">
+                <section className="single m-3 grid md:grid-cols-4 lg:grid-cols-2 gap-3 md:h-[auto] lg:h-[445px] xl:h-[445px] lg:mr-0">
                     <motion.div 
                     initial={{ opacity: 0, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }} 

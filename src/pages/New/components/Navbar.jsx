@@ -9,6 +9,7 @@ import user from '../../../assets/icons/user.png'
 import hamburger from '../../../assets/icons/hamburger.png'
 import { FiMenu } from "react-icons/fi";
 import { CiSearch } from "react-icons/ci";
+import { LiaTimesSolid } from "react-icons/lia";
 
 
 
@@ -31,7 +32,7 @@ const Navbar = ({active, setActive}) => {
         </div>
       </section>
 
-      <header className={`w-full flex gap-5 lg:gap-0 px-10 md:px-20 lg:py-5 md:py-5 py-2 justify-between items-center`}>
+      <header className={`w-full flex gap-5 lg:gap-0 px-10 md:px-20 lg:py-5 md:py-5 py-4 justify-between items-center`}>
         <img src={logo} alt="Logo" className='w-16 h-16' />
 
         {/* Search bar */}
@@ -44,7 +45,7 @@ const Navbar = ({active, setActive}) => {
 
         <div className='lg:hidden flex text-4xl gap-2'>
           <CiSearch />
-          <FiMenu onClick={() => setActive(!active)}/>
+          {active ? <LiaTimesSolid onClick={() => setActive(!active)} /> :<FiMenu onClick={() => setActive(!active)} />}
         </div>
 
 

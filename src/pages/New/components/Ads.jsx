@@ -18,12 +18,12 @@ const Ads = () => {
   }, [inView])
   return (
     <>
-      <div className="ads px-20 my-14 flex gap-4" ref={ref}>
+      <div className="ads lg:px-20 md:px-8 my-14 flex gap-4 md:flex-wrap" ref={ref}>
         <motion.div
           initial={{ x: -1300, scale: 0.5 }}
           animate={animation}
           transition={{ duration: 0.7, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
-          className="block1 w-[956px] h-[511px] p-14"
+          className="block1 w-[100%] lg:w-[956px] lg:h-[511px] md:h-[350px] p-14"
           style={{ backgroundImage: `url(${block1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
 
           <div className="flex flex-col">
@@ -35,15 +35,14 @@ const Ads = () => {
             </div>
           </div>
 
-
         </motion.div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 md:w-[100%]">
           <motion.div
             initial={{ x: 3000, scale: 0.5 }}
             animate={animation}
             transition={{ delay: 0.5, duration: 0.7, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
-            className='block2 w-[485px] h-[247px] p-10'
+            className='block2 w-[100%] lg:w-[485px] lg:h-[511px] md:h-[350px] p-10'
             style={{ backgroundImage: `url(${block2})`, backgroundSize: 'cover', backgroundPosition: 'center' }} >
 
 
@@ -56,14 +55,13 @@ const Ads = () => {
               </div>
             </div>
 
-
           </motion.div>
 
           <motion.div
             initial={{ x: 3000, scale: 0.5 }}
             animate={animation}
             transition={{ delay: 1, duration: 0.7, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
-            className='block3 w-[485px] h-[247px] p-10'
+            className='block3 w-[100%] lg:w-[485px] h-[247px] p-10  md:h-[350px]'
             style={{ backgroundImage: `url(${block3})`, backgroundSize: 'cover', backgroundPosition: 'center' }} >
 
 

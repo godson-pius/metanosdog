@@ -18,6 +18,7 @@ import Product from '../pages/Product'
 import Cart from '../pages/Cart'
 import Shop from '../pages/Shop'
 import NHome from '../pages/New/NHome'
+import ForexHome from '../pages/forex/ForexHome'
 
 const Index = () => {
   return (
@@ -45,6 +46,9 @@ const Index = () => {
 
             {/* New Designs */}
             <Route path='/new' element={ <NHome /> } />
+
+            {/* Forex Routes */}
+            <Route path='/forex' element={ <ForexHome /> } />
         </Routes>
 
         {/* <Footer /> */}

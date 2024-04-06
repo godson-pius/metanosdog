@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 const SpecialOffer = () => {
     return (
         <>
-            <div className="trending w-full px-20 my-12 flex flex-col items-center">
+            <div className="trending w-full md:px-8 lg:px-20 my-12 flex flex-col items-center">
                 <h1 className='text-[#555555] text-3xl uppercase'>Special Offer</h1>
 
-                <section className="offers flex justify-between items-center gap-5 mt-7 md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full">
+                <section className="offers flex justify-between items-center md:gap-4 lg:gap-5 mt-7 md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}

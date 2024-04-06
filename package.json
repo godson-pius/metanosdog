@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.10.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@trendyol-js/react-carousel": "^3.0.0",
@@ -21,7 +21,7 @@
     "nanoid": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
+    "react-icons": "^4.12.0",
     "react-intersection-observer": "^9.4.3",
     "react-paginate": "^8.2.0",
     "react-redux": "^8.0.5",
@@ -29,7 +29,7 @@
     "react-router-dom": "^6.4.0",
     "react-share": "^4.4.1",
     "react-toastify": "^9.1.1",
-    "react-typed": "^1.2.0",
+    "react-typed": "^2.0.12",
     "swiper": "^8.4.5",
     "yarn": "^1.22.19"
   },

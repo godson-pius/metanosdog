@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <>
-    <div className="trending w-full px-20 my-10">
+    <div className="trending w-full md:px-8 lg:px-20 my-10">
         <footer className='flex items-start justify-between'>
             <div className="info1">
                 <img src={ logo } alt="Logo" width={60} />
@@ -14,7 +14,6 @@ const Footer = () => {
 
             <div className="info2 flex flex-col gap-4">
                 <h4 className='font-bold text-lg'>Help</h4>
-
                 <Link to='' className='text-sm text-[#555555]'>Privacy Policy</Link>
                 <Link to='' className='text-sm text-[#555555]'>Shipping & Delivery</Link>
                 <Link to='' className='text-sm text-[#555555]'>Refund Policy</Link>

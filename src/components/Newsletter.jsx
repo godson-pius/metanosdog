@@ -52,7 +52,7 @@ function Newsletter() {
                                 {text}
                             </button>
                         </div>
-                        <Link className='text-gray-300 text-sm'>We care about the protection of your data. <span
+                        <Link to={'/new'} className='text-gray-300 text-sm'>We care about the protection of your data. <span
                             className='text-orange-400'>Read our privacy policy</span></Link>
                     </div>
                 </div>

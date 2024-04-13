@@ -69,7 +69,7 @@ const Navbar = ({active, setActive}) => {
           <Link to=''>Shop</Link>
           <Link to=''>Blog</Link>
           <Link to=''>About</Link>
-          <Link to='/forex'>Forex</Link>
+          <Link to='/forex-home'>Forex</Link>
           <Link to=''>Contact Us</Link>
         </div>
       </nav>

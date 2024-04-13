@@ -1,31 +1,90 @@
 import React, { useState } from 'react'
+import Balance from './Balance';
+import TickerTapeWidget from './TickerTapeWidget';
+import ForexChart from './ForexChart';
 
 const Landing = () => {
-    const active = "font-extrabold border-b-2 border-black w-full transition duration-700";
-    const [toggleBal, setToggleBal] = useState(true)
     return (
-        <main className='w-full flex pt-3 gap-3'>
-            <section className='w-full'>
+        <main className='w-full flex pt-3 gap-3 pr-5 h-screen overflow-auto bg-[#f5f9f6]'>
+            <section className='w-full flex flex-col gap-10'>
+                <Balance />
+                <TickerTapeWidget />
+
+                {/* Recent transactions */}
                 <div className="bg-white shadow-lg w-full h-max rounded-lg p-4">
-                    <h2 className='font-bold'>My Account</h2>
-                    <div className='flex text-sm gap-20 border-b-2 mt-4'>
-                        <span className={`${toggleBal ? active : null} cursor-pointer`} onClick={() => setToggleBal(true)}>Fiat</span>
-                        <span className={`${!toggleBal ? active : null} cursor-pointer`} onClick={() => setToggleBal(false)}>Nosdog</span>
-                    </div>
+                    <h2 className='font-bold'>Recent Transactions</h2>
+                    
+                    <div className="w-full overflow-x-auto mb-5">
+                        <table className='w-full mt-4'>
+                            <thead className='bg-gray-100 p-3 w-full flex justify-between rounded text-gray-600 text-sm items-center'>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </thead>
+                            {/* <hr className='my-2' /> */}
 
-                    <h1 className={`font-black text-4xl mt-4 ${toggleBal ? null : 'hidden'}`}>₦ 212,376,000</h1>
-                    <h1 className={`font-black text-4xl mt-4 ${toggleBal ? 'hidden' : null}`}>〽️ 100,912,376,000</h1>
-
-                    <div className='w-full flex gap-2 items-center mt-4'>
-                        <button className='bg-black px-4 py-1 text-white rounded hover:scale-105 transition duration-700 hover:shadow'>Deposit</button>
-                        <button className='bg-gray-200 px-4 py-1 text-black rounded hover:scale-105 transition duration-700 hover:shadow'>Withdraw</button>
+                            <tbody>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-red-500'>Failed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                                <tr className='w-full flex justify-between items-center text-sm text-gray-700 p-3 border-b-2'>
+                                    <td>Deposit</td>
+                                    <td>3000</td>
+                                    <td>23-04-2024</td>
+                                    <td className='text-green-500'>Completed</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                    <hr className='my-5' />
+
+                    <ForexChart />
                 </div>
             </section>
 
 
             {/* Second */}
-            <section className='w-full bg-red-400'></section>
+            {/* <section className='w-full bg-red-400'></section> */}
         </main>
     )
 }

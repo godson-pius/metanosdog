@@ -2,13 +2,13 @@ import React from 'react'
 import Sidebar from '../../components/forex/Sidebar'
 import Landing from '../../components/forex/Landing'
 
-const ForexHome = () => {
+const ForexTransactions = () => {
   return (
-    <main className='w-full flex gap-4 bg-[#f5f9f6]'>
+    <main className='w-full flex gap-4'>
       <Sidebar />
       <Landing />
     </main>
   )
 }
 
-export default ForexHome
+export default ForexTransactions

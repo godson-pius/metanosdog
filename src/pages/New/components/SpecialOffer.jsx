@@ -9,13 +9,13 @@ const SpecialOffer = () => {
             <div className="trending w-full md:px-8 lg:px-20 my-12 flex flex-col items-center">
                 <h1 className='text-[#555555] text-3xl uppercase'>Special Offer</h1>
 
-                <section className="offers flex justify-between items-center md:gap-4 lg:gap-5 mt-7 md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full">
+                <section className="offers flex flex-col lg:flex-row gap-3 justify-between items-center md:gap-4 lg:gap-5 mt-7 md:max-w-full lg:max-w-full xl:max-w-full 2xl:max-w-full">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.2, duration: 0.9, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
                         viewport={{ once: true }}
-                        className='w-[600px] h-[300px] p-10' style={{ backgroundImage: `url(${offer1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                        className='w-full lg:w-[600px] h-[300px] p-10' style={{ backgroundImage: `url(${offer1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                         <h1 className='capitalize font-bold text-[#555555] text-2xl'>14 plots Land</h1>
                         <p className='text-xs text-gray-400 w-56 mt-2'>Looking for 14 plots. Are you ready for growth? Shop with us 40% discount!</p>
 
@@ -51,7 +51,7 @@ const SpecialOffer = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.6, duration: 0.9, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
                     viewport={{ once: true }}
-                    className='w-[600px] h-[300px] p-10' style={{ backgroundImage: `url(${offer2})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                    className='w-full lg:w-[600px] h-[300px] p-10' style={{ backgroundImage: `url(${offer2})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                         <h1 className='capitalize font-bold text-[#555555] text-2xl'>14 plots Land</h1>
                         <p className='text-xs text-gray-400 w-56 mt-2'>Looking for 14 plots. Are you ready for growth? Shop with us 40% discount!</p>
 

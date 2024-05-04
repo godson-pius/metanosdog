@@ -2,6 +2,7 @@ const Vendor = require("../models/Vendor");
 const bcrypt = require("bcrypt");
 const { findByIdAndUpdate } = require("../models/Product");
 const { rewardSystem } = require("../utils/rewardVendor");
+const { rewardUpliners } = require("../utils/rewardUpliners");
 const BasePrice = require("../models/BasePrice");
 
 const handleRegistration = async (req, res) => {
@@ -14,7 +15,7 @@ const handleRegistration = async (req, res) => {
     emailAddress,
     password,
     refId,
-    parentId
+    parentRefId
   } = req.body;
   const securedPassword = await bcrypt.hash(password, 10);
   var refReward;
@@ -28,26 +29,39 @@ const handleRegistration = async (req, res) => {
       additionalPhone,
       emailAddress,
       refId,
-      parentId,
+      parentId: parentRefId,
       password: securedPassword,
     });
 
-    const parentVendor = await Vendor.findOne({ refId: parentId })
+    const parentVendor = await Vendor.findOne({ refId: parentRefId })
     if (parentVendor) {
       if (parentVendor.generation.length < 7) {
         const newGen = [...parentVendor.generation, refId]
         const newChild = [...parentVendor.children, refId]
+
+        // Update children and generation column.
         await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { generation: newGen, children: newChild } }, { new: true })
 
         // Give referal award
         const { price } = await BasePrice.findById("65d0a2e979b894623fc33315")
-        // Call the reward system
+
+        // Call the reward system and update parent balance with reward.
         refReward = rewardSystem(parentVendor.generation.length, price) + parentVendor.balance;
         await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { balance: refReward } }, { new: true })
+
+        // Reward upliners
+        rewardUpliners(parentVendor, price);
 
       } else {
         const newChild = [...parentVendor.children, refId]
         await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { children: newChild } }, { new: true })
+
+        // Call the reward system and update parent balance with reward.
+        refReward = rewardSystem(parentVendor.generation.length, price) + parentVendor.balance;
+        await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { balance: refReward } }, { new: true })
+
+        // Reward upliners
+        rewardUpliners(parentVendor, price);
       }
     }
 

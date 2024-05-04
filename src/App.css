@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 
 * {
-    font-family: 'Rubik', sans-serif !important;
+    font-family: "Onest", sans-serif !important;
+    font-optical-sizing: auto;
 }
 
 .active {

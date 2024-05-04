@@ -96,10 +96,11 @@ const Signup = () => {
 
   return (
     <>
-      <div className="w-full py-20">
-        <div className="w-full justify-center flex px-10 md:px-72">
-          <div className="w-full bg-[#7AC751] flex flex-col items-center rounded p-10">
-            <h1 className="text-3xl text-white mb-10">Sign Up</h1>
+      <div className="w-full bg-green-50">
+        <div className="w-full justify-center flex px-10 md:px-72 h-screen items-center">
+          <div className="w-[40rem] bg-white shadow-lg flex flex-col h-max rounded-lg p-10">
+          <h1 className="text-3xl text-green-500">Sign In</h1>
+            <p className="text-slate-700 mb-4 text-sm">Provide correct details</p>
             <form className="w-full flex flex-col" onSubmit={handleReg}>
               <input
                 type="text"
@@ -107,7 +108,7 @@ const Signup = () => {
                 id="fname"
                 required
                 onChange={(e) => setFname(e.target.value)}
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your first name"
               />
 
@@ -117,7 +118,7 @@ const Signup = () => {
                 id="lname"
                 required
                 onChange={(e) => setLname(e.target.value)}
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your last name"
               />
 
@@ -127,7 +128,7 @@ const Signup = () => {
                 id="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your email"
               />
 
@@ -137,7 +138,7 @@ const Signup = () => {
                 id="password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your password"
               />
 
@@ -147,21 +148,21 @@ const Signup = () => {
                 id="cpass"
                 required
                 onChange={(e) => setCpass(e.target.value)}
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Confirm password"
               />
 
               <textarea
                 name="shippingaddress"
                 id="shippingaddress"
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded"
                 placeholder="Enter default shipping address"
                 required
                 onChange={(e) => setShippingAddress(e.target.value)}
               ></textarea>
 
               <button
-                className="w-full bg-orange-200 p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-white"
+                className="w-full bg-green-500 p-2 font-bold hover:shadow-lg duration-700 mt-4 text-white rounded-full"
                 ref={submitBtn}
               >
                 Sign Up

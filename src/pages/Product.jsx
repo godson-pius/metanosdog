@@ -61,7 +61,7 @@ const Product = () => {
       if (res.status === "success") {
         dispatch(addCart(res.cart))
         toast.success(`${productName} has been added to cart`)
-      } else if(res.response.data.error.code === 11000) {
+      } else if(res.status === "exists") {
         toast.info(`${productName} already exists in cart`)
       } else {
         toast.error(`${productName} could not be added to cart`)
@@ -190,10 +190,10 @@ const Product = () => {
                 type="number"
                 onChange={(e) => setQuantity(e.target.value)}
                 value={quantity}
-                className="ring-2 ring-orange-300 w-20 outline-none duration-500 focus:translate-x-1 focus:shadow-lg text-center p-2 font-bold rounded"
+                className="ring-2 ring-green-300 w-20 outline-none duration-500 focus:translate-x-1 focus:shadow-lg text-center p-2 font-bold rounded"
               />
 
-              <button onClick={() => addToCart(product[0]?.productName, product[0]?.productPrice)}  className="bg-orange-400 text-white p-[0.7rem] rounded text-sm duration-500 hover:translate-x-[-2px] hover:shadow-lg">
+              <button onClick={() => addToCart(product[0]?.productName, product[0]?.productPrice)}  className="bg-green-400 text-white p-[0.7rem] rounded text-sm duration-500 hover:translate-x-[-2px] hover:shadow-lg">
                 Add to cart
               </button>
             </div>

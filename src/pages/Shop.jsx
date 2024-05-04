@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { handleCreateCart } from "../api";
 import { addCart } from "../store/slice/cartSlice";
+import Navbar from "./New/components/Navbar";
 
 const Shop = () => {
+  const [active, isActive] = useState(false);
+  const [search, setSearch] = useState("")
   //const [items, setItems] = useState([]);
-  
+
   /*const [currentItems, setCurrentItems] = useState(1)
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
@@ -30,7 +33,7 @@ const Shop = () => {
   const dispatch = useDispatch()
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')))
 
-  const addToCart = async(productName, productPrice) => {
+  const addToCart = async (productName, productPrice) => {
     const data = {
       user: currentUser._id,
       productName,
@@ -38,10 +41,11 @@ const Shop = () => {
     }
 
     const res = await handleCreateCart(data);
+    console.log(res);
     if (res.status === "success") {
       dispatch(addCart(res.cart))
       toast.success(`${productName} has been added to cart`)
-    } else if(res.response.data.error.code === 11000) {
+    } else if (res.status === "exists") {
       toast.info(`${productName} already exists in cart`)
     } else {
       toast.error(`${productName} could not be added to cart`)
@@ -68,7 +72,7 @@ const Shop = () => {
   };*/}
 
   }
-  
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, []);
@@ -78,10 +82,23 @@ const Shop = () => {
       <div className="w-full" data-aos="fade-in" data-aos-duration="2000">
         <div className="w-full py-10">
           {/* <h1 className="text-3xl font-bold md:mx-12 mx-2">Meta Nosdog Shop</h1> */}
+          <div className="w-full flex justify-center px-4">
+            <input
+              className="rounded-l-full w-96 lg:w-[48rem] text-green-800 p-3 bg-gray-100 text-sm px-5 outline-none duration-300 focus:ring-1 focus:ring-green-400"
+              type="text"
+              name="query"
+              id="query"
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="What are you looking for..."
+            />
+            <button className="bg-green-400 hover:bg-green-600 duration-500 text-xs rounded-r-full p-2 text-white">
+              Search
+            </button>
+          </div>
 
-          <div className="w-full flex px-12 mt-4 divide-x items-start">
+          <div className="w-full flex px-4 lg:px-12 mt-4 lg:divide-x items-start gap-20">
             {/* Side bar */}
-            <div className="side__bar flex flex-col gap-3 w-44">
+            <div className={`${active ? 'flex' : 'hidden lg:flex'} side__bar flex flex-col gap-3 w-44`}>
               <h3 className="font-bold text-lg">Category</h3>
 
               <Link className="flex items-center gap-2 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
@@ -98,17 +115,17 @@ const Shop = () => {
                 <FiLink size={14} />
                 <span className="text-sm">Gaming</span>
               </Link>
-              
+
               <Link className="flex items-center gap-2 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiLink size={14} />
                 <span className="text-sm">Electronics</span>
               </Link>
-              
+
               <Link className="flex items-center gap-2 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiLink size={14} />
                 <span className="text-sm">Baby Products</span>
               </Link>
-              
+
               <Link className="flex items-center gap-2 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiLink size={14} />
                 <span className="text-sm">Home & Office</span>
@@ -120,12 +137,12 @@ const Shop = () => {
                 <FiDollarSign size={14} />
                 <span className="text-sm">Buy nosdog</span>
               </Link>
-              
+
               <Link className="flex items-center gap-1 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiSend size={14} />
                 <span className="text-sm">Send nosdog</span>
               </Link>
-              
+
               <Link className="flex items-center gap-1 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiRefreshCw size={14} />
                 <span className="text-sm">Exchange nosdog</span>
@@ -136,7 +153,7 @@ const Shop = () => {
                 <FiHexagon size={14} />
                 <span className="text-sm">Pay via nosdog</span>
               </Link>
-              
+
               <Link className="flex items-center gap-1 text-gray-400 hover:text-gray-600 hover:bg-green-300 duration-700">
                 <FiHexagon size={14} />
                 <span className="text-sm">Pay via card</span>
@@ -145,63 +162,63 @@ const Shop = () => {
             </div> {/* End of sidebar */}
 
             {/* Products */}
-            <div className="products w-full grid md:grid-cols-2 lg:grid-cols-3 px-5 items-center gap-3">
+            <div className="products w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:px-5 items-center gap-3">
 
-            { products.map((product, index) => {
-              return (
-              <div key={index} className="product w-full bg-slate-800 rounded-xl hover:shadow-xl hover:scale-105 duration-700">
-                <div style={{ backgroundImage: `url(${product?.productImage})` }} className="product__image bg-[#7AC751] w-full h-40 rounded-t-xl bg-cover bg-center">
-                  <div className="flex text-xs items-center bg-black p-1 rounded-md text-white absolute m-3 justify-center gap-1 font-bold">
-                    <FiStar size={13} className='' />
-                    <span>4.9</span>
+              {products.filter((e) => search.toLowerCase().trim() == "" ? products : e.productName.toLowerCase().includes(search.toLowerCase())).map((product, index) => {
+                return (
+                  <div key={index} className="product w-full bg-slate-800 rounded-xl hover:shadow-xl hover:scale-105 duration-700">
+                    <div style={{ backgroundImage: `url(${product?.productImage})` }} className="product__image bg-[#7AC751] w-full h-40 rounded-t-xl bg-cover bg-center">
+                      <div className="flex text-xs items-center bg-black p-1 rounded-md text-white absolute m-3 justify-center gap-1 font-bold">
+                        <FiStar size={13} className='' />
+                        <span>4.9</span>
+                      </div>
+                    </div>
+
+                    <div className="product__content px-4 mt-2">
+                      <div className="flex w-full items-center justify-between">
+                        <Link to={`/product/${product?.productSlug}`} className="font-bold text-white">{product?.productName}</Link>
+                        <span className="text-white font-extrabold text-md">${Intl.NumberFormat().format(product?.productPrice)}</span>
+                      </div>
+
+                      <div className="flex w-full items-center text-sm justify-between py-2">
+                        <p className="text-gray-400 text-xs">{product.productDesc.length <= 80
+                          ? product.productDesc.substr(0, 80)
+                          : `${product.productDesc.substr(0, 80)}.....`}</p>
+                        <button onClick={() => addToCart(product.productName, product.productPrice)} className="bg-[#7AC751] w-36 h-8 flex items-center justify-center rounded-full text-white hover:bg-green-500 duration-700">Add to Cart</button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                )
+              })}
 
-                <div className="product__content px-4 mt-2">
-                  <div className="flex w-full items-center justify-between">
-                    <h1 className="font-bold text-white">{ product?.productName }</h1>
-                    <span className="text-white font-extrabold text-md">${ Intl.NumberFormat().format(product?.productPrice) }</span>
-                  </div>
-
-                  <div className="flex w-full items-center text-sm justify-between py-2">
-                    <p className="text-gray-400 text-xs">{product.productDesc.length <= 80
-                              ? product.productDesc.substr(0, 80)
-                              : `${product.productDesc.substr(0, 80)}.....`}</p>
-                    <button onClick={() => addToCart(product.productName, product.productPrice)} className="bg-[#7AC751] p-1 rounded text-white hover:bg-green-500 duration-700">Cart</button>
-                  </div>
-                </div>
-              </div>
-              )
-            }) }
-
-             <div className="pagination mt-4 ml-[100%]">
-              {/*{currentItems.map((product, index) => {
+              <div className="pagination mt-4 ml-[100%]">
+                {/*{currentItems.map((product, index) => {
                 return(
                   <div></div>
                 );
               })}*/}
-              <ReactPaginate 
-                breakLabel="..."
-                nextLabel="next"
-              //onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
-                marginPageDisplayed={2}
-                pageCount={20}
-                previousLabel="previous"
-              //renderOnZeroPageCount={null}
-                containerClassName={'pagination justify-content-center'}
-                pageClassName={'page-item'}
-                pageLinkClassName={'page-link'}
-                previousClassName={'page-item'}
-                previousLinkClassName={'page-link'}
-                nextClassName = {'page-item'}
-                nextLinkClassName = {'page-link'}
-                breakClassName = {'page-item'}
-                breakLinkClassName = {'page-link'}
-                activeClassName = {'active'}
-              />
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel="next"
+                  //onPageChange={handlePageClick}
+                  pageRangeDisplayed={3}
+                  marginPageDisplayed={2}
+                  pageCount={20}
+                  previousLabel="previous"
+                  //renderOnZeroPageCount={null}
+                  containerClassName={'pagination justify-content-center'}
+                  pageClassName={'page-item'}
+                  pageLinkClassName={'page-link'}
+                  previousClassName={'page-item'}
+                  previousLinkClassName={'page-link'}
+                  nextClassName={'page-item'}
+                  nextLinkClassName={'page-link'}
+                  breakClassName={'page-item'}
+                  breakLinkClassName={'page-link'}
+                  activeClassName={'active'}
+                />
               </div>
-               
+
             </div>
             {/* End of products */}
           </div>

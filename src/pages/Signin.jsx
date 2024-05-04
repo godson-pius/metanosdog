@@ -49,10 +49,11 @@ const Signin = () => {
   }, []);
   return (
     <>
-      <div className="w-full py-20">
-        <div className="w-full justify-center flex px-10 md:px-72">
-          <div className="w-full bg-[#7AC751] flex flex-col items-center rounded p-10">
-            <h1 className="text-3xl text-white mb-10">Sign In</h1>
+      <div className="w-full bg-green-50">
+        <div className="w-full justify-center flex px-10 md:px-72 h-screen items-center">
+          <div className="w-[30rem] bg-white shadow-lg flex flex-col h-max rounded-lg p-10">
+            <h1 className="text-3xl text-green-500">Sign In</h1>
+            <p className="text-slate-700 mb-4 text-sm">Provide correct credentials</p>
             <form className="w-full flex flex-col" onSubmit={handleLogin}>
               <input
                 type="email"
@@ -60,7 +61,7 @@ const Signin = () => {
                 id="email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your email"
               />
 
@@ -70,13 +71,13 @@ const Signin = () => {
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
                 placeholder="Enter your password"
               />
 
               <button
                 ref={submitBtn}
-                className="w-full bg-orange-200 p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-white"
+                className="w-full bg-green-500 p-2 font-bold hover:shadow-lg duration-700 mt-4 text-white rounded-full"
               >
                 Sign In
               </button>
@@ -86,6 +87,13 @@ const Signin = () => {
                 className="text-sm text-gray-700 text-center mt-3 hover:text-white duration-700"
               >
                 Don't have an account? Sign Up
+              </Link>
+              
+              <Link
+                to="/"
+                className="text-sm text-blue-700 text-center mt-1 hover:text-white duration-700"
+              >
+                 Return to shop
               </Link>
             </form>
           </div>

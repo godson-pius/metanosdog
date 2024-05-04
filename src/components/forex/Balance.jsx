@@ -18,7 +18,7 @@ const Balance = ({ state }) => {
     }
 
     return (
-        <main className='flex flex-col gap-3 pr-5'>
+        <main className='flex flex-col gap-3 pr-0 lg:pr-5 px-2 lg:px-0'>
             <Modal modal={wdrmodal} setModal={setWdrmodal} title={'Withdraw'}>
                 <section className='flex items-center gap-2'>
                     <FcBullish size={30} />
@@ -51,9 +51,15 @@ const Balance = ({ state }) => {
                     <span className={`${!toggleBal ? active : null} cursor-pointer`} onClick={() => setToggleBal(false)}>Nosdog</span>
                 </div>
 
-                <div className="flex w-full justify-between items-center my-2">
+                <div className="md:flex w-full justify-between items-center my-2 hidden">
                     <h1 className={`font-black text-4xl mt-4 `}>$ 212,376,000</h1>
                     <h1 className={`font-black text-4xl mt-4 `}>〽️ 100,912,376,000</h1>
+                </div>
+
+                {/* Mobile */}
+                <div className="flex w-full justify-between items-center my-2 md:hidden">
+                    <h1 className={`font-black text-4xl mt-4 ${!toggleBal ? 'hidden' : null}`}>$ 212,376,000</h1>
+                    <h1 className={`font-black text-4xl mt-4 ${toggleBal ? 'hidden' : null}`}>〽️ 100,912,376,000</h1>
                 </div>
 
                 <div className='w-full flex gap-2 items-center mt-4'>
@@ -62,26 +68,26 @@ const Balance = ({ state }) => {
                 </div>
             </div>
 
-            <section className={`flex gap-3 items-center ${state}`}>
-                <div className="bg-green-100 border-2 border-green-500 w-full h-max rounded-2xl p-4">
+            <section className={`flex flex-col lg:flex-row gap-3 items-center ${state}`}>
+                <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <div className="flex items-center gap-2">
                         <FcBullish size={30} />
-                        <h2 className='font-bold'>My Profits</h2>
+                        <h2 className='font-bold'>My ROI</h2>
                     </div>
                     <h1 className={`font-black text-4xl mt-4 text-green-500`}>$ 212,376,000</h1>
                 </div>
 
-                <div className="bg-sky-100 border-2 border-sky-500 w-full h-max rounded-2xl p-4">
+                <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Deposits</h2>
                     <h1 className={`font-black text-4xl mt-4 text-sky-500`}>$ 212,376,000</h1>
                 </div>
 
-                <div className="border-2 border-indigo-500 bg-indigo-100 w-full h-max rounded-2xl p-4">
+                <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Withdrawals</h2>
                     <h1 className={`font-black text-4xl mt-4 text-indigo-500`}>$ 812,376,030</h1>
                 </div>
 
-                <div className="bg-cyan-100 border-2 border-cyan-500 w-full h-max rounded-2xl p-4">
+                <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Referral Profit</h2>
                     <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ 412,376,030</h1>
                 </div>

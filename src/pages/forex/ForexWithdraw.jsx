@@ -50,7 +50,7 @@ const ForexWithdraw = () => {
           </form>
         </Modal>
 
-        <section className="wdr pr-5 grid grid-cols-3 gap-3">
+        <section className="wdr px-2 lg:pr-5 grid grid-cols-1 lg:grid-cols-3 gap-3">
           <div className="w-full ring-1 ring-gray-300 bg-white rounded">
             <div className='w-full flex justify-between items-center p-3 border-b-2'>
               <h2 className='font-bold text-sm uppercase'>Usdt Withdraw</h2>

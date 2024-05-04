@@ -10,19 +10,19 @@ import 'swiper/swiper-bundle.min.css'
 const CustomersReview = () => {
     return (
         <>
-            <div className="trending w-full md:px-8 lg:px-20 my-20 flex flex-col items-center">
-                <h1 className='text-[#555555] text-3xl uppercase'>What customers say</h1>
+            <div className="trending w-full px-4 justify-center lg:px-20 my-20 flex flex-col items-center">
+                <h1 className='text-[#555555] text-3xl uppercase text-center'>What customers say</h1>
 
                 <Swiper
                 spaceBetween={20}
                 modules={[A11y, Pagination, Autoplay]}
                 pagination={{ clickable: true }}
-                className='w-full p-10 mt-2'>
+                className='w-full lg:p-10 mt-2'>
                     <SwiperSlide>
-                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded">
-                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-10' />
+                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
+                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] md:w-[100%] md:px-4 lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Angelina Joly</h2>
@@ -32,10 +32,10 @@ const CustomersReview = () => {
                     </SwiperSlide>
 
                     <SwiperSlide>
-                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded">
-                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-10' />
+                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
+                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Victor Smith</h2>
@@ -45,10 +45,10 @@ const CustomersReview = () => {
                     </SwiperSlide>
 
                     <SwiperSlide>
-                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded">
-                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-10' />
+                        <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
+                            <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Esther Walls</h2>

@@ -2,12 +2,17 @@ import React, { useState } from 'react'
 import Balance from './Balance';
 import TickerTapeWidget from './TickerTapeWidget';
 import ForexChart from './ForexChart';
+import Plans from './Plans';
 
 const Landing = () => {
     return (
-        <main className='w-full flex pt-3 gap-3 pr-5 h-screen overflow-auto bg-[#f5f9f6]'>
+        <main className='w-full flex pt-3 gap-3 px-2 lg:pr-5 h-screen overflow-auto bg-[#f5f9f6]'>
             <section className='w-full flex flex-col gap-10'>
                 <Balance />
+
+                <Plans />
+
+                    
                 <TickerTapeWidget />
 
                 {/* Recent transactions */}

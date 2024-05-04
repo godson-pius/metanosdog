@@ -10,17 +10,16 @@ import Footer from './components/Footer'
 
 const NHome = () => {
     const[isMenuActive, setIsMenuActive] = useState(false);
+    const[isCatActive, setIsCatActive] = useState(false);
 
   return (
     <>
-      <Navbar active={isMenuActive} setActive={setIsMenuActive}/>
-      <Hero active={isMenuActive} />
+      <Hero catActive={isCatActive} setCatActive={setIsCatActive} />
       <Features />
       <Ads />
       <Trending />
       <SpecialOffer />
       <CustomersReview />
-      <Footer />
     </>
   )
 }

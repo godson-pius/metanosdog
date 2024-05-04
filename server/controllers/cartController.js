@@ -3,8 +3,14 @@ const Cart = require('../models/Cart')
 exports.createCart = async(req, res) => {
     try {
         const data = req.body;
-        const cart = await Cart.create(data)
 
+        const findCart = await Cart.find({ user: data.user, productName: data.productName })
+        if (findCart.length > 0) {
+            res.status(200).json({findCart, status: "exists"})
+            return
+        }
+
+        const cart = await Cart.create(data)
         res.status(200).json({cart, status: "success"})
     } catch (error) {
         res.status(500).json({error})

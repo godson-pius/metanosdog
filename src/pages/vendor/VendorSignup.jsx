@@ -86,7 +86,7 @@ const VendorSignup = () => {
                     additionalPhone,
                     emailAddress,
                     refId,
-                    parentId: referralId,
+                    parentRefId: referralId,
                     password,
                 };
 
@@ -171,7 +171,7 @@ const VendorSignup = () => {
                         additionalPhone,
                         emailAddress,
                         refId,
-                        parentId: referralId,
+                        parentRefId: referralId,
                         password,
                     };
 
@@ -206,14 +206,14 @@ const VendorSignup = () => {
     const getReferralId = () => {
         (ref) ? setReferralId(ref) : console.log('Not referred');
     }
-    
-    const handleGetRegistrationFee = async() => {
+
+    const handleGetRegistrationFee = async () => {
         const res = await getBasePrice();
         if (res.status == 200) {
             setBasePrice(res.price[0].price)
         }
     }
-    
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -223,16 +223,18 @@ const VendorSignup = () => {
 
     return (
         <>
-            <div className="w-full py-20">
-                <div className="w-full justify-center flex px-10 md:px-72">
-                    <div className="w-full bg-orange-400 flex flex-col items-center rounded p-10">
-                        <h1 className="text-3xl text-white mb-10">Seller Center</h1>
+            <div className="w-full bg-orange-50">
+                <div className="w-full justify-center flex px-3 md:px-72 h-screen items-center">
+                    <div className="w-[50rem] bg-white shadow-lg flex flex-col h-[40rem] md:h-[50rem] overflow-y-auto
+                     rounded-lg pt-10 px-3 md:px-20 pb-3">
+                        <h1 className="text-3xl text-orange-500">Vendor Sign Up</h1>
+                        <p className="text-slate-700 mb-4 text-sm">Provide correct credentials</p>
                         <form className="w-full flex flex-col" onSubmit={handleReg}>
                             <input
                                 type="text"
                                 name="fname"
                                 id="fname"
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Enter shop name"
                                 onChange={(e) => setShopName(e.target.value)}
                                 required
@@ -249,7 +251,7 @@ const VendorSignup = () => {
                                 id="type"
                                 onChange={(e) => setShopType(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                             >
                                 <option disabled value="null">
                                     Are an individual or Business Entity / Company
@@ -265,7 +267,7 @@ const VendorSignup = () => {
                                 id="managerfname"
                                 onChange={(e) => setManagerFullname(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Enter account manager full name"
                             />
 
@@ -281,7 +283,7 @@ const VendorSignup = () => {
                                 id="phone"
                                 onChange={(e) => setManagerPhone(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Enter account manager phone number"
                             />
 
@@ -296,7 +298,7 @@ const VendorSignup = () => {
                                 id="aphone"
                                 onChange={(e) => setAdditionalPhone(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Additional phone number"
                             />
 
@@ -310,7 +312,7 @@ const VendorSignup = () => {
                                 id="email"
                                 onChange={(e) => setEmailAddress(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Enter your email address"
                             />
 
@@ -325,11 +327,11 @@ const VendorSignup = () => {
                                 id="cemail"
                                 onChange={(e) => setCEmailAddress(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 mb-3 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Confirm email address"
                             />
 
-<input
+                            <input
                                 type="text"
                                 name="referralId"
                                 id="referralId"
@@ -337,7 +339,7 @@ const VendorSignup = () => {
                                 value={referralId}
                                 onChange={(e) => setReferralId(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="RefId"
                             />
 
@@ -347,7 +349,7 @@ const VendorSignup = () => {
                                 id="password"
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic mb-3"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-2 rounded-full"
                                 placeholder="Enter your password"
                             />
 
@@ -362,7 +364,7 @@ const VendorSignup = () => {
                                 id="conf_password"
                                 onChange={(e) => setCPassword(e.target.value)}
                                 required
-                                className="w-full p-1 ring-2 ring-white outline-none duration-500 px-3 text-sm font-medium focus:bg-orange-200 placeholder:italic"
+                                className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                                 placeholder="Confirm password"
                             />
 
@@ -379,7 +381,7 @@ const VendorSignup = () => {
                                     I have read and accepted the{" "}
                                     <Link
                                         to="/"
-                                        className="text-orange-100 hover:text-orange-800 duration-500"
+                                        className="text-slate-800 hover:text-orange-800 duration-500"
                                     >
                                         e-contract Meta Nosdog
                                     </Link>
@@ -388,7 +390,7 @@ const VendorSignup = () => {
 
                             <button
                                 ref={submitBtn}
-                                className="w-full bg-orange-200 p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-white hover:bg-orange-500"
+                                className="w-full bg-orange-500 p-2 font-bold hover:shadow-lg duration-700 mt-4 text-white rounded-full"
                             >
                                 Sign Up
                             </button>

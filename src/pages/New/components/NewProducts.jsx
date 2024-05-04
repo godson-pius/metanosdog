@@ -14,7 +14,7 @@ const NewProducts = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.2, duration: 0.9, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
           viewport={{ once: true }}
-          className="top__products w-full grid grid-cols-4 items-center my-5">
+          className="top__products w-full grid grid-cols-1 lg:grid-cols-4 items-center my-5 px-2 lg:px-10">
           <div className="product flex flex-col">
             <img src={product3} alt="Meta Nosdog Product Image" width={300} />
             <p className="category uppercase text-gray-400 text-xs mt-3">Chair</p>

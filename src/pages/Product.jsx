@@ -121,7 +121,7 @@ const Product = () => {
                 />
               </div>
 
-              <div>
+              {/* <div>
                 <img
                   src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/41/109817/2.jpg?8356"
                   alt="Product Image"
@@ -143,7 +143,7 @@ const Product = () => {
                   alt="Product Image"
                   className="w-10"
                 />
-              </div>
+              </div> */}
             </Carousel>
           </div>
 

@@ -25,7 +25,7 @@ const VendorSignup = () => {
 
     // Flutterwave configuration
     const config = {
-        public_key: 'FLWPUBK_TEST-3e1a371f3d4cf1fbe79c81aa128a13ea-X',
+        public_key: import.meta.VITE_APP_FLUTTERWAVE_PUBLIC_KEY,
         tx_ref: Date.now(),
         amount: basePrice,
         currency: 'NGN',
@@ -41,7 +41,6 @@ const VendorSignup = () => {
             logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
         },
     };
-
     const handleFlutterPayment = useFlutterwave(config);
 
     const handleReg = async (e) => {

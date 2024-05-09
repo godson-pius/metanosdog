@@ -47,3 +47,14 @@ exports.removeCart = async(req, res) => {
         res.status(500).json({error})
     }
 }
+
+exports.clearUserCart = async(req, res) => {
+    try {
+        const {userId} = req.params;
+
+        const cart = await Cart.deleteMany({ user: userId });
+        res.status(200).json({cart, status: "success"})
+    } catch (error) {
+        res.status(500).json({error})
+    }
+}

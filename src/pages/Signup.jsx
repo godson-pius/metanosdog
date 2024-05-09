@@ -99,8 +99,8 @@ const Signup = () => {
       <div className="w-full bg-green-50">
         <div className="w-full justify-center flex px-10 md:px-72 h-screen items-center">
           <div className="w-[40rem] bg-white shadow-lg flex flex-col h-max rounded-lg p-10">
-          <h1 className="text-3xl text-green-500">Sign In</h1>
-            <p className="text-slate-700 mb-4 text-sm">Provide correct details</p>
+          <h1 className="text-3xl text-green-500">Sign Up</h1>
+            <p className="text-slate-700 mb-4 text-sm">Provide credentials for sign up</p>
             <form className="w-full flex flex-col" onSubmit={handleReg}>
               <input
                 type="text"
@@ -173,6 +173,12 @@ const Signup = () => {
                 className="text-sm text-gray-700 text-center mt-3 hover:text-white duration-700"
               >
                 Already have an account? Sign In
+              </Link>
+              <Link
+                to="/"
+                className="text-sm text-blue-700 text-center mt-1 hover:text-white duration-700"
+              >
+                 Return to home
               </Link>
             </form>
           </div>

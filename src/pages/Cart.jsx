@@ -2,16 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiFileText, FiMoreHorizontal, FiX } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { removeItemFromCart } from '../api/index'
+import { clearUserCart, removeItemFromCart, saveOrder } from '../api/index'
 import { removeCart } from "../store/slice/cartSlice";
+import { handleFlutterPayment } from "../utils/flutterpayment";
+import { closePaymentModal } from "flutterwave-react-v3";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const carts = useSelector(state => state.carts.carts)
+  const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('user')))
   const dispatch = useDispatch()
+  const navigate = useNavigate();
   const [priceState, setPriceState] = useState(0)
   const [total, setTotal] = useState(0)
+  const [shippingAddress, setShippingAddress] = useState("")
   const [qty, setQty] = useState(0)
   const product = useRef()
+
+  const username = `${currentUser.firstname} ${currentUser.lastname}`
+  const flutterwave = handleFlutterPayment(total, currentUser.email, username, 0, "Payment for product");
 
   const handleChoice = async (choice, id, e, index) => {
     if (choice === true && id !== undefined) {
@@ -64,16 +73,36 @@ const Cart = () => {
     InCart.forEach(cart => {
       getTotal += +cart.productPrice
     })
-    setPriceState(price + 1)
     setTotal(getTotal)
 
-    console.log(getTotal);
+    setInterval(() => {
+      setPriceState(prev => prev + 1)
+    }, 3000)
   }
 
-  // const tmpTotal = (price =  0) => {
-  //   console.log('dd');
-  //   return price 
-  // }
+  const handlePaymentThroughUs = async() => {
+    flutterwave({
+      callback: async (response) => {
+        const data = {
+          user: currentUser._id,
+          products: carts,
+          shippingAddress: shippingAddress != "" ? shippingAddress : currentUser.shippingAddress
+        }
+        const res = await saveOrder(data)
+        if (res.status === "success") {
+          toast.success('Order received successfully!');
+          const clearCart = await clearUserCart(currentUser._id)
+          if (clearCart.status == "success") {
+            window.location.href = '/user-dashboard'
+          }
+        }
+        closePaymentModal()
+      },
+      onClose: async() => {
+        toast.warn('Payment cancelled!')
+      }
+    })
+  }
 
   useEffect(() => {
     handleTotal()
@@ -105,7 +134,7 @@ const Cart = () => {
                       <h1 className="font-extrabold text-sm lg:text-lg">${Intl.NumberFormat().format(cart?.productPrice)}</h1>
                       <p className="text-gray-400 text-xs">Price</p>
                     </div>
-                    
+
                     <div className="each__content">
                       <h1 className="font-extrabold text-sm lg:text-lg">${Intl.NumberFormat().format(cart?.productPrice)}</h1>
                       <p className="text-gray-400 text-xs">Total</p>
@@ -120,7 +149,7 @@ const Cart = () => {
                       <p className="text-gray-400 text-xs">Quantity</p>
                     </div> */}
 
-                      {/* <p className="font-bold text-black text-lg ml-2">${Intl.NumberFormat().format(cart?.productPrice)}</p> */}
+                    {/* <p className="font-bold text-black text-lg ml-2">${Intl.NumberFormat().format(cart?.productPrice)}</p> */}
 
                     <div className="each__content">
                       <FiX
@@ -156,7 +185,7 @@ const Cart = () => {
               </div>
 
               <div className="flex gap-2">
-                <button className="w-full text-xs bg-green-600 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-green-100">
+                <button className="w-full text-xs bg-green-600 rounded text-white p-2 font-bold hover:shadow-lg duration-700 mt-4 hover:text-green-100" onClick={handlePaymentThroughUs}>
                   PAY THROUGH US
                 </button>
 
@@ -176,12 +205,13 @@ const Cart = () => {
 
             <input
               type="text"
+              onChange={(e) => setShippingAddress(e.target.value)}
               className="w-full p-3 ring-2 ring-green-400 mt-3 outline-none duration-500 px-3 text-sm font-medium focus:bg-green-50 mb-3 placeholder:italic rounded-full"
               placeholder="Billing address"
             />
 
             <div className="flex gap-2">
-              <button className="w-full text-sm bg-green-600 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-green-100 hover:translate-y-1">
+              <button className="w-full text-sm bg-green-600 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-green-100 hover:translate-y-1" onClick={handlePaymentThroughUs}>
                 PAY THROUGH US
               </button>
               <button className="w-full text-sm bg-green-300 rounded text-white p-3 font-bold hover:shadow-lg duration-700 mt-2 hover:text-green-100 hover:translate-y-1">

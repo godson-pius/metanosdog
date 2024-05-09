@@ -15,7 +15,7 @@ const TopProducts = ({ products }) => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2, duration: 0.9, ease: [0, 0.71, 0.2, 1.01], scale: { type: "spring", damping: 10, stiffness: 100, restDelta: 0.001 } }}
                     viewport={{ once: true }}
-                    className="top__products w-full grid grid-cols-1 lg:grid-cols-4 items-center my-5 gap-5 px-2 lg:px-10">
+                    className="top__products w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center my-5 gap-5 px-2 lg:px-10">
                     {products.length > 0 ? (
                         products.slice(-8).map((product, index) => (
                             <div className="product flex flex-col" key={product._id}>

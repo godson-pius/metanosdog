@@ -10,6 +10,7 @@ const ticketRoute = require("./routes/ticketRoute")
 const cartRoute = require("./routes/cartRoute")
 const reviewRoute = require("./routes/reviewRoute")
 const referralRoute = require("./routes/referralRoute");
+const orderRoute = require("./routes/orderRoute");
 const BasePrice = require("./models/BasePrice");
 
 const app = express();
@@ -28,6 +29,8 @@ app.use('/api/ticket', ticketRoute)
 app.use('/api/cart', cartRoute)
 app.use('/api/review', reviewRoute)
 app.use('/api/referral', referralRoute)
+app.use('/api/order', orderRoute)
+
 app.get('/api/basePrice', async(req, res) => {
   const price = await BasePrice.find({})
   res.status(200).json({ price, status: 200 })

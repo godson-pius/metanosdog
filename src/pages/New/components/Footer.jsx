@@ -1,12 +1,16 @@
 import React from 'react'
 import logo from '../../../assets/nosdog.png'
 import { Link, useLocation } from 'react-router-dom'
+import moment from 'moment/moment'
 
 const Footer = () => {
     const location = useLocation()
 
     const navbarState = () => {
-        return location.pathname.includes('sign-in') || location.pathname.includes('forex') ? 'hidden' : 'block'
+        return location.pathname.includes('sign-in') ||
+        location.pathname.includes('sign-up') ||
+        location.pathname.includes('forex')
+        ? 'hidden' : 'block'
     }
   return (
     <main className={`${navbarState()}`}>
@@ -46,12 +50,12 @@ const Footer = () => {
         <hr className='my-5' />
 
         <section className="final flex flex-col justify-between items-center">
-            <p className='text-sm text-[#555555]'>&copy; 2023 Metanosdog - All rights reserved.</p>
+            <p className='text-sm text-[#555555]'>&copy; {moment().format("Y")} Trade Point Network - All rights reserved.</p>
 
             <div className="links flex items-center gap-2 lg:gap-5">
-            <Link to='' className='text-sm text-[#7AC751] font-extrabold'>Purchase Metanosdog</Link>
+            <Link to='' className='text-sm text-[#7AC751] font-extrabold'>Purchase Metanosdog.</Link>
                 <Link to='' className='text-sm text-[#555555]'>Security</Link>
-                <Link to='' className='text-sm text-[#555555]'>Metanosdog</Link>
+                <Link to='' className='text-sm text-[#555555]'>TradePoint</Link>
             </div>
         </section>
     </div>

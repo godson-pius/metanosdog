@@ -2,8 +2,8 @@ import Axios from "axios";
 import { customAlphabet } from 'nanoid'
 
 const liveAPI = "https://tradepointapi.onrender.com/api"
-const API = liveAPI;
-// const API = "http://localhost:4000/api";
+// const API = liveAPI;
+const API = "http://localhost:4000/api";
 
 const handleUserReg = async (formdata) => {
   try {
@@ -133,6 +133,15 @@ const getUserCart = async(id) => {
   }
 }
 
+export const clearUserCart = async(id) => {
+  try {
+    const response = await Axios.delete(`${API}/cart/clearUserCart/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
 const removeItemFromCart = async(id) => {
   try {
     const response = await Axios.delete(`${API}/cart/remove/${id}`);
@@ -190,6 +199,15 @@ export const getBasePrice = async() => {
  }catch (e) {
    return e
  }
+}
+
+export const saveOrder = async (data) => {
+  try {
+    const response = await Axios.post(`${API}/order/create`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
 }
 
 export {

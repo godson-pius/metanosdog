@@ -21,28 +21,31 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
   const location = useLocation()
 
   const navbarState = () => {
-    return location.pathname.includes('sign-in') || location.pathname.includes('forex') ? 'hidden' : 'block'
+    return location.pathname.includes('sign-in') ||
+    location.pathname.includes('sign-up') ||
+    location.pathname.includes('forex')
+    ? 'hidden' : 'block'
   }
 
   return (
     <main className={`${navbarState()}`}>
       <section className={`top w-full items-center flex justify-between py-3 px-4 lg:px-20 text-white bg-[#7AC751]`}>
-        <h1>Welcome back, {user ? (`${user.firstname} ${user.lastname}`) : null}</h1>
+        { localStorage.getItem('user') != null ? (<h1>Welcome back, {user ? (`${user.firstname} ${user.lastname}`) : null}</h1>) : <h1>TradePoint</h1> }
 
-        <div className="auth flex justify-between gap-2 lg:gap-5 text-sm md:text-md">
+        <div className="auth flex justify-between gap-2 lg:gap-5 text-sm md:text-md border-2 px-2 py-1 rounded-full duration-500 hover:scale-105 hover:shadow-lg">
           {localStorage.getItem('user') != null ? (
             <Link
-              className="hidden md:block text-sm hover:text-bold duration-500 hover:font-extrabold"
+              className="md:block text-sm hover:text-bold duration-500 hover:font-extrabold"
               to="/user-dashboard"
             >
               Dashboard
             </Link>
           ) : (
             <Link
-              className="hidden md:block text-sm hover:text-bold duration-500 hover:font-extrabold"
+              className="md:block text-sm hover:text-bold  font-extrabold"
               to="/sign-in"
             >
-              Account
+              Create Account
             </Link>
           )}
         </div>

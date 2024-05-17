@@ -28,7 +28,7 @@ import ForexSettings from '../pages/forex/ForexSettings'
 import ForexDeposit from '../pages/forex/ForexDeposit'
 import Navbar from '../pages/New/components/Navbar'
 import Footer from '../pages/New/components/Footer';
-import AdminHome from '../pages/admin/adminHome'
+import AdminHome from '../pages/admin/AdminHome';
 
 const Index = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);

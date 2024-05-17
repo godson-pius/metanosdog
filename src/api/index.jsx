@@ -2,8 +2,8 @@ import Axios from "axios";
 import { customAlphabet } from 'nanoid'
 
 const liveAPI = "https://tradepointapi.onrender.com/api"
-// const API = liveAPI;
-const API = "http://localhost:4000/api";
+const API = liveAPI;
+// const API = "http://localhost:4000/api";
 
 const handleUserReg = async (formdata) => {
   try {

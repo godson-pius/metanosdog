@@ -2,8 +2,8 @@ import Axios from "axios";
 import { customAlphabet } from 'nanoid'
 
 const liveAPI = "https://tradepointapi.onrender.com/api"
-const API = liveAPI;
-// const API = "http://localhost:4000/api";
+// const API = liveAPI;
+const API = "http://localhost:4000/api";
 
 const handleUserReg = async (formdata) => {
   try {
@@ -53,7 +53,7 @@ const handleVendorLogin = async (formdata) => {
   }
 };
 
-const handleVendorUpdate = async (id,formdata) => {
+const handleVendorUpdate = async (id, formdata) => {
   try {
     const response = await Axios.patch(`${API}/vendor/update/${id}`, formdata);
     return response.data;
@@ -89,7 +89,7 @@ const updateProduct = async (formdata) => {
   }
 }
 
-const deleteProduct = async(id) => {
+const deleteProduct = async (id) => {
   try {
     const response = await Axios.delete(`${API}/product/delete/${id}`);
     return response.data;
@@ -98,7 +98,7 @@ const deleteProduct = async(id) => {
   }
 }
 
-const handleCreateTicket = async(formdata) => {
+const handleCreateTicket = async (formdata) => {
   try {
     const response = await Axios.post(`${API}/ticket/create`, formdata);
     return response.data;
@@ -107,7 +107,7 @@ const handleCreateTicket = async(formdata) => {
   }
 }
 
-const handleCreateCart = async(formdata) => {
+const handleCreateCart = async (formdata) => {
   try {
     const response = await Axios.post(`${API}/cart/create`, formdata);
     return response.data;
@@ -115,7 +115,7 @@ const handleCreateCart = async(formdata) => {
     return error;
   }
 }
-const getCart = async() => {
+const getCart = async () => {
   try {
     const response = await Axios.get(`${API}/cart`);
     return response.data;
@@ -124,7 +124,7 @@ const getCart = async() => {
   }
 }
 
-const getUserCart = async(id) => {
+const getUserCart = async (id) => {
   try {
     const response = await Axios.get(`${API}/cart/${id}`);
     return response.data;
@@ -133,7 +133,7 @@ const getUserCart = async(id) => {
   }
 }
 
-export const clearUserCart = async(id) => {
+export const clearUserCart = async (id) => {
   try {
     const response = await Axios.delete(`${API}/cart/clearUserCart/${id}`);
     return response.data;
@@ -142,47 +142,47 @@ export const clearUserCart = async(id) => {
   }
 }
 
-const removeItemFromCart = async(id) => {
+const removeItemFromCart = async (id) => {
   try {
     const response = await Axios.delete(`${API}/cart/remove/${id}`);
     return response.data;
   } catch (error) {
     return error;
   }
- }
+}
 
- const handleGetSingleProduct = async(id) => {
+const handleGetSingleProduct = async (id) => {
   try {
     const response = await Axios.get(`${API}/product/${id}`);
     return response.data;
   } catch (error) {
     return error;
   }
- }
+}
 
- export const addReview = async(data) => {
-   try {
-     const response = await Axios.post(`${API}/review/create`, data);
-     return response.data;
-   } catch (error) {
-     return error;
-   }
- }
-
- export const getProductReviews = async(_id) => {
-    try {
-      const response = await Axios.get(`${API}/review/${_id}`);
-      return response.data;
-    } catch (error) {
-      return error
-    }
- }
-
- export const handleVendorSignInPayment = async() => {
+export const addReview = async (data) => {
   try {
-     const response = await Axios.post(`${API}/vendor-payment/makepayment`)
+    const response = await Axios.post(`${API}/review/create`, data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const getProductReviews = async (_id) => {
+  try {
+    const response = await Axios.get(`${API}/review/${_id}`);
+    return response.data;
+  } catch (error) {
+    return error
+  }
+}
+
+export const handleVendorSignInPayment = async () => {
+  try {
+    const response = await Axios.post(`${API}/vendor-payment/makepayment`)
     return response.data
-  }catch (e) {
+  } catch (e) {
     return e
   }
 }
@@ -192,18 +192,65 @@ export const handleGenerateRefId = () => {
   return refId()
 }
 
-export const getBasePrice = async() => {
+export const getBasePrice = async () => {
   try {
     const response = await Axios.get(`${API}/basePrice`)
-   return response.data
- }catch (e) {
-   return e
- }
+    return response.data
+  } catch (e) {
+    return e
+  }
 }
 
 export const saveOrder = async (data) => {
   try {
     const response = await Axios.post(`${API}/order/create`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+
+// FOREX API STARTS HERE =================================================
+export const forexDeposit = async (data) => {
+  try {
+    const response = await Axios.put(`${API}/forex/deposit`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const checkDepositMax = async () => {
+  try {
+    const response = await Axios.get(`${API}/forex/checkMax`)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const checkIsDepositOpen = async () => {
+  try {
+    const response = await Axios.get(`${API}/forex/checkdepositstatus`)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const getAllTransactions = async () => {
+  try {
+    const response = await Axios.get(`${API}/forex`)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const confirmTransaction = async (data) => {
+  try {
+    const response = await Axios.post(`${API}/forex/user/deposit`, data)
     return response.data
   } catch (error) {
     return error

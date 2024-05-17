@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import UserNav from "../../components/users/UserNav";
 import { FiEdit3, FiEye } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { formatNum } from '../../utils/format';
 
 const Dashboard = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -136,7 +137,7 @@ const Dashboard = () => {
                 <span className="text-xs text-gray-400 uppercase">
                   Your Balance:
                 </span>
-                <h2 className="text-slate-800 font-extrabold">800.90</h2>
+                <h2 className="text-slate-800 font-extrabold">{formatNum(user.balance[0].metanosdog)}</h2>
               </div>
             </div>
           </div>

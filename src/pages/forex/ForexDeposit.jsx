@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Sidebar from '../../components/forex/Sidebar'
 import Balance from '../../components/forex/Balance'
 import ForexChart from '../../components/forex/ForexChart'
@@ -8,13 +8,20 @@ import Modal from '../../components/Modal'
 import { FcBullish } from 'react-icons/fc'
 import { toast } from 'react-toastify'
 import { address } from '../../utils/address'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { checkIsDepositOpen, forexDeposit } from '../../api'
+import { copyValue } from '../../utils/copy'
+import { FiCopy } from 'react-icons/fi'
+import { currentUser } from '../../utils/getUser'
+import moment from 'moment/moment'
 
 const ForexDeposit = () => {
-    const { amount } = useLocation()?.state || false;
+    const navigate = useNavigate()
+    const { amount, plan } = useLocation()?.state || false;
     const [inputs, setInputs] = useState({})
     const [depositModal, setDepositModal] = useState(false)
     const [contractAddress, setContractAddress] = useState();
+    const info = useRef(null)
 
 
     const handleProceedPayment = (e) => {
@@ -41,22 +48,70 @@ const ForexDeposit = () => {
         }
     }
 
-    const handleDeposit = (e) => {
-        e.preventDefault()
-        toast.success("Transaction successful")
+    const handlePOP = (e) => {
+        const file = e.target.files[0];
+        transformFile(file);
+    };
 
-        setTimeout(() => toast.info('Transaction been processed'), 3000)
-        setDepositModal(false)
+    const transformFile = (file) => {
+        const reader = new FileReader()
+
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                inputs.pop = reader.result;
+            };
+        } else {
+            inputs.pop = "";
+        }
+    };
+
+    const handleDeposit = async (e) => {
+        info.current = toast.info("Making deposit, please wait...", { autoClose: false });
+        e.preventDefault()
+        inputs.role = currentUser.role
+        inputs.user = currentUser
+        inputs.date = moment().format();
+        inputs.plan = plan
+        inputs.status = "pending"
+
+        const data = { ...inputs }
+        const res = await forexDeposit(data)
+
+        if (res.status === "success") {
+            toast.success('Transaction is being processed')
+
+            setTimeout(() => toast.info('Deposit will reflect once approved!'), 3000)
+            setDepositModal(false)
+            toast.dismiss(info.current)
+        } else {
+            toast.error('Transaction failed! Please try again.')
+            toast.dismiss(info.current)
+        }
     }
 
     // fxn to set contract address
     const getAddress = () => {
         Object.entries(address).map(([key, value]) => {
-            if (key == inputs?.method) {
+            if (key == inputs?.methodofpayment) {
                 setContractAddress(value)
             }
         })
     }
+
+    // Function to see if deposit has reached max amount
+    const isDepositFundingOpen = async () => {
+        const res = await checkIsDepositOpen();
+        if (res.message == "false") {
+            navigate('/forex-home')
+            toast.info("Deposit has reached max amount...")
+        }
+    }
+
+    useEffect(() => {
+        isDepositFundingOpen()
+        return () => { }
+    }, [])
 
     return (
         <main className='w-full flex gap-4 bg-green-50 lg:pr-5'>
@@ -67,13 +122,13 @@ const ForexDeposit = () => {
 
                 {/* Deposit Modal */}
                 <Modal modal={depositModal} setModal={setDepositModal} title={'Deposit fund'}>
-                    <p className='text-xl float-right text-slate-700'>{inputs?.method}</p>
+                    <p className='text-xl float-right text-slate-700'>{inputs?.method?.toString().toUpperCase()}</p>
                     <section className='flex items-center gap-2'>
                         <FcBullish size={30} />
                         <div>
                             <p className='text-sm'>Amount to deposit</p>
                             <div className="flex items-center gap-1">
-                                <h2 className='font-bold'>{inputs?.amount}</h2>
+                                <h2 className='font-bold'>{inputs?.amount} USDT</h2>
                             </div>
                         </div>
                     </section>
@@ -81,16 +136,24 @@ const ForexDeposit = () => {
                     <form className='mt-4 flex flex-col gap-3' onSubmit={handleDeposit}>
                         <div className="form-group flex flex-col gap-1">
                             <label className='text-xs' htmlFor='address'>Deposit Address</label>
-                            <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="address" id="address" defaultValue={contractAddress} />
+                            <div className='flex items-center gap-2'>
+                                <input readOnly className='text-sm bg-base-200 p-2 rounded-xl w-full' type="text" name="address" id="address" defaultValue={contractAddress} />
+                                <FiCopy color='black' className='cursor-pointer' onClick={(e) => copyValue(contractAddress)} size={20} />
+                            </div>
                         </div>
 
                         <div className="form-group flex flex-col gap-1">
+                            <label className='text-xs' htmlFor='proof'>Trasaction Id</label>
+                            <input onChange={(e) => inputs.txnId =  e.target.value} className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="proof" id="proof" required placeholder='Enter transaction Id' />
+                        </div>
+                        
+                        <div className="form-group flex flex-col gap-1">
                             <label className='text-xs' htmlFor='proof'>Upload proof of payment</label>
-                            <input className='text-sm bg-base-200 p-2 rounded-xl' type="file" name="proof" id="proof" required placeholder='Enter withdrawal location' />
+                            <input onChange={handlePOP} className='text-sm bg-base-200 p-2 rounded-xl' type="file" name="proof" id="proof" required placeholder='Enter withdrawal location' />
                         </div>
 
                         <button type="submit" className='bg-blue-500 text-white p-2 rounded-full'>Make Deposit</button>
-                        <p className='text-center text-xs text-slate-400'>Secured by metanosdog</p>
+                        <p className='text-center text-xs text-slate-400'>Secured by tradepointnetwork</p>
                     </form>
                 </Modal>
 
@@ -103,18 +166,18 @@ const ForexDeposit = () => {
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='' htmlFor='amount'>Deposit amount</label>
-                            <input onChange={(e) => inputs.amount = e.target.value} className='text-sm bg-base-200 p-3 rounded' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
+                            <input readOnly required className='text-sm bg-base-200 p-3 rounded' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
                         </div>
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='' htmlFor='method'>Choose payment method</label>
-                            <select name="method" id="method" className='text-sm bg-base-200 p-3 rounded' onChange={(e) => inputs.method = e.target.value} required>
+                            <select name="method" id="method" className='text-sm bg-base-200 p-3 rounded' onChange={(e) => inputs.methodofpayment = e.target.value} required>
                                 <option value="null">Choose method</option>
-                                <option value="usdt">Usdt</option>
-                                <option value="bank">Bank Transfer</option>
-                                <option value="litecoin">Litecoin</option>
-                                <option value="ethereum">Ethereum</option>
-                                <option value="bitcoin">Bitcoin</option>
+                                <option value="usdt">USDT (TRC20)</option>
+                                <option disabled value="bank">Bank Transfer (Coming Soon)</option>
+                                <option disabled value="litecoin">Litecoin (Coming Soon)</option>
+                                <option disabled value="ethereum">Ethereum (Coming Soon)</option>
+                                <option disabled value="bitcoin">Bitcoin (Coming Soon)</option>
                             </select>
                         </div>
 

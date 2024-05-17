@@ -9,7 +9,8 @@ const Footer = () => {
     const navbarState = () => {
         return location.pathname.includes('sign-in') ||
         location.pathname.includes('sign-up') ||
-        location.pathname.includes('forex')
+        location.pathname.includes('forex') ||
+        location.pathname.includes('admin')
         ? 'hidden' : 'block'
     }
   return (

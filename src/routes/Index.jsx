@@ -28,6 +28,7 @@ import ForexSettings from '../pages/forex/ForexSettings'
 import ForexDeposit from '../pages/forex/ForexDeposit'
 import Navbar from '../pages/New/components/Navbar'
 import Footer from '../pages/New/components/Footer';
+import AdminHome from '../pages/admin/adminHome'
 
 const Index = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -66,6 +67,9 @@ const Index = () => {
         <Route path='/forex-deposit' element={<ForexDeposit />} />
         <Route path='/forex-withdraw' element={<ForexWithdraw />} />
         <Route path='/forex-setting' element={<ForexSettings />} />
+
+        {/* Admin Routes */}
+        <Route path='/admin' element={<AdminHome />} />
       </Routes>
 
       <Footer />

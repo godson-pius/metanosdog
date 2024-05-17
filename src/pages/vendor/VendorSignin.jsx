@@ -25,7 +25,7 @@ const VendorSignin = () => {
 
     const res = await handleVendorLogin(data);
     if (res.vendor) {
-      localStorage.setItem("vendor", JSON.stringify(res.vendor));
+      localStorage.setItem("user", JSON.stringify(res.vendor));
 
       window.location.href = "/vendor-dashboard";
       setEmailAddress("");

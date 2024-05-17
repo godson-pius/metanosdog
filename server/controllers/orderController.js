@@ -46,7 +46,7 @@ exports.orderSuccessful = async(req, res) => {
     try {
         const {orderId} = req.params;
 
-        const order = await findByIdAndUpdate(orderId, { dispatched: "success" }, { new: true });
+        const order = await findByIdAndUpdate(orderId, {$set: { dispatched: "success" }}, { new: true });
         res.status(200).json(order)
     } catch (error) {
         res.status(500).json({error})

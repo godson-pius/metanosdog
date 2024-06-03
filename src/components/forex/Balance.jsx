@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import Modal from '../Modal';
 import { FcBullish } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { currentUser } from '../../utils/getUser';
 import { formatNum } from '../../utils/format';
 import { checkDepositMax, checkIsDepositOpen } from '../../api';
 
 const Balance = ({ state }) => {
+    const navigate = useNavigate()
     const active = "font-extrabold border-b-2 border-black transition duration-700";
     const [toggleBal, setToggleBal] = useState(true)
     const [wdrmodal, setWdrmodal] = useState(false)
@@ -34,6 +35,7 @@ const Balance = ({ state }) => {
         }
 
         useEffect(() => {
+            localStorage.getItem('user') === null ? navigate('/sign-in') : null
             isDepositFundingOpen()
         }, [])
 
@@ -55,8 +57,8 @@ const Balance = ({ state }) => {
                     </div>
 
                     <div className="form-group flex flex-col gap-1">
-                        <label className='text-xs' htmlFor='amount'>Withdrawal location</label>
-                        <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal location' />
+                        <label className='text-xs' htmlFor='amount'>USDT Wallet Address</label>
+                        <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter wallet address' />
                     </div>
 
                     <button type="submit" className='bg-green-500 text-white p-2 rounded-full'>Withdraw</button>
@@ -72,14 +74,14 @@ const Balance = ({ state }) => {
                 </div>
 
                 <div className="md:flex w-full justify-between items-center my-2 hidden">
-                    <h1 className={`font-black text-4xl mt-4 `}>$ {formatNum(user?.balance[0]?.forex)}</h1>
-                    <h1 className={`font-black text-4xl mt-4 `}>〽️ {formatNum(user?.balance[0]?.metanosdog)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 `}>$ { user?.role != 'vendor' ? formatNum(user?.balance[0]?.forex) : formatNum(user?.forexBalance[0]?.forex) }</h1>
+                    <h1 className={`font-black text-4xl mt-4 `}>〽️ { user?.role != 'vendor' ? formatNum(user?.balance[0]?.metanosdog) : user?.forexBalance[0]?.metanosdog}</h1>
                 </div>
 
                 {/* Mobile */}
                 <div className="flex w-full justify-between items-center my-2 md:hidden">
-                    <h1 className={`font-black text-4xl mt-4 ${!toggleBal ? 'hidden' : null}`}>$ {formatNum(user?.balance[0]?.forex)}</h1>
-                    <h1 className={`font-black text-4xl mt-4 ${toggleBal ? 'hidden' : null}`}>〽️ {formatNum(user?.balance[0]?.metanosdog)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 ${!toggleBal ? 'hidden' : null}`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.forex) : user?.forexBalance[0]?.forex}</h1>
+                    <h1 className={`font-black text-4xl mt-4 ${toggleBal ? 'hidden' : null}`}>〽️ { user?.role != 'vendor' ? formatNum(user?.balance[0]?.metanosdog) : user?.forexBalance[0]?.metanosdog}</h1>
                 </div>
 
                 <div className='w-full flex gap-2 items-center mt-4'>
@@ -94,22 +96,22 @@ const Balance = ({ state }) => {
                         <FcBullish size={30} />
                         <h2 className='font-bold'>My ROI</h2>
                     </div>
-                    <h1 className={`font-black text-4xl mt-4 text-green-500`}>$ {formatNum(user?.balance[0]?.roi)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-green-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.roi) : formatNum(user?.forexBalance[0]?.roi)}</h1>
                 </div>
 
                 <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Deposits</h2>
-                    <h1 className={`font-black text-4xl mt-4 text-sky-500`}>$ {formatNum(user?.balance[0]?.deposit)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-sky-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.deposit) : formatNum(user?.forexBalance[0]?.deposit)}</h1>
                 </div>
 
                 <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Withdrawals</h2>
-                    <h1 className={`font-black text-4xl mt-4 text-indigo-500`}>$ {formatNum(user?.balance[0]?.withdrawal    )}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-indigo-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.withdrawal) : formatNum(user?.forexBalance[0]?.withdrawal)}</h1>
                 </div>
 
                 <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Referral Profit</h2>
-                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ {formatNum(user?.balance[0]?.refProfit)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.refProfit) : formatNum(user?.forexBalance[0]?.refProfit)}</h1>
                 </div>
             </section>
         </main>

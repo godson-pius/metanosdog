@@ -84,7 +84,7 @@ const Cart = () => {
     flutterwave({
       callback: async (response) => {
         const data = {
-          user: currentUser._id,
+          user: currentUser,
           products: carts,
           shippingAddress: shippingAddress != "" ? shippingAddress : currentUser.shippingAddress
         }

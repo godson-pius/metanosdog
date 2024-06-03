@@ -2,8 +2,8 @@ import Axios from "axios";
 import { customAlphabet } from 'nanoid'
 
 const liveAPI = "https://tradepointapi.onrender.com/api"
-const API = liveAPI;
-// const API = "http://localhost:4000/api";
+// const API = liveAPI;
+const API = "http://localhost:4000/api";
 
 const handleUserReg = async (formdata) => {
   try {
@@ -17,6 +17,15 @@ const handleUserReg = async (formdata) => {
 const handleUserLogin = async (formdata) => {
   try {
     const response = await Axios.post(`${API}/user/login`, formdata);
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const handleGetUser = async (email) => {
+  try {
+    const response = await Axios.get(`${API}/user/getUser/${email}`);
     return response.data;
   } catch (err) {
     return err;
@@ -201,6 +210,15 @@ export const getBasePrice = async () => {
   }
 }
 
+export const getOrders = async (data) => {
+  try {
+    const response = await Axios.get(`${API}/order`)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
 export const saveOrder = async (data) => {
   try {
     const response = await Axios.post(`${API}/order/create`, data)
@@ -250,7 +268,25 @@ export const getAllTransactions = async () => {
 
 export const confirmTransaction = async (data) => {
   try {
-    const response = await Axios.post(`${API}/forex/user/deposit`, data)
+    const response = await Axios.post(`${API}/forex/confirmdeposit`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const closeDepositPortal = async (data) => {
+  try {
+    const response = await Axios.get(`${API}/forex/closedeposit`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const openDepositPortal = async (data) => {
+  try {
+    const response = await Axios.get(`${API}/forex/opendeposit`, data)
     return response.data
   } catch (error) {
     return error

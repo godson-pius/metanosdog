@@ -3,6 +3,8 @@ import Sidebar from '../../components/forex/Sidebar'
 import Landing from '../../components/forex/Landing'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { currentUser } from '../../utils/getUser'
+import { getUser } from '../../utils/refreshGetUser'
 
 const ForexHome = () => {
   const navigate = useNavigate()

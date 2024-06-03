@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Balance from './Balance';
 import TickerTapeWidget from './TickerTapeWidget';
 import ForexChart from './ForexChart';
 import Plans from './Plans';
+import { useNavigate } from 'react-router-dom';
 
 const Landing = () => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        localStorage.getItem('user') === null ? navigate('/sign-in') : null
+      }, [])
     return (
         <main className='w-full flex pt-3 gap-3 px-2 lg:pr-5 h-screen overflow-auto bg-[#f5f9f6]'>
             <section className='w-full flex flex-col gap-10'>

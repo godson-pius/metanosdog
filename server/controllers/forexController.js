@@ -3,13 +3,14 @@ const User = require("../models/User");
 const Vendor = require("../models/Vendor");
 const { closeDepositAmount, forexTableId } = require("../utils/controlVal");
 const { calculateRefProfit } = require("../utils/refProfit");
+const { startSchedule } = require("../utils/scheduler");
 
 exports.getTransactions = async (req, res) => {
     try {
         const txns = await Forex.find({})
-        res.status(200).json({txns, status: "success"})
+        res.status(200).json({ txns, status: "success" })
     } catch (error) {
-        res.status(500).json({error})
+        res.status(500).json({ error })
     }
 }
 
@@ -56,6 +57,23 @@ exports.handleDeposit = async (req, res) => {
 
 }
 
+exports.handleWithdrawal = async (req, res) => {
+    try {
+        const data = req.body;
+
+        const forexDetails = await Forex.find()
+        const withdrawals = forexDetails[0].withdrawals;
+
+        withdrawals.push(data)
+        const withdrawal = await Forex.findByIdAndUpdate(forexTableId, { $set: { withdrawals: withdrawals } }, { new: true });
+        res.status(200).json({ withdrawal, status: "success" })
+
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+
+}
+
 exports.handleConfirmDeposit = async (req, res) => {
     const data = req.body;
     try {
@@ -79,6 +97,10 @@ exports.handleConfirmDeposit = async (req, res) => {
             const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
             res.status(200).json({ deposit, status: "success" })
         }
+
+        // Start CRON job
+        startSchedule(data)
+        
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -118,7 +140,7 @@ exports.openDeposit = async (req, res) => {
 exports.closeDeposit = async (req, res) => {
     try {
         const deposit = await Forex.findByIdAndUpdate(forexTableId, { $set: { isDepositOpen: false } }, { new: true });
-        res.status(200).json({ deposit, message: "Deposit opened", status: "success" })
+        res.status(200).json({ deposit, message: "Deposit closed", status: "success" })
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -141,7 +163,7 @@ exports.checkDepositStatus = async (req, res) => {
     }
 }
 
-const updateTransactionStatus = async(txnId) => {
+const updateTransactionStatus = async (txnId) => {
     const transactions = await Forex.find({})
     let deposits = transactions[0].deposits;
 

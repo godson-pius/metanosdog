@@ -24,6 +24,7 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
     return location.pathname.includes('sign-in') ||
     location.pathname.includes('sign-up') ||
     location.pathname.includes('forex') ||
+    location.pathname.includes('vendor') ||
     location.pathname.includes('admin')
     ? 'hidden' : 'block'
   }
@@ -103,6 +104,7 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
           <Link to=''>Blog</Link>
           <Link to=''>About</Link>
           <Link to='/forex-home'>Forex</Link>
+          <Link to='/vendor-signin'>Vendor</Link>
           <Link to=''>Contact Us</Link>
         </div>
 
@@ -116,6 +118,7 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
           <Link to=''>Blog</Link>
           <Link to=''>About</Link>
           <Link to='/forex-home'>Forex</Link>
+          <Link to='/vendor-signin'>Vendor</Link>
           <Link to=''>Contact Us</Link>
         </div>
       </nav>

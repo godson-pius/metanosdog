@@ -9,9 +9,10 @@ import {
   FiUserCheck,
 } from "react-icons/fi";
 import coinpot from "../../assets/images/coinpot.png";
+import { currentUser } from '../../utils/getUser';
 
 const VendorNav = () => {
-  const [currentVendor, setCurrentVendor] = useState(JSON.parse(localStorage.getItem('vendor')))
+  const currentVendor = currentUser;
 
   const setActive = (pathname) => {
     return window.location.pathname == "/" + pathname

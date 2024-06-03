@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 import VendorNav from "../../components/vendor/VendorNav";
 import { addProduct, deleteProduct, getVendorProducts, updateProduct } from "../../api";
 import { toast } from "react-toastify";
+import { currentUser } from "../../utils/getUser";
 
 const Products = () => {
 
+  const currentVendor = currentUser;
   const [isShowForm, setIsShowForm] = useState(false);
   const [products, setProducts] = useState([]);
   const [isProducts, setIsProducts] = useState(true);
-  const [currentVendor, setCurrentVendor] = useState(
-    JSON.parse(localStorage.getItem("vendor"))
-  );
   const [productId, setProductId] = useState();
   const [productName, setProductName] = useState("");
   const [productSlug, setProductSlug] = useState("");
@@ -175,8 +174,8 @@ const Products = () => {
     }
   }
 
-  useEffect(async () => {
-    await handleVendorProducts();
+  useEffect(() => {
+    handleVendorProducts();
     setInterval(() => {
       handleVendorProducts();
     }, 5000)

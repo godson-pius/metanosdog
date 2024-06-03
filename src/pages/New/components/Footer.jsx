@@ -10,6 +10,7 @@ const Footer = () => {
         return location.pathname.includes('sign-in') ||
         location.pathname.includes('sign-up') ||
         location.pathname.includes('forex') ||
+        location.pathname.includes('vendor') ||
         location.pathname.includes('admin')
         ? 'hidden' : 'block'
     }

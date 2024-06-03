@@ -25,8 +25,10 @@ const Navbar = () => {
             <nav className='w-full flex justify-between px-5 py-4 border-b-2 bg-base-200'>
                 <Link className='font-extrabold text-2xl'>TradePoint</Link>
                 <div className='flex gap-3'>
-                    <Link className='text-sky-600 font-bold border-b-2 border-gray-300'>Dashboard</Link>
+                    <Link className='text-sky-600 font-bold border-b-2 border-gray-300' to={'/admin'}>Dashboard</Link>
                     <Link className='text-sky-600'>Transactions</Link>
+                    <Link className='text-sky-600' to={'/admin-orders'}>Orders</Link>
+                    <Link className='text-sky-600' to={'/admin-withdrawals'}>Withdrawals</Link>
                 </div>
                 <div className='flex items-center gap-2'>
                     <p>{isDepositOpen ? 'Deposit Open' : 'Deposit Closed'}</p>

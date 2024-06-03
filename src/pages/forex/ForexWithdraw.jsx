@@ -5,17 +5,38 @@ import { FcBullish, FcCandleSticks } from 'react-icons/fc'
 import Balance from '../../components/forex/Balance'
 import Modal from '../../components/Modal'
 import { toast } from 'react-toastify'
+import { currentUser } from '../../utils/getUser'
 
 const ForexWithdraw = () => {
   const [wdrmodal, setWdrmodal] = useState(false)
+  const [inputs, setInputs] = useState({})
 
-  const handlewithdrawal = (e) => {
-    e.preventDefault();
-    toast.success('Withdrawal successful');
+  const handlewithdrawal = async (e) => {
+    info.current = toast.info("Making request, please wait...", { autoClose: false });
+    e.preventDefault()
+    inputs.role = currentUser.role
+    inputs.user = currentUser
+    inputs.date = moment().format();
+    inputs.plan = plan
+    inputs.status = "pending"
+
+    const data = { ...inputs }
+    const res = await forexDeposit(data)
+
+    if (res.status === "success") {
+        toast.success('Transaction is being processed')
+
+        setTimeout(() => toast.info('Deposit will reflect once approved!'), 3000)
+        setDepositModal(false)
+        toast.dismiss(info.current)
+    } else {
+        toast.error('Transaction failed! Please try again.')
+        toast.dismiss(info.current)
+    }
 
     // Close the modal
     setWdrmodal(false);
-  }
+}
 
   return (
     <main className='w-full flex gap-4 bg-[#f5f9f6]'>
@@ -37,12 +58,12 @@ const ForexWithdraw = () => {
           <form className='mt-4 flex flex-col gap-3' onSubmit={handlewithdrawal}>
             <div className="form-group flex flex-col gap-1">
               <label className='text-xs' htmlFor='amount'>Withdrawal amount</label>
-              <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal amount' />
+              <input onChange={(e) => inputs.amount = e.target.value} className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal amount' />
             </div>
 
             <div className="form-group flex flex-col gap-1">
               <label className='text-xs' htmlFor='amount'>Withdrawal location</label>
-              <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal location' />
+              <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal address' />
             </div>
 
             <button type="submit" className='bg-green-500 text-white p-2 rounded-full'>Withdraw</button>

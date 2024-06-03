@@ -25,7 +25,7 @@ const VendorSignup = () => {
 
     // Flutterwave configuration
     const config = {
-        public_key: import.meta.VITE_APP_FLUTTERWAVE_PUBLIC_KEY,
+        public_key: 'FLWPUBK_TEST-3e1a371f3d4cf1fbe79c81aa128a13ea-X',
         tx_ref: Date.now(),
         amount: basePrice,
         currency: 'NGN',
@@ -252,8 +252,8 @@ const VendorSignup = () => {
                                 required
                                 className="w-full p-2 ring-2 ring-orange-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-105 focus:shadow-lg mb-3 rounded-full"
                             >
-                                <option disabled value="null">
-                                    Are an individual or Business Entity / Company
+                                <option value="null">
+                                    Are you an individual or Business Entity / Company
                                 </option>
                                 <option value="individual">Individual</option>
                                 <option value="business">Registered business name</option>
@@ -389,6 +389,7 @@ const VendorSignup = () => {
 
                             <button
                                 ref={submitBtn}
+                                type="submit"
                                 className="w-full bg-orange-500 p-2 font-bold hover:shadow-lg duration-700 mt-4 text-white rounded-full"
                             >
                                 Sign Up

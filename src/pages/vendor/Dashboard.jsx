@@ -10,11 +10,27 @@ import VendorNav from '../../components/vendor/VendorNav'
 import ads from '../../assets/images/ads.svg'
 import CustomRule from '../../components/CustomRule'
 import RecentOrder from '../../components/vendor/RecentOrder'
+import { currentUser } from '../../utils/getUser';
+import { getVendorProducts } from '../../api'
 
 const Dashboard = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(false)
+  const [products, setProducts] = useState([])
+  const [isProduct, setIsProduct] = useState()
+  const currentVendor = currentUser;
+
+  const handleVendorProducts = async () => {
+    const res = await getVendorProducts(currentVendor._id);
+    if (res.status === "empty") {
+      setIsProduct(false);
+    } else {
+      setProducts(res.products);
+      setIsProduct(true);
+    }
+  };
 
   useEffect(() => {
+    handleVendorProducts()
     window.scrollTo(0, 0)
     return () => {};
   }, [])
@@ -39,7 +55,7 @@ const Dashboard = () => {
                   <FiLayers size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Items Available</h1>
-                    <p className="text-sm text-gray-400">25 items</p>
+                    <p className="text-sm text-gray-400">{ products?.length } items</p>
                   </div>
                 </div>
               </div>
@@ -49,7 +65,7 @@ const Dashboard = () => {
                   <FiCheckCircle size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Items shipped today</h1>
-                    <p className="text-sm text-gray-400">15 items</p>
+                    <p className="text-sm text-gray-400">0 items</p>
                   </div>
                 </div>
               </div>
@@ -59,7 +75,7 @@ const Dashboard = () => {
                   <FiUsers size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Referrals</h1>
-                    <p className="text-sm text-gray-400">3 referral(s)</p>
+                    <p className="text-sm text-gray-400">{ currentVendor.children.length } referral(s)</p>
                   </div>
                 </div>
               </div>
@@ -99,22 +115,22 @@ const Dashboard = () => {
               <div className="w-full bg-white p-8 rounded">
                 <div className="order__content grid md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-x items-center md:divide-y-0 gap-4 grid-cols-1">
                   <div className="each flex flex-col items-center">
-                    <h1 className="text-5xl font-bold">12</h1>
+                    <h1 className="text-5xl font-bold">0</h1>
                     <p className="text-gray-400">New Orders</p>
                   </div>
 
                   <div className="each flex flex-col items-center">
-                    <h1 className="text-5xl font-bold">5</h1>
+                    <h1 className="text-5xl font-bold">0</h1>
                     <p className="text-gray-400">In Progress</p>
                   </div>
 
                   <div className="each flex flex-col items-center">
-                    <h1 className="text-5xl font-bold">30</h1>
+                    <h1 className="text-5xl font-bold">0</h1>
                     <p className="text-gray-400">Shipped</p>
                   </div>
 
                   <div className="each flex flex-col items-center">
-                    <h1 className="text-5xl font-bold">6</h1>
+                    <h1 className="text-5xl font-bold">0</h1>
                     <p className="text-gray-400">Failed</p>
                   </div>
                 </div>

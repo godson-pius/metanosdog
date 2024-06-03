@@ -10,6 +10,17 @@ const handleGetUsers = async(req, res) => {
     }
 }
 
+const handleGetUser = async(req, res) => {
+    const { email } = req.params;
+    console.log(email)
+    try {
+        const user = await User.find({ email: email })
+        res.status(200).json({user, status: "success" })
+    } catch (error) {
+        res.status(500).json({ error: error })
+    }
+}
+
 const handleRegistration = async(req, res) => {
     const data = req.body
     data['password'] = await bcrypt.hash(data.password, 10)
@@ -44,4 +55,4 @@ const handleLogin = async(req, res) => {
     }
 }
 
-module.exports = { handleRegistration, handleLogin, handleGetUsers }
+module.exports = { handleRegistration, handleLogin, handleGetUsers, handleGetUser }

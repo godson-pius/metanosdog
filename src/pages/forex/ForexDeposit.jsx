@@ -14,6 +14,7 @@ import { copyValue } from '../../utils/copy'
 import { FiCopy } from 'react-icons/fi'
 import { currentUser } from '../../utils/getUser'
 import moment from 'moment/moment'
+import { getUser } from '../../utils/refreshGetUser'
 
 const ForexDeposit = () => {
     const navigate = useNavigate()
@@ -84,6 +85,9 @@ const ForexDeposit = () => {
             setTimeout(() => toast.info('Deposit will reflect once approved!'), 3000)
             setDepositModal(false)
             toast.dismiss(info.current)
+
+            // get user details
+            getUser(currentUser.email)
         } else {
             toast.error('Transaction failed! Please try again.')
             toast.dismiss(info.current)

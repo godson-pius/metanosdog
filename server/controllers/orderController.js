@@ -14,7 +14,7 @@ exports.createOrder = async(req, res) => {
 exports.getOrders = async(req, res) => {
     try {
         const orders = await Order.find({})
-        res.status(200).json(orders)
+        res.status(200).json({orders, status: "success"})
     } catch (error) {
         res.status(500).json({error})
     }

@@ -1,16 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { handleUserReg } from "../api";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { handleGenerateRefId, handleUserReg } from "../api";
 import { toast } from "react-toastify";
 
 const Signup = () => {
+  const { ref } = useParams()
   const [firstname, setFname] = useState();
   const [lastname, setLname] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [cpass, setCpass] = useState();
   const [shippingAddress, setShippingAddress] = useState();
+  const [refId, setRefId] = useState(handleGenerateRefId());
+  const [referralId, setReferralId] = useState(ref)
   const submitBtn = useRef();
   const navigate = useNavigate();
 
@@ -41,6 +44,8 @@ const Signup = () => {
         email,
         password,
         cpass,
+        refId,
+        parentId: referralId,
         shippingAddress,
       };
 
@@ -99,7 +104,7 @@ const Signup = () => {
       <div className="w-full bg-green-50">
         <div className="w-full justify-center flex px-10 md:px-72 h-screen items-center">
           <div className="w-[40rem] bg-white shadow-lg flex flex-col h-max rounded-lg p-10">
-          <h1 className="text-3xl text-green-500">Sign Up</h1>
+            <h1 className="text-3xl text-green-500">Sign Up</h1>
             <p className="text-slate-700 mb-4 text-sm">Provide credentials for sign up</p>
             <form className="w-full flex flex-col" onSubmit={handleReg}>
               <input
@@ -161,6 +166,16 @@ const Signup = () => {
                 onChange={(e) => setShippingAddress(e.target.value)}
               ></textarea>
 
+              <input
+                type="text"
+                name="referralId"
+                id="referralId"
+                readOnly
+                value={referralId}
+                className="w-full p-2 ring-2 ring-green-300 outline-none duration-500 px-3 text-sm font-medium focus:scale-110 mb-3 rounded-full"
+                placeholder="RefId"
+              />
+
               <button
                 className="w-full bg-green-500 p-2 font-bold hover:shadow-lg duration-700 mt-4 text-white rounded-full"
                 ref={submitBtn}
@@ -178,7 +193,7 @@ const Signup = () => {
                 to="/"
                 className="text-sm text-blue-700 text-center mt-1 hover:text-white duration-700"
               >
-                 Return to home
+                Return to home
               </Link>
             </form>
           </div>

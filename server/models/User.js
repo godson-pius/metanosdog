@@ -37,6 +37,14 @@ const userSchema = new mongoose.Schema({
         default: []
     },
 
+    refId: { type: String, required: true },
+
+    parentId: { type: String, default: null },
+
+    children: { type: Array, default: [] },
+
+    generation: { type: Array, default: [] },
+
     pic: {
         type: String,
         default: 'pic'

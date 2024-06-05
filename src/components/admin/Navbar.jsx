@@ -22,7 +22,7 @@ const Navbar = () => {
 
     return (
         <main className='w-full'>
-            <nav className='w-full flex justify-between px-5 py-4 border-b-2 bg-base-200'>
+            <nav className='w-full flex justify-between px-5 py-4 border-b-2 bg-gray-100'>
                 <Link className='font-extrabold text-2xl'>TradePoint</Link>
                 <div className='flex gap-3'>
                     <Link className='text-sky-600 font-bold border-b-2 border-gray-300' to={'/admin'}>Dashboard</Link>

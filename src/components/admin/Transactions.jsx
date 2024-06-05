@@ -29,7 +29,7 @@ const Transactions = () => {
                 <span className='w-full h-[0.12rem] bg-gray-300 mr-10'></span>
             </div>
 
-            <input type="search" name="txnid" id="tnxid" placeholder='Search by transaction id' className='p-2 bg-base-200 w-full my-4 rounded-full border-2 px-3' onChange={(e) => setSearch(e.target.value)} />
+            <input type="search" name="txnid" id="tnxid" placeholder='Search by transaction id' className='p-2 bg-gray-100 w-full my-4 rounded-full border-2 px-3' onChange={(e) => setSearch(e.target.value)} />
 
             {/* Txns */}
             <section className='w-full grid grid-cols-1 lg:grid-cols-2 gap-4'>

@@ -58,12 +58,12 @@ const ForexWithdraw = () => {
           <form className='mt-4 flex flex-col gap-3' onSubmit={handlewithdrawal}>
             <div className="form-group flex flex-col gap-1">
               <label className='text-xs' htmlFor='amount'>Withdrawal amount</label>
-              <input onChange={(e) => inputs.amount = e.target.value} className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal amount' />
+              <input onChange={(e) => inputs.amount = e.target.value} className='text-sm bg-gray-100 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal amount' />
             </div>
 
             <div className="form-group flex flex-col gap-1">
               <label className='text-xs' htmlFor='amount'>Withdrawal location</label>
-              <input className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal address' />
+              <input className='text-sm bg-gray-100 p-2 rounded-xl' type="text" name="amount" id="amount" placeholder='Enter withdrawal address' />
             </div>
 
             <button type="submit" className='bg-green-500 text-white p-2 rounded-full'>Withdraw</button>

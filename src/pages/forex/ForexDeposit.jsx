@@ -141,19 +141,19 @@ const ForexDeposit = () => {
                         <div className="form-group flex flex-col gap-1">
                             <label className='text-xs' htmlFor='address'>Deposit Address</label>
                             <div className='flex items-center gap-2'>
-                                <input readOnly className='text-sm bg-base-200 p-2 rounded-xl w-full' type="text" name="address" id="address" defaultValue={contractAddress} />
+                                <input readOnly className='text-sm bg-gray-100 p-2 rounded-xl w-full' type="text" name="address" id="address" defaultValue={contractAddress} />
                                 <FiCopy color='black' className='cursor-pointer' onClick={(e) => copyValue(contractAddress)} size={20} />
                             </div>
                         </div>
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='text-xs' htmlFor='proof'>Trasaction Id</label>
-                            <input onChange={(e) => inputs.txnId =  e.target.value} className='text-sm bg-base-200 p-2 rounded-xl' type="text" name="proof" id="proof" required placeholder='Enter transaction Id' />
+                            <input onChange={(e) => inputs.txnId =  e.target.value} className='text-sm bg-gray-100 p-2 rounded-xl' type="text" name="proof" id="proof" required placeholder='Enter transaction Id' />
                         </div>
                         
                         <div className="form-group flex flex-col gap-1">
                             <label className='text-xs' htmlFor='proof'>Upload proof of payment</label>
-                            <input onChange={handlePOP} className='text-sm bg-base-200 p-2 rounded-xl' type="file" name="proof" id="proof" required placeholder='Enter withdrawal location' />
+                            <input onChange={handlePOP} className='text-sm bg-gray-100 p-2 rounded-xl' type="file" name="proof" id="proof" required placeholder='Enter withdrawal location' />
                         </div>
 
                         <button type="submit" className='bg-blue-500 text-white p-2 rounded-full'>Make Deposit</button>
@@ -170,12 +170,12 @@ const ForexDeposit = () => {
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='' htmlFor='amount'>Deposit amount</label>
-                            <input readOnly required className='text-sm bg-gray-100 p-3 rounded' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
+                            <input readOnly required className='text-lg bg-gray-100 p-3 rounded font-bold' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
                         </div>
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='' htmlFor='method'>Choose payment method</label>
-                            <select name="method" id="method" className='text-sm bg-base-200 p-3 rounded' onChange={(e) => inputs.methodofpayment = e.target.value} required>
+                            <select name="method" id="method" className='text-sm bg-gray-100 p-3 rounded' onChange={(e) => inputs.methodofpayment = e.target.value} required>
                                 <option value="null">Choose method</option>
                                 <option value="usdt">USDT (TRC20)</option>
                                 <option disabled value="bank">Bank Transfer (Coming Soon)</option>

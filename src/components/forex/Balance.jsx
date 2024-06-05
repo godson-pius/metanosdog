@@ -85,7 +85,7 @@ const Balance = ({ state }) => {
                 </div>
 
                 <div className='w-full flex gap-2 items-center mt-4'>
-                    <Link to={isDepositOpen ? '/forex-deposit' : '/forex-home'} className={`${isDepositOpen ? 'bg-sky-500' : 'bg-slate-700'} px-4 py-2 text-white rounded hover:scale-105 transition duration-700 hover:shadow`}>{ isDepositOpen ? 'Deposit' : 'Deposit closed' }</Link>
+                    <Link to={'/forex-home'} className={`${isDepositOpen ? 'bg-sky-500' : 'bg-slate-700'} px-4 py-2 text-white rounded hover:scale-105 transition duration-700 hover:shadow`}>{ isDepositOpen ? 'Deposit' : 'Deposit closed' }</Link>
                     <button className='bg-gray-200 px-4 py-2 text-black rounded hover:scale-105 transition duration-700 hover:shadow' onClick={() => setWdrmodal(true)}>Withdraw</button>
                 </div>
             </div>

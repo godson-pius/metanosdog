@@ -170,7 +170,7 @@ const ForexDeposit = () => {
 
                         <div className="form-group flex flex-col gap-1">
                             <label className='' htmlFor='amount'>Deposit amount</label>
-                            <input readOnly required className='text-sm bg-base-200 p-3 rounded' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
+                            <input readOnly required className='text-sm bg-gray-100 p-3 rounded' type="text" name="amount" defaultValue={amount ? Intl.NumberFormat().format(amount) : null} id="amount" placeholder='Enter deposit amount' />
                         </div>
 
                         <div className="form-group flex flex-col gap-1">

@@ -16,7 +16,7 @@ const userNav = ({ openSection, active }) => {
 
   return (
     <>
-        <div className="w-64">
+        <div className="w-64 hidden lg:block">
             <div className="w-64 flex flex-col gap-2 bg-slate-900 h-96 text-slate-100 p-5 font-bold rounded">
                 <div className='text-center w-full bg-gradient-to-r from-slate-800 text-sm to-black shadow-2xl border-b-2 p-2 rounded mb-5 font-extrabold cursor-pointer hover:scale-125 hover:-translate-y-5 duration-700'>Hi,  { user ? (`${user.firstname} ${user.lastname}`) : null }</div>
                 <Link onClick={() => openSection('account')} className={`p-1 pl-2 duration-300 ${setActive('account')}`}>My Account</Link>

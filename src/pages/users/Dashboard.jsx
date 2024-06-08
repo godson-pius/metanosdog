@@ -88,17 +88,17 @@ const Dashboard = () => {
   const Account = () => {
     return (
       <>
-        <div className="w-full grid md:grid-cols-2 gap-4 p-3">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 p-3">
           <div className="w-full p-5 bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">
               Account Details
             </h1>
-            <div className="flex justify-between">
+            <div className="flex flex-col lg:flex-row justify-between">
               <div>
                 <span className="text-xs text-gray-400 uppercase">
                   Full name
                 </span>
-                <h2 className="text-gray-500">
+                <h2 className="text-gray-500 text-sm md:text-base">
                   {" "}
                   {user ? `${user.firstname} ${user.lastname}` : null}
                 </h2>
@@ -106,7 +106,7 @@ const Dashboard = () => {
 
               <div>
                 <span className="text-xs text-gray-400 uppercase">Email</span>
-                <h2 className="text-gray-500"> {user.email}</h2>
+                <h2 className="text-gray-500 text-sm md:text-base"> {user.email}</h2>
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="w-full p-5 col-span-2 bg-white rounded duration-700 hover:translate-y-1">
+          <div className="w-full p-5 bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">
               Meta Nosdog
             </h1>
@@ -138,6 +138,20 @@ const Dashboard = () => {
                   Your Balance:
                 </span>
                 <h2 className="text-slate-800 font-extrabold">{formatNum(user.balance[0].metanosdog)}</h2>
+              </div>
+            </div>
+          </div>
+          
+          <div className="w-full p-5  bg-white rounded duration-700 hover:translate-y-1">
+            <h1 className="text-lg border-b-2 mb-5 text-slate-800">
+              Downlines
+            </h1>
+            <div className="flex justify-between">
+              <div>
+                <span className="text-xs text-gray-400 uppercase">
+                  Total Downliners:
+                </span>
+                <h2 className="text-slate-800 font-extrabold">{formatNum(user.children.length)}</h2>
               </div>
             </div>
           </div>

@@ -22,7 +22,7 @@ const CustomersReview = () => {
                         <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
                             <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like tradepointnetwork.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Angelina Joly</h2>
@@ -35,7 +35,7 @@ const CustomersReview = () => {
                         <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
                             <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like tradepointnetwork.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Victor Smith</h2>
@@ -48,7 +48,7 @@ const CustomersReview = () => {
                         <div className="container bg-[#F8FAFB] flex flex-col items-center gap-4 p-5 rounded w-full">
                             <img src={user} alt="User Profile" className='w-16 h-16 -mt-5' />
 
-                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like Furniking.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
+                            <p className='text-center text-[#555555] w-full lg:w-[56rem]'>I like tradepointnetwork.com and as compared to other company it's polices and customers support is very good easy to reach., also many time they unable to delivered. The ultricies are pregnant while the quis is suspended. Risus commodo viverra maecenas accumsan lacus vel facilisist amet.</p>
 
                             <div className="user__info flex flex-col items-center">
                                 <h2 className='font-bold text-lg capitalize'>Esther Walls</h2>

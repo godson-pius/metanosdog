@@ -26,6 +26,7 @@ const ForexDeposit = () => {
 
 
     const handleProceedPayment = (e) => {
+        getUser()
         e.preventDefault()
 
         // Set amount

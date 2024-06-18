@@ -25,7 +25,9 @@ const AdminWithdrawals = () => {
     }
 
     useEffect(() => {
-        handleGetWithdrawals()
+        setInterval(() => {
+            handleGetWithdrawals()
+        }, 5000)
     }, [])
 
   return (

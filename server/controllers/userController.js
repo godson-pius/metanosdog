@@ -13,7 +13,6 @@ const handleGetUsers = async (req, res) => {
 
 const handleGetUser = async (req, res) => {
     const { email } = req.params;
-    console.log(email)
     try {
         const user = await User.find({ email: email })
         res.status(200).json({ user, status: "success" })

@@ -1,4 +1,7 @@
 import React from 'react'
+import { FiCopy } from 'react-icons/fi';
+import { copyValue } from '../../utils/copy';
+import moment from 'moment/moment';
 
 const WithdrawItems = ({ withdrawal }) => {
 
@@ -19,14 +22,14 @@ const WithdrawItems = ({ withdrawal }) => {
     <div className="w-full flex items-center justify-between">
         <h4 className='text-gray-500'>Amount: </h4>
         <div className='flex items-center gap-3'>
-            <span className='text-sky-500 font-normal'>$909</span>
+            <span className='text-sky-500 font-normal'>$ { withdrawal.amount }</span>
         </div>
     </div>
 
     <div className="w-full flex items-center justify-between">
         <h4 className='text-gray-500'>From: </h4>
         <div className='flex items-center gap-3'>
-            <span className='text-sky-500 font-normal'>{`${withdrawal?.user}`}</span>
+            <span className='text-sky-500 font-normal'>{`${withdrawal?.user.firstname} ${withdrawal?.user.lastname}`}</span>
         </div>
     </div>
 
@@ -52,21 +55,12 @@ const WithdrawItems = ({ withdrawal }) => {
         <h4 className='text-gray-500'>Products: </h4>
     </div>
 
-    {withdrawal.products.map((product, index) => (
-        <div className="w-full flex items-center justify-between">
-            <h4 className='text-sky-600'>{ product.productName }</h4>
-            <div className='flex items-center gap-3'>
-                <span className='text-sky-500 font-normal'>{ formatNum(product.productPrice) }</span>
-            </div>
-        </div>
-    ))}
-
     <hr />
 
     <div className='w-full my-2'>
         <div className=' flex items-center gap-2 justify-center px-20 md:px-48 lg:px-56'>
-            <button onClick={handleConfirmOrder} className='w-full btn btn-info text-white'>Confirm Order</button>
-            <button className='w-full btn btn-error text-white'>Cancel Order</button>
+            <button onClick={handleConfirmOrder} className='w-full btn btn-info text-white'>Confirm Request</button>
+            <button className='w-full btn btn-error text-white'>Cancel Request</button>
         </div>
     </div>
 </div>

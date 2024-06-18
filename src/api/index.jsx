@@ -239,6 +239,15 @@ export const forexDeposit = async (data) => {
   }
 }
 
+export const forexWithdraw = async (data) => {
+  try {
+    const response = await Axios.put(`${API}/forex/withdraw`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
 export const checkDepositMax = async () => {
   try {
     const response = await Axios.get(`${API}/forex/checkMax`)

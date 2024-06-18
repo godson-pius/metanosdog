@@ -66,17 +66,8 @@ exports.handleWithdrawal = async (req, res) => {
 
         withdrawals.push(data)
         const withdrawal = await Forex.findByIdAndUpdate(forexTableId, { $set: { withdrawals: withdrawals } }, { new: true });
-        res.status(200).json({ withdrawal, status: "success" })
 
-    } catch (error) {
-        res.status(500).json({ error })
-    }
-
-}
-
-exports.handleConfirmDeposit = async (req, res) => {
-    const data = req.body;
-    try {
+        // Deduct withdrawal from user balance
         if (data.role == "user") {
             const user = await User.findById(data.id)
             if (user) {
@@ -97,6 +88,37 @@ exports.handleConfirmDeposit = async (req, res) => {
             const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
             res.status(200).json({ deposit, status: "success" })
         }
+        res.status(200).json({ withdrawal, status: "success" })
+
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+
+}
+
+exports.handleConfirmDeposit = async (req, res) => {
+    const data = req.body;
+    try {
+        // if (data.role == "user") {
+        //     const user = await User.findById(data.id)
+        //     if (user) {
+        //         const currentBal = user.balance;
+        //         currentBal[0].deposit += data.amount
+
+        //         // Update the deposit status
+        //         updateTransactionStatus(data.txnId);
+
+        //         const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
+        //         res.status(200).json({ deposit, status: "success" })
+        //     }
+        // } else if (role == "vendor") {
+        //     const user = await Vendor.findById(data.id)
+        //     const currentBal = user.forexBalance;
+        //     currentBal[0].deposit += data.amount
+
+        //     const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
+        //     res.status(200).json({ deposit, status: "success" })
+        // }
 
         // Start CRON job
         startSchedule(data)
@@ -175,3 +197,5 @@ const updateTransactionStatus = async (txnId) => {
 
     await Forex.findByIdAndUpdate(forexTableId, { $set: { deposits: deposits } }, { new: true });
 }
+
+const updateWithdrawalStatus = async () => {}

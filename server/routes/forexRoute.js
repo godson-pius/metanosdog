@@ -3,6 +3,7 @@ const router = require('express').Router()
 
 router.get('/', forexController.getTransactions)
 router.put('/deposit', forexController.handleDeposit)
+router.put('/withdraw', forexController.handleWithdrawal)
 router.post('/confirmdeposit', forexController.handleConfirmDeposit)
 router.get('/checkmax', forexController.checkMaxDeposit)
 router.get('/checkdepositstatus', forexController.checkDepositStatus)

@@ -39,11 +39,11 @@ const Hero = ({ catActive, setCatActive }) => {
                 <div className="flex flex-col lg:flex-row">
                     <section className="banner bg-[#F1FAFF] m-3 p-5 flex items-center px-10 gap-32 xl:h-[445px]">
                         <div className="left_side ">
-                            <h4 className='text-[#7AC751] uppercase text-xl '>Top Collections 2023</h4>
-                            <h2 className='text-5xl font-bold mt-2 '>We Serve Your <br /> Dream <span className='border-b-4 border-[#7AC751]'>Furniture</span></h2>
+                            <h4 className='text-[#7AC751] uppercase text-xl '>Trade Point Network</h4>
+                            <h2 className='text-5xl font-bold mt-2 '>Become a <br /> <span className='border-b-4 border-[#7AC751]'>Vendor</span></h2>
 
-                            <p className='text-[#555555] my-6 text-2xl font-thin '>Get 50% of all products</p>
-                            <Link to={'/shop'} className='uppercase bg-[#7AC751] text-white p-2 rounded text-sm '>Shop Now</Link>
+                            <p className='text-[#555555] my-6 text-2xl font-thin '>Get 50% of all products on TPN</p>
+                            <Link to={'/vendor'} className='uppercase bg-[#7AC751] text-white p-2 rounded text-sm '>Be   a vendor</Link>
                         </div>
 
                         <img src={furniture} alt="Banner Image" className='w-80 h-80 hidden lg:block' />

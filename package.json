@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "react-intersection-observer": "^9.4.3",
+    "react-monnify-ts": "^0.0.4",
     "react-paginate": "^8.2.0",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",

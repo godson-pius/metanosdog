@@ -219,6 +219,15 @@ export const getOrders = async (data) => {
   }
 }
 
+export const getUserOrders = async (id) => {
+  try {
+    const response = await Axios.get(`${API}/order/${id}`)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
 export const saveOrder = async (data) => {
   try {
     const response = await Axios.post(`${API}/order/create`, data)
@@ -296,6 +305,15 @@ export const closeDepositPortal = async (data) => {
 export const openDepositPortal = async (data) => {
   try {
     const response = await Axios.get(`${API}/forex/opendeposit`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
+export const UserTeamPerformance = async (data) => {
+  try {
+    const response = await Axios.get(`${API}/forex/getprofit/${data.id}/${data.role}`)
     return response.data
   } catch (error) {
     return error

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getBasePrice, handleGenerateRefId, handleVendorReg, handleVendorSignInPayment } from "../../api";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import { usePayWithMonnifyPayment } from 'react-monnify-ts'
 
 const VendorSignup = () => {
     const { ref } = useParams()
@@ -42,6 +43,25 @@ const VendorSignup = () => {
         },
     };
     const handleFlutterPayment = useFlutterwave(config);
+
+    const monnifyConfig = {
+        amount: 100,
+        currency: 'NGN',
+        reference: `${new String(new Date().getTime())}`,
+        customerName: 'Damilare Ogunnaike',
+        customerEmail: 'ogunnaike.damilare@gmail.com',
+        apiKey: 'MK_TEST_Z71M9XWEPA',
+        contractCode: '8730249385',
+        paymentDescription: 'Lahray World',
+        metadata: {
+            name: 'Damilare',
+            age: 45,
+        },
+        isTestMode: true,
+        customerPhoneNumber: '09123856264',
+    }
+
+    const handleMonnifyPayment = usePayWithMonnifyPayment(monnifyConfig);
 
     const handleReg = async (e) => {
         e.preventDefault();

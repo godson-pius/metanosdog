@@ -15,19 +15,24 @@ exports.getTransactions = async (req, res) => {
 }
 
 exports.getRefProfit = async (req, res) => {
+    console.log("Getting ref profit!")
     try {
         const { userId, role } = req.params;
+        let profit = 0;
 
         if (role == "user") {
-            const user = await User.findById(userId);
-            const profit = calculateRefProfit(user)
             // do something with the user
-        } else if (role == "vendor") {
+            const user = await User.findById(userId);
+            profit = await calculateRefProfit(user, 'user')
+
+            console.log("Ref profit: ", profit)
+        } else {
             // do something with vendor
+            const vendor = await Vendor.findById(userId)
+            profit = await calculateRefProfit(vendor, 'vendor')
         }
 
-        const order = await findByIdAndUpdate(orderId, { dispatched: "success" }, { new: true });
-        res.status(200).json(order)
+        res.status(200).json({ profit, status: 'success' })
     } catch (error) {
         res.status(500).json({ error })
     }

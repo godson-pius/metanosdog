@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Email } from "../../smtp";
 import { toast } from "react-toastify";
 import UserNav from "../../components/users/UserNav";
-import { FiEdit3, FiEye } from "react-icons/fi";
+import { FiCopy, FiEdit3 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { formatNum } from '../../utils/format';
+import Orders from "../../components/users/Orders";
+import { copyValue } from "../../utils/copy";
+import { UserTeamPerformance } from "../../api";
 
 const Dashboard = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
@@ -15,11 +18,8 @@ const Dashboard = () => {
   const [openInbox, setInbox] = useState(false);
   const [openLogout, setLogout] = useState(false);
   const [active, setActive] = useState("account");
+  const [refProfit, setRefProfit] = useState(0)
 
-  //fOR Orders Menu
-  const [isOpenOrder, setOpenOrder] = useState(true);
-  const [isClosedOrder, setClosedOrder] = useState(false);
-  const [activeOrderMenu, setOrderMenu] = useState("open-orders");
 
   // const sendMail = async() => {
   //   Email.send({
@@ -57,32 +57,6 @@ const Dashboard = () => {
       default:
         break;
     }
-  };
-
-  const openOrderSection = (_section) => {
-    setOpenOrder(false);
-    setClosedOrder(false);
-
-    switch (_section) {
-      case "open-orders":
-        setOpenOrder(true);
-        setOrderMenu("open-orders");
-        break;
-
-      case "closed-orders":
-        setClosedOrder(true);
-        setOrderMenu("closed-orders");
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const setActiveOrderMenu = (menu) => {
-    return menu == activeOrderMenu
-      ? "border-b-2 border-slate-800 font-bold shadow-lg text-slate-800"
-      : null;
   };
 
   const Account = () => {
@@ -130,14 +104,20 @@ const Dashboard = () => {
 
           <div className="w-full p-5 bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">
-              Meta Nosdog
+              Account Balance
             </h1>
             <div className="flex justify-between">
               <div>
                 <span className="text-xs text-gray-400 uppercase">
-                  Your Balance:
+                  Metanosdog:
                 </span>
                 <h2 className="text-slate-800 font-extrabold">{formatNum(user.balance[0].metanosdog)}</h2>
+              </div>
+              <div>
+                <span className="text-xs text-gray-400 uppercase">
+                  Team Performance:
+                </span>
+                <h2 className="text-slate-800 font-extrabold">${formatNum(refProfit)}</h2>
               </div>
             </div>
           </div>
@@ -153,96 +133,19 @@ const Dashboard = () => {
                 </span>
                 <h2 className="text-slate-800 font-extrabold">{formatNum(user.children.length)}</h2>
               </div>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
-
-  const Orders = () => {
-    return (
-      <>
-        <div className="w-full p-3">
-          <div className="bg-white w-full p-5">
-            <h1 className="text-lg border-b-2 mb-5 text-slate-800">Orders</h1>
-
-            <div className="flex gap-10">
-              <button
-                onClick={() => openOrderSection("open-orders")}
-                className={`text-sm text-gray-400 uppercase ${setActiveOrderMenu(
-                  "open-orders"
-                )}`}
-              >
-                open orders
-              </button>
-              <button
-                onClick={() => openOrderSection("closed-orders")}
-                className={`text-sm text-gray-400 uppercase ${setActiveOrderMenu(
-                  "closed-orders"
-                )}`}
-              >
-                closed orders
-              </button>
-            </div>
-
-            {isOpenOrder ? (
-              <div className="closed-content w-full flex flex-col mt-5">
-                <div className="w-full ring-2 ring-gray-200 p-2 mb-5 rounded-full">
-                  <div className="flex items-center justify-between">
-                    <div className="bg-gray-400 w-20 h-20 rounded-full"></div>
-                    <div className="flex flex-col justify-between">
-                      <h1 className="uppercase mr-36 font-bold">
-                        Blue Light Blocking Computer Glasses Metal Eyewear
-                        Frames
-                      </h1>
-                      <span className="text-sm uppercase text-gray-400">
-                        order 1232223
-                      </span>
-
-                      <div className="flex mt-3 items-center gap-2">
-                        <button className="text-green-800 bg-green-200 p-1 text-sm rounded">
-                          Delivered
-                        </button>
-                        <span className="text-xs uppercase text-slate-800 font-extrabold">
-                          on 12/11/2022
-                        </span>
-                      </div>
-                    </div>
-                    <FiEye className="mr-5" fontSize={20} />
-                  </div>
-                </div>
+              
+              <div>
+                <span className="text-xs text-gray-400 uppercase">
+                  Referral Link:
+                </span>
+                <h2 className="text-sky-500 text-sm md:text-base flex gap-2 items-center">
+                  {`https://tradepointnetwork.com/${user.refId}`}
+                  <span className="rounded-full border-2 p-2 cursor-pointer hover:animate-pulse hover:border-sky-500 duration-700" title="Copy Link" onClick={() => copyValue(`https://tradepointnetwork.com/${user.refId}`)}>
+                    <FiCopy className="text-sky-500" />
+                  </span>
+                  </h2>
               </div>
-            ) : null}
-
-            {isClosedOrder ? (
-              <div className="open-content w-full flex flex-col mt-5">
-                <div className="w-full ring-2 ring-gray-200 p-2 mb-5 rounded-full">
-                  <div className="flex items-center justify-between">
-                    <div className="bg-gray-400 w-20 h-20 rounded-full"></div>
-                    <div className="flex flex-col justify-between">
-                      <h1 className="uppercase mr-36 font-bold">
-                        Computer lenses for screen reading in the night late
-                        hours
-                      </h1>
-                      <span className="text-sm uppercase text-gray-400">
-                        order 1232223
-                      </span>
-
-                      <div className="flex mt-3 items-center gap-2">
-                        <button className="text-slate-800 bg-slate-200 p-1 text-sm rounded">
-                          Failed Delivery
-                        </button>
-                        <span className="text-xs uppercase text-slate-800 font-extrabold">
-                          on 12/11/2022
-                        </span>
-                      </div>
-                    </div>
-                    <FiEye className="mr-5" fontSize={20} />
-                  </div>
-                </div>
-              </div>
-            ) : null}
+            </div>
           </div>
         </div>
       </>
@@ -252,7 +155,8 @@ const Dashboard = () => {
   const Inbox = () => {
     return (
       <>
-        <div className="w-full grid md:grid-cols-2 gap-4 p-3">
+      <p className="text-3xl">Coming soon!</p>
+        {/* <div className="w-full grid md:grid-cols-2 gap-4 p-3">
           <div className="w-full p-5 bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">Inbox</h1>
             <div className="flex justify-between">
@@ -316,10 +220,25 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   };
+
+  const handleGetTeamPerformace = async () => {
+    const data = {
+      id: user._id,
+      role: user.role
+    }
+    const res = await UserTeamPerformance(data)
+    if (res.status == 'success') {
+      setRefProfit(res.profit)
+    }
+  }
+
+  useEffect(() => {
+    handleGetTeamPerformace();
+  }, [])
 
   return (
     <>
@@ -331,7 +250,7 @@ const Dashboard = () => {
             {openAccount ? <Account /> : null}
 
             {/* Orders Section */}
-            {openOrder ? <Orders /> : null}
+            {openOrder ? <Orders userId={user._id} /> : null}
 
             {/* Inbox Section */}
             {openInbox ? <Inbox /> : null}

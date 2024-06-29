@@ -6,6 +6,7 @@ import { clearUserCart, removeItemFromCart, saveOrder } from '../api/index'
 import { removeCart } from "../store/slice/cartSlice";
 import { handleFlutterPayment } from "../utils/flutterpayment";
 import { closePaymentModal } from "flutterwave-react-v3";
+import { usePayWithMonnifyPayment } from 'react-monnify-ts'
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
@@ -21,6 +22,25 @@ const Cart = () => {
 
   const username = `${currentUser.firstname} ${currentUser.lastname}`
   const flutterwave = handleFlutterPayment(total, currentUser.email, username, 0, "Payment for product");
+
+  // Using Monnify Payment Method
+  const monnifyConfig = {
+    amount: total,
+    currency: 'NGN',
+    reference: `${new String(new Date().getTime())}`,
+    customerName: username,
+    customerEmail: currentUser.email,
+    apiKey: 'MK_TEST_Z71M9XWEPA',
+    contractCode: '8730249385',
+    paymentDescription: 'Payment for product',
+    metadata: {
+      name: username
+    },
+    isTestMode: true,
+    customerPhoneNumber: '09123856264',
+  }
+
+  const handleMonnifyPayment = usePayWithMonnifyPayment(monnifyConfig);
 
   const handleChoice = async (choice, id, e, index) => {
     if (choice === true && id !== undefined) {
@@ -80,28 +100,55 @@ const Cart = () => {
     }, 3000)
   }
 
-  const handlePaymentThroughUs = async() => {
-    flutterwave({
-      callback: async (response) => {
-        const data = {
-          user: currentUser,
-          products: carts,
-          shippingAddress: shippingAddress != "" ? shippingAddress : currentUser.shippingAddress
-        }
-        const res = await saveOrder(data)
-        if (res.status === "success") {
-          toast.success('Order received successfully!');
-          const clearCart = await clearUserCart(currentUser._id)
-          if (clearCart.status == "success") {
-            window.location.href = '/user-dashboard'
-          }
-        }
-        closePaymentModal()
-      },
-      onClose: async() => {
-        toast.warn('Payment cancelled!')
+  const onLoadStart = () => {}
+  const onLoadComplete = () => {}
+  const onComplete = (res) => {
+    //Implement what happens when the transaction is completed
+    (async function () {
+      const data = {
+        user: currentUser,
+        userId: currentUser._id,
+        products: carts,
+        shippingAddress: shippingAddress != "" ? shippingAddress : currentUser.shippingAddress
       }
-    })
+      const res = await saveOrder(data)
+      if (res.status === "success") {
+        toast.success('Order received successfully!');
+        const clearCart = await clearUserCart(currentUser._id)
+        if (clearCart.status == "success") {
+          window.location.href = '/shop'
+        }
+      }
+    }())
+
+    console.log('response', res)
+  }
+  const onClose = (data) => {toast.warn('Payment cancelled!')}
+
+
+  const handlePaymentThroughUs = async () => {
+    handleMonnifyPayment(onLoadStart, onLoadComplete, onComplete, onClose)
+    // flutterwave({
+    //   callback: async (response) => {
+    //     const data = {
+    //       user: currentUser,
+    //       products: carts,
+    //       shippingAddress: shippingAddress != "" ? shippingAddress : currentUser.shippingAddress
+    //     }
+    //     const res = await saveOrder(data)
+    //     if (res.status === "success") {
+    //       toast.success('Order received successfully!');
+    //       const clearCart = await clearUserCart(currentUser._id)
+    //       if (clearCart.status == "success") {
+    //         window.location.href = '/user-dashboard'
+    //       }
+    //     }
+    //     closePaymentModal()
+    //   },
+    //   onClose: async() => {
+    //     toast.warn('Payment cancelled!')
+    //   }
+    // })
   }
 
   useEffect(() => {

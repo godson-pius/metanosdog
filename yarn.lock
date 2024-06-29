@@ -1293,6 +1293,11 @@ react-is@^18.0.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-monnify-ts@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-monnify-ts/-/react-monnify-ts-0.0.4.tgz#7b1ce4d6c6128dbc75051b7dd207ac877c969b23"
+  integrity sha512-TaMI6Ty61QjdcD1k0oJT76qD89o9fjnmJSRydsO80GqMeogtJTybN/ZYN8slJ4+ua5xKGPo6/WYzueLagZR3UA==
+
 react-paginate@^8.2.0:
   version "8.2.0"
   resolved "https://registry.npmjs.org/react-paginate/-/react-paginate-8.2.0.tgz"

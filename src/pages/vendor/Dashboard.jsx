@@ -12,6 +12,8 @@ import CustomRule from '../../components/CustomRule'
 import RecentOrder from '../../components/vendor/RecentOrder'
 import { currentUser } from '../../utils/getUser';
 import { getVendorProducts } from '../../api'
+import ActivateAccount from '../../components/vendor/ActivateAccount'
+import { getUser } from '../../utils/refreshGetUser'
 
 const Dashboard = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -32,7 +34,8 @@ const Dashboard = () => {
   useEffect(() => {
     handleVendorProducts()
     window.scrollTo(0, 0)
-    return () => {};
+    getUser()
+    return () => { };
   }, [])
 
   return (
@@ -55,7 +58,7 @@ const Dashboard = () => {
                   <FiLayers size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Items Available</h1>
-                    <p className="text-sm text-gray-400">{ products?.length } items</p>
+                    <p className="text-sm text-gray-400">{products?.length} items</p>
                   </div>
                 </div>
               </div>
@@ -75,7 +78,7 @@ const Dashboard = () => {
                   <FiUsers size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Referrals</h1>
-                    <p className="text-sm text-gray-400">{ currentVendor.children.length } referral(s)</p>
+                    <p className="text-sm text-gray-400">{currentVendor.children.length} referral(s)</p>
                   </div>
                 </div>
               </div>
@@ -86,11 +89,11 @@ const Dashboard = () => {
             <section className="main__ads w-full bg-gradient-to-tr from-indigo-400 to-cyan-400 p-8 rounded-md text-white flex lg:justify-between lg:gap-44 lg:px-14 lg:items-center">
               <div className="ads__text w-full flex">
                 <div className="text-start">
-                  <h1 className="text-2xl">You are doing great</h1>
+                  <h1 className="text-2xl">You can purchase</h1>
                   <h1 className="text-5xl font-bold">Meta Nosdog!</h1>
-                  <p className="mt-7 text-gray-600 bg-white p-3 w-32 rounded">
-                    Keep it up 👍
-                  </p>
+                  {currentVendor.active ? (
+                    <p className={`mt-7 text-gray-600 bg-white p-3 w-36 rounded`}>Keep it up 👍</p>
+                  ) : <ActivateAccount />}
                 </div>
               </div>
 

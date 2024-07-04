@@ -5,7 +5,7 @@ import { FcBullish } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import { currentUser } from '../../utils/getUser';
 import { formatNum } from '../../utils/format';
-import { checkDepositMax, checkIsDepositOpen, forexWithdraw } from '../../api';
+import { checkDepositMax, checkIsDepositOpen, forexWithdraw, UserTeamPerformance } from '../../api';
 import { getUser } from '../../utils/refreshGetUser';
 
 const Balance = ({ state }) => {
@@ -15,6 +15,7 @@ const Balance = ({ state }) => {
     const [wdrmodal, setWdrmodal] = useState(false)
     const [winputs, setWinputs] = useState({})
     const [isDepositOpen, setIsDepositOpen] = useState(true)
+    const [refProfit, setRefProfit] = useState(0)
     const info = useRef()
 
     const user = currentUser;
@@ -66,12 +67,26 @@ const Balance = ({ state }) => {
         }
     }
 
+    //Function to get user refProfit
+    const handleGetTeamPerformace = async () => {
+        const data = {
+            id: user._id,
+            role: user.role
+        }
+        const res = await UserTeamPerformance(data)
+        if (res.status == 'success') {
+            user.balance[0].refProfit = res.profit
+            setRefProfit(res.profit)
+        }
+    }
+
     useEffect(() => {
         setInterval(async () => {
             await getUser()
         }, 5000)
         localStorage.getItem('user') === null ? navigate('/sign-in') : null
         isDepositFundingOpen()
+        handleGetTeamPerformace()
     }, [])
 
     return (
@@ -146,7 +161,7 @@ const Balance = ({ state }) => {
 
                 <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Referral Profit</h2>
-                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.refProfit) : formatNum(user?.forexBalance[0]?.refProfit)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.refProfit || refProfit) : formatNum(user?.forexBalance[0]?.refProfit || refProfit)}</h1>
                 </div>
             </section>
         </main>

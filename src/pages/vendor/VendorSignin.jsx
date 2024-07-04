@@ -90,6 +90,12 @@ const VendorSignin = () => {
               >
                 Don't have an account? Sign Up
               </Link>
+              <Link
+                to="/"
+                className="text-sm text-gray-700 text-center mt-3 hover:text-white duration-700"
+              >
+                Return to homepage
+              </Link>
             </form>
           </div>
         </div>

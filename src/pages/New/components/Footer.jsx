@@ -20,7 +20,7 @@ const Footer = () => {
         <footer className='flex flex-col lg:flex-row gap-2 items-start justify-between'>
             <div className="info1">
                 <img src={ logo } alt="Logo" width={60} />
-                <p className='text-sm w-full lg:w-96 mt-1 text-[#555555]'>Metanosdog is the a popular Ecommerce site. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                <p className='text-sm w-full lg:w-96 mt-1 text-[#555555]'>Trade Point Network is the a popular Ecommerce site. It also has forex section where users can invest and receive their return of investment at certain time.</p>
             </div>
 
             <div className="info2 flex flex-col gap-2 lg:gap-4">

@@ -32,13 +32,13 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
   return (
     <main className={`${navbarState()}`}>
       <section className={`top w-full items-center flex justify-between py-3 px-4 lg:px-20 text-white bg-[#7AC751]`}>
-        { localStorage.getItem('user') != null ? (<h1>Welcome back, {user ? (`${user.firstname} ${user.lastname}`) : null}</h1>) : <h1>TradePoint</h1> }
+        { user != null ? (<h1>Welcome back, {user.role == 'user' ? (`${user.firstname} ${user.lastname}`) : user.managerFullname}</h1>) : <h1>TradePoint</h1> }
 
         <div className="auth flex justify-between gap-2 lg:gap-5 text-sm md:text-md border-2 px-2 py-1 rounded-full duration-500 hover:scale-105 hover:shadow-lg">
-          {localStorage.getItem('user') != null ? (
+          {user != null ? (
             <Link
               className="md:block text-sm hover:text-bold duration-500 hover:font-extrabold"
-              to="/user-dashboard"
+              to={user.role == 'user' ? "/user-dashboard" : "/vendor-dashboard" }
             >
               Dashboard
             </Link>
@@ -104,7 +104,7 @@ const Navbar = ({ active, setActive, catActive, setCatActive }) => {
           <Link to=''>Blog</Link>
           <Link to=''>About</Link>
           <Link to='/forex-home'>Forex</Link>
-          <Link to='/vendor-signin'>Vendor</Link>
+          <Link to={ user && user.role == 'vendor' ? '/vendor-dashboard' : '/vendor-signin' }>Vendor</Link>
           <Link to=''>Contact Us</Link>
         </div>
 

@@ -64,13 +64,13 @@ const Sidebar = () => {
                         <span className={`w-0.5 h-6 bg-white ${setActiveLink('swap') == null ? 'hidden' : null}`}></span>
                     </li>
 
-                    <li className={`text-md p-2 rounded-r-md w-48 flex justify-between ${setActiveLink("account")}`}>
+                    {/* <li className={`text-md p-2 rounded-r-md w-48 flex justify-between ${setActiveLink("account")}`}>
                         <div className='flex items-center gap-2'>
                             <FiPocket size={20} />
                             <Link to={'/forex-home'}>Accounts</Link>
                         </div>
                         <span className={`w-0.5 h-6 bg-white ${setActiveLink('account') == null ? 'hidden' : null}`}></span>
-                    </li>
+                    </li> */}
 
                     <hr className='mt-4' />
                     <p className='text-gray-600 text-xs'>System</p>
@@ -78,7 +78,7 @@ const Sidebar = () => {
                     <li className={`text-md p-2 rounded-r-md w-48 flex justify-between ${setActiveLink("ref")}`}>
                         <div className='flex items-center gap-2'>
                             <FiUsers size={20} />
-                            <Link to={'/forex-home'}>Referrals</Link>
+                            <Link to={'/forex-ref'}>Referrals</Link>
                         </div>
                         <span className={`w-0.5 h-6 bg-white ${setActiveLink('ref') == null ? 'hidden' : null}`}></span>
                     </li>

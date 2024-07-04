@@ -43,7 +43,7 @@ const ForexWithdraw = () => {
 
       <Sidebar />
       <section className="w-full flex flex-col mt-3">
-        <Balance state={'hidden'} />
+        <Balance />
         <hr className='my-10 mx-16' />
 
         <Modal modal={wdrmodal} setModal={setWdrmodal} title={'Withdraw'}>

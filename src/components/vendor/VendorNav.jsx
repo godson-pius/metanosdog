@@ -20,8 +20,8 @@ const VendorNav = () => {
       : null;
   };
 
-  const handleLogin = () => {
-    localStorage.removeItem('vendor')
+  const handleLogout = () => {
+    localStorage.removeItem('user')
     window.location.href = '/vendor-signin'
   }
 
@@ -113,7 +113,7 @@ const VendorNav = () => {
 
             <div className="md:flex flex-col hidden">
               <h5 className="text-black text-sm">{ currentVendor.shopName }</h5>
-              <span onClick={handleLogin} className="text-[#cc8605] text-xs cursor-pointer">
+              <span onClick={handleLogout} className="text-[#cc8605] text-xs cursor-pointer">
                 Logout
               </span>
             </div>

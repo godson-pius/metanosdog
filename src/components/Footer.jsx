@@ -8,7 +8,7 @@ const Footer = () => {
         <div className={`w-full bg-slate-800 ${window.location.pathname == '/vendor-dashboard' || window.location.pathname == '/vendor-products' || window.location.pathname == '/vendor-inbox' || window.location.pathname == '/vendor-ticket' || window.location.pathname == '/vendor-settings'  ? 'hidden' : null}`}>
             <div className="w-full hidden md:flex py-10 px-14 text-white justify-between items-start">
                 <div className="flex flex-col gap-3">
-                    <h1 className='text-lg font-bold'>ABOUT Meta Nosdog</h1> <hr className='mb-4' />
+                    <h1 className='text-lg font-bold'>ABOUT Trade Point Network</h1> <hr className='mb-4' />
                     <Link to='/' className='text-sm text-gray-300'>About Us</Link>
                     <Link to='/' className='text-sm text-gray-300'>Seller Centres</Link>
                     <Link to='/' className='text-sm text-gray-300'>Our Policies</Link>

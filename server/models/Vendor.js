@@ -36,7 +36,9 @@ const vendorSchema = new mongoose.Schema({
 
     password: { type: String, required: true },
 
-    role: {type: String, default: "vendor"}
+    role: {type: String, default: "vendor"},
+
+    active: { type: Boolean, default: false}
 
 }, { timestamps: true });
 

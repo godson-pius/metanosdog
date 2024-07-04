@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { handleCreateTicket } from "../../api";
 import VendorNav from "../../components/vendor/VendorNav";
+import { currentUser } from '../../utils/getUser';
 
 const VendorTickets = () => {
-  const [currentVendor, setCurrentVendor] = useState(
-    JSON.parse(localStorage.getItem("vendor"))
-  );
+  const currentVendor = currentUser
 
   const [subject, setSubject] = useState()
   const [status, setStatus] = useState()

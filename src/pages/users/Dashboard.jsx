@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Email } from "../../smtp";
 import { toast } from "react-toastify";
 import UserNav from "../../components/users/UserNav";
-import { FiCopy, FiEdit3 } from "react-icons/fi";
+import { FiCalendar, FiCopy, FiEdit3 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { formatNum } from '../../utils/format';
 import Orders from "../../components/users/Orders";
@@ -121,10 +121,10 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="w-full p-5  bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">
-              Downlines
+              Downliners
             </h1>
             <div className="flex justify-between">
               <div>
@@ -133,17 +133,17 @@ const Dashboard = () => {
                 </span>
                 <h2 className="text-slate-800 font-extrabold">{formatNum(user.children.length)}</h2>
               </div>
-              
+
               <div>
                 <span className="text-xs text-gray-400 uppercase">
                   Referral Link:
                 </span>
-                <h2 className="text-sky-500 text-sm md:text-base flex gap-2 items-center">
-                  {`https://tradepointnetwork.com/${user.refId}`}
-                  <span className="rounded-full border-2 p-2 cursor-pointer hover:animate-pulse hover:border-sky-500 duration-700" title="Copy Link" onClick={() => copyValue(`https://tradepointnetwork.com/${user.refId}`)}>
+                <h2 className="text-sky-500 text-sm md:text-sm flex gap-2 items-center">
+                  {`https://tradepointnetwork.com/sign-up/${user.refId}`}
+                  <span className="rounded-full border-2 p-2 cursor-pointer hover:animate-pulse hover:border-sky-500 duration-700" title="Copy Link" onClick={() => copyValue(`https://tradepointnetwork.com/sign-up/${user.refId}`)}>
                     <FiCopy className="text-sky-500" />
                   </span>
-                  </h2>
+                </h2>
               </div>
             </div>
           </div>
@@ -155,7 +155,10 @@ const Dashboard = () => {
   const Inbox = () => {
     return (
       <>
-      <p className="text-3xl">Coming soon!</p>
+        <p className="text-base flex animate-bounce gap-2 justify-center items-center mt-5 text-green-800 shadow-2xl">
+          <FiCalendar />
+          Coming soon...
+        </p>
         {/* <div className="w-full grid md:grid-cols-2 gap-4 p-3">
           <div className="w-full p-5 bg-white rounded duration-700 hover:translate-y-1">
             <h1 className="text-lg border-b-2 mb-5 text-slate-800">Inbox</h1>
@@ -224,6 +227,7 @@ const Dashboard = () => {
       </>
     );
   };
+
 
   const handleGetTeamPerformace = async () => {
     const data = {

@@ -1,6 +1,5 @@
 const Vendor = require("../models/Vendor");
 const bcrypt = require("bcrypt");
-const { findByIdAndUpdate } = require("../models/Product");
 const { rewardSystem } = require("../utils/rewardVendor");
 const { rewardUpliners } = require("../utils/rewardUpliners");
 const BasePrice = require("../models/BasePrice");
@@ -105,4 +104,41 @@ const handleUpdateVendor = async (req, res) => {
   }
 };
 
-module.exports = { handleRegistration, handleLogin, handleUpdateVendor };
+const activateAccount = async (req, res) => {
+  try {
+    const { id, method, amount } = req.params;
+    const vendor = await Vendor.findById(id);
+
+    if (!vendor) {
+      res.status(404).json({ error: "No vendor found" })
+      return
+    }
+
+    if (method == 'fiat') {
+      await Vendor.findByIdAndUpdate(id, { $set: { active: true } }, { new: true });
+      res.status(200).json({ vendor, status: "success" })
+    } else {
+
+      vendor.forexBalance[0].metanosdog -= amount;
+      const newBal = vendor.forexBalance
+
+      await Vendor.findByIdAndUpdate(id, { active: true, forexBalance: newBal }, { new: true });
+      res.status(200).json({ vendor, status: "success" })
+    }
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+const handleGetUser = async (req, res) => {
+  const { email } = req.params;
+  try {
+      const user = await Vendor.find({ emailAddress: email })
+      res.status(200).json({ user, status: "success" })
+  } catch (error) {
+      res.status(500).json({ error: error })
+  }
+}
+
+module.exports = { handleRegistration, handleLogin, handleUpdateVendor, activateAccount, handleGetUser };

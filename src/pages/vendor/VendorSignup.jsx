@@ -66,73 +66,70 @@ const VendorSignup = () => {
     const handleReg = async (e) => {
         e.preventDefault();
 
-        if (paid === 'true') {
-            submitBtn.current.innerHTML = "Please wait...";
-            submitBtn.current.classList.add("animate-pulse");
-            submitBtn.current.classList.add("rounded-full");
-            submitBtn.current.classList.add("text-black");
+        // Former code was checking if paid == "true" : call handlePayment function.
+        submitBtn.current.innerHTML = "Please wait...";
+        submitBtn.current.classList.add("animate-pulse");
+        submitBtn.current.classList.add("rounded-full");
+        submitBtn.current.classList.add("text-black");
 
-            if (cemailAddress !== emailAddress) {
-                toast.error("Emails do not match");
-                submitBtn.current.innerHTML = "Sign Up";
-                submitBtn.current.classList.remove("animate-pulse");
-                submitBtn.current.classList.remove("rounded-full");
-                submitBtn.current.classList.remove("text-black");
-            } else if (cpassword !== password) {
-                toast.error("Passwords do not match!");
-                submitBtn.current.innerHTML = "Sign Up";
-                submitBtn.current.classList.remove("animate-pulse");
-                submitBtn.current.classList.remove("rounded-full");
-                submitBtn.current.classList.remove("text-black");
-            } else if (password.length < 8) {
-                toast.error("Passwords is too weak");
-                submitBtn.current.innerHTML = "Sign Up";
-                submitBtn.current.classList.remove("animate-pulse");
-                submitBtn.current.classList.remove("rounded-full");
-                submitBtn.current.classList.remove("text-black");
-            } else if (additionalPhone === managerPhone) {
-                toast.error("Please provide different phone numbers");
+        if (cemailAddress !== emailAddress) {
+            toast.error("Emails do not match");
+            submitBtn.current.innerHTML = "Sign Up";
+            submitBtn.current.classList.remove("animate-pulse");
+            submitBtn.current.classList.remove("rounded-full");
+            submitBtn.current.classList.remove("text-black");
+        } else if (cpassword !== password) {
+            toast.error("Passwords do not match!");
+            submitBtn.current.innerHTML = "Sign Up";
+            submitBtn.current.classList.remove("animate-pulse");
+            submitBtn.current.classList.remove("rounded-full");
+            submitBtn.current.classList.remove("text-black");
+        } else if (password.length < 8) {
+            toast.error("Passwords is too weak");
+            submitBtn.current.innerHTML = "Sign Up";
+            submitBtn.current.classList.remove("animate-pulse");
+            submitBtn.current.classList.remove("rounded-full");
+            submitBtn.current.classList.remove("text-black");
+        } else if (additionalPhone === managerPhone) {
+            toast.error("Please provide different phone numbers");
+            submitBtn.current.innerHTML = "Sign Up";
+            submitBtn.current.classList.remove("animate-pulse");
+            submitBtn.current.classList.remove("rounded-full");
+            submitBtn.current.classList.remove("text-black");
+        } else {
+            const formdata = {
+                shopName,
+                shopType,
+                managerFullname,
+                managerPhone,
+                additionalPhone,
+                emailAddress,
+                refId,
+                parentRefId: referralId || null,
+                password,
+            };
+
+            const res = await handleVendorReg(formdata);
+            if (res === "success") {
+                toast.success("Your vendor account have been registered successfully");
+                setTimeout(() => {
+                    navigate('/vendor-signin')
+                }, 2000)
+            } else if (res === 11000) {
+                toast.warn("Oops! This account exists!");
                 submitBtn.current.innerHTML = "Sign Up";
                 submitBtn.current.classList.remove("animate-pulse");
                 submitBtn.current.classList.remove("rounded-full");
                 submitBtn.current.classList.remove("text-black");
             } else {
-                const formdata = {
-                    shopName,
-                    shopType,
-                    managerFullname,
-                    managerPhone,
-                    additionalPhone,
-                    emailAddress,
-                    refId,
-                    parentRefId: referralId,
-                    password,
-                };
-
-                const res = await handleVendorReg(formdata);
-                if (res === "success") {
-                    toast.success("Your vendor account have been registered successfully");
-                    setTimeout(() => {
-                        navigate('/vendor-signin')
-                    }, 2000)
-                } else if (res === 11000) {
-                    toast.warn("Oops! This account exists!");
-                    submitBtn.current.innerHTML = "Sign Up";
-                    submitBtn.current.classList.remove("animate-pulse");
-                    submitBtn.current.classList.remove("rounded-full");
-                    submitBtn.current.classList.remove("text-black");
-                } else {
-                    toast.error("Please check input fields and try again!");
-                    submitBtn.current.innerHTML = "Sign Up";
-                    submitBtn.current.classList.remove("animate-pulse");
-                    submitBtn.current.classList.remove("rounded-full");
-                    submitBtn.current.classList.remove("text-black");
-                }
+                toast.error("Please check input fields and try again!");
+                submitBtn.current.innerHTML = "Sign Up";
+                submitBtn.current.classList.remove("animate-pulse");
+                submitBtn.current.classList.remove("rounded-full");
+                submitBtn.current.classList.remove("text-black");
             }
-        } else {
-            handlePayment()
         }
-    };
+    }
 
     const NavigateLogin = () => {
         return (

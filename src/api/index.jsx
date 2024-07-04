@@ -32,6 +32,14 @@ export const handleGetUser = async (email) => {
   }
 };
 
+export const handleGetVendor = async (email) => {
+  try {
+    const response = await Axios.get(`${API}/vendor/getUser/${email}`);
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
 
 const getVendorProducts = async (vendorId) => {
   try {
@@ -68,6 +76,15 @@ const handleVendorUpdate = async (id, formdata) => {
     return response.data;
   } catch (error) {
     return error;
+  }
+}
+
+export const handleActivateAccount = async (id, method, amount) => {
+  try {
+    const response = await Axios.patch(`${API}/vendor/activate/${id}/${method}/${amount}`)
+    return response.data
+  } catch (e) {
+    return e
   }
 }
 

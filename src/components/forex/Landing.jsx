@@ -5,7 +5,7 @@ import ForexChart from './ForexChart';
 import Plans from './Plans';
 import { useNavigate } from 'react-router-dom';
 
-const Landing = () => {
+const Landing = ({ showPlan }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const Landing = () => {
             <section className='w-full flex flex-col gap-10'>
                 <Balance />
 
-                <Plans />
+                <Plans showPlan={showPlan} />
 
                     
                 <TickerTapeWidget />

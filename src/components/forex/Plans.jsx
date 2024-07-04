@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { plans } from '../../utils/plans'
 import { formatNum } from '../../utils/format'
 
-const Plans = () => {
+const Plans = ({ showPlan }) => {
     const navigate = useNavigate()
     return (
-        <section className='border-2 w-full h-max rounded-2xl p-4 glass'>
+        <section className={`border-2 w-full h-max rounded-2xl p-4 glass ${ showPlan ? null : 'hidden' }`}>
             <h1 className='font-bold mb-3'>Plans</h1>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 <div onClick={() => navigate('/forex-deposit', { state: { amount: plans.currencyStarter, plan: "currencyStarter" } })} className="border-2 w-full h-max rounded-2xl p-4 bg-[#C6E2B5] glass cursor-pointer">

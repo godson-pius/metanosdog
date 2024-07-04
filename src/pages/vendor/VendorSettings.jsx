@@ -3,19 +3,19 @@ import { FiSettings, FiUserX } from "react-icons/fi";
 import VendorNav from "../../components/vendor/VendorNav";
 import { handleVendorUpdate } from "../../api";
 import { toast } from "react-toastify";
+import { currentUser } from '../../utils/getUser';
+import ActivateAccount from "../../components/vendor/ActivateAccount";
 
 
 const VendorSettings = () => {
-  const [currentVendor, setCurrentVendor] = useState(
-    JSON.parse(localStorage.getItem("vendor"))
-  );
+  const currentVendor = currentUser
 
   const [shopName, setShopName] = useState(currentVendor?.shopName);
   const [emailAddress, setEmailAddress] = useState(currentVendor?.emailAddress);
   const [managerPhone, setManagerPhone] = useState(currentVendor?.managerPhone);
   const [password, setPassword] = useState(currentVendor?.password);
 
-  const handleUpdateProfile = async() => {
+  const handleUpdateProfile = async () => {
     const data = {
       shopName,
       emailAddress,
@@ -38,7 +38,8 @@ const VendorSettings = () => {
 
   return (
     <>
-      <div
+      { currentVendor.active ? (
+        <div
         className="w-full bg-[#edf4f6] min-h-screen"
         data-aos="fade-in"
         data-aos-duration="2000"
@@ -131,6 +132,22 @@ const VendorSettings = () => {
           </div>
         </div>
       </div>
+      ) : (
+        <div
+          className="w-full bg-[#edf4f6] min-h-screen"
+          data-aos="fade-in"
+          data-aos-duration="2000"
+        >
+          <div className="w-full flex">
+            <VendorNav />
+
+            <div className="main w-full py-7 px-5 md:px-6 lg:px-14 flex flex-col items-start md:ml-48 ml-10">
+              <p className="text-2xl text-red-700">Your account is not activated!</p>
+              <ActivateAccount />
+            </div>
+          </div>
+        </div>
+      ) }
     </>
   );
 };

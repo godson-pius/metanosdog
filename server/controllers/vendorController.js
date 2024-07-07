@@ -44,23 +44,9 @@ const handleRegistration = async (req, res) => {
         // Give referal award
         const { price } = await BasePrice.findById("65d0a2e979b894623fc33315")
 
-        // Call the reward system and update parent balance with reward.
-        refReward = rewardSystem(parentVendor.generation.length, price) + parentVendor.balance;
-        await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { balance: refReward } }, { new: true })
-
-        // Reward upliners
-        rewardUpliners(parentVendor, price);
-
       } else {
         const newChild = [...parentVendor.children, refId]
         await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { children: newChild } }, { new: true })
-
-        // Call the reward system and update parent balance with reward.
-        refReward = rewardSystem(parentVendor.generation.length, price) + parentVendor.balance;
-        await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { balance: refReward } }, { new: true })
-
-        // Reward upliners
-        rewardUpliners(parentVendor, price);
       }
     }
 
@@ -126,6 +112,19 @@ const activateAccount = async (req, res) => {
       res.status(200).json({ vendor, status: "success" })
     }
 
+    const parentVendor = await Vendor.findOne({ refId: vendor.parentId })
+    if (parentVendor) {
+      if (parentVendor.generation.length < 7) {
+        // Call the reward system and update parent balance with reward.
+        refReward = rewardSystem(parentVendor.generation.length, amount) + parentVendor.balance;
+        await Vendor.findByIdAndUpdate(parentVendor._id, { $set: { balance: refReward } }, { new: true })
+
+        // Reward upliners
+        rewardUpliners(parentVendor, price);
+
+      }
+    }
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -134,10 +133,10 @@ const activateAccount = async (req, res) => {
 const handleGetUser = async (req, res) => {
   const { email } = req.params;
   try {
-      const user = await Vendor.find({ emailAddress: email })
-      res.status(200).json({ user, status: "success" })
+    const user = await Vendor.find({ emailAddress: email })
+    res.status(200).json({ user, status: "success" })
   } catch (error) {
-      res.status(500).json({ error: error })
+    res.status(500).json({ error: error })
   }
 }
 

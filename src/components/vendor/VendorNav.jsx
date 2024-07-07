@@ -90,16 +90,16 @@ const VendorNav = () => {
           </Link>
 
           {/* Ads */}
-          <div className="ads w-full bg-white h-60 rounded-lg text-center text-black px-1 p-5 shadow-lg hidden md:block">
-            <h1 className="text-sm font-bold">
-              Life is easier with Meta Nosdog
+          <div className="ads w-full bg-white h-60 rounded-2xl text-center text-black px-1 shadow-lg hidden md:block">
+            <h1 className="text-lg font-bold mt-4">
+              Life is easier with <br /> Meta Nosdog
             </h1>
 
-            <img src={coinpot} alt="Coin" className="ml-4 mt-2 mb-5" />
+            <img src={coinpot} alt="Coin" className="ml-4 mt-2 mb-4" />
 
             <Link
               to="/vendor-dashboard"
-              className="bg-[#cc8605] p-2 rounded text-white hover:bg-[#d99e31] duration-500 hover:font-bold"
+              className="bg-[#cc8605] p-2 rounded-lg text-white hover:bg-[#d99e31] duration-500 hover:font-bold"
             >
               Buy Nosdog
             </Link>

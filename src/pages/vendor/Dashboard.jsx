@@ -14,6 +14,7 @@ import { currentUser } from '../../utils/getUser';
 import { getVendorProducts } from '../../api'
 import ActivateAccount from '../../components/vendor/ActivateAccount'
 import { getUser } from '../../utils/refreshGetUser'
+import { copyValue } from '../../utils/copy';
 
 const Dashboard = () => {
   const [isFirstLoad, setIsFirstLoad] = useState(false)
@@ -73,12 +74,13 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <div className="w-full bg-white p-5 md:justify-center md:flex lg:flex-none lg:justify-start md:col-start-1 md:col-end-3 lg:col-start-auto lg:col-end-auto rounded-md duration-700 hover:scale-105 hover:translate-y-4 hover:shadow-lg">
+              <div className="w-full relative bg-white p-5 md:justify-center md:flex lg:flex-none lg:justify-start md:col-start-1 md:col-end-3 lg:col-start-auto lg:col-end-auto rounded-md duration-700 hover:scale-105 hover:translate-y-4 hover:shadow-lg">
                 <div className="flex gap-5 items-center">
                   <FiUsers size={40} className="text-[#f6b235]" />
                   <div className="text">
                     <h1 className="font-bold">Referrals</h1>
                     <p className="text-sm text-gray-400">{currentVendor.children.length} referral(s)</p>
+                    <p className="text-sm text-blue-500 absolute top-4 right-4 bg-blue-100 px-2 py-1 rounded-full cursor-pointer hover:bg-blue-200 duration-500 hover:shadow hover:border-2 hover:border-white hover:text-blue-500" onClick={() => copyValue(`https://tradepointnetwork.com/vendor-signup/${currentVendor.refId}`)}>{`Referral Link`}</p>
                   </div>
                 </div>
               </div>

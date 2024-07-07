@@ -5,7 +5,7 @@ import ForexChart from './ForexChart';
 import Plans from './Plans';
 import { useNavigate } from 'react-router-dom';
 
-const Landing = ({ showPlan }) => {
+const Landing = ({ showPlan = true }) => {
     const navigate = useNavigate()
 
     useEffect(() => {

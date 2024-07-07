@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Vendor = require("../models/Vendor");
 const { closeDepositAmount, forexTableId } = require("../utils/controlVal");
 const { calculateRefProfit } = require("../utils/refProfit");
+const { rewardUpliners } = require("../utils/rewardUpliners");
 const { startSchedule } = require("../utils/scheduler");
 
 exports.getTransactions = async (req, res) => {
@@ -104,26 +105,29 @@ exports.handleWithdrawal = async (req, res) => {
 exports.handleConfirmDeposit = async (req, res) => {
     const data = req.body;
     try {
-        // if (data.role == "user") {
-        //     const user = await User.findById(data.id)
-        //     if (user) {
-        //         const currentBal = user.balance;
-        //         currentBal[0].deposit += data.amount
+        if (data.role == "user") {
+            const user = await User.findById(data.id)
+            if (user) {
+                const currentBal = user.balance;
+                currentBal[0].deposit += data.amount
 
-        //         // Update the deposit status
-        //         updateTransactionStatus(data.txnId);
+                // Update the deposit status
+                updateTransactionStatus(data.txnId);
 
-        //         const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
-        //         res.status(200).json({ deposit, status: "success" })
-        //     }
-        // } else if (role == "vendor") {
-        //     const user = await Vendor.findById(data.id)
-        //     const currentBal = user.forexBalance;
-        //     currentBal[0].deposit += data.amount
+                //Reward upliner
+                rewardUpliners(user.parentId, data.amount)
 
-        //     const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
-        //     res.status(200).json({ deposit, status: "success" })
-        // }
+                const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
+                res.status(200).json({ deposit, status: "success" })
+            }
+        } else if (role == "vendor") {
+            const user = await Vendor.findById(data.id)
+            const currentBal = user.forexBalance;
+            currentBal[0].deposit += data.amount
+
+            const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
+            res.status(200).json({ deposit, status: "success" })
+        }
 
         // Start CRON job
         startSchedule(data)

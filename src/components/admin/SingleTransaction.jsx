@@ -63,7 +63,7 @@ const SingleTransaction = ({ txn, getTxns }) => {
             <div className="w-full flex items-center justify-between">
                 <h4 className='text-gray-500'>From: </h4>
                 <div className='flex items-center gap-3'>
-                    <span className='text-sky-500 font-normal'>{`${txn?.user.firstname} ${txn?.user.lastname}`}</span>
+                    <span className='text-sky-500 font-normal'>{txn?.user.role == 'user' ? `${txn?.user.firstname} ${txn?.user.lastname}` : txn?.user.managerFullname}</span>
                 </div>
             </div>
 

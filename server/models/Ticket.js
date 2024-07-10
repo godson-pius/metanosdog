@@ -26,10 +26,9 @@ const TicketSchema = new mongoose.Schema({
         required: true
     },
 
-    message: {
-        type: "String",
-        required: true
-    },
+    message: { type: "String", required: true},
+
+    responded: { type: "Boolean", default: false },
 
 
 }, { timestamps: true });

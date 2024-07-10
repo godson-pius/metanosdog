@@ -1,0 +1,1 @@
+export const whatsappNum = "08136100944"

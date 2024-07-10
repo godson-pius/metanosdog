@@ -25,6 +25,7 @@ const VendorTickets = () => {
     const res = await handleCreateTicket(data);
     if (res.status === "success") {
       toast.success('Ticket created successfully!')
+      e.target.reset()
       
       setTimeout(() => {
         toast.info('Our support team will respond as soon as possible!')

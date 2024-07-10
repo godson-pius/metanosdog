@@ -75,8 +75,9 @@ const Balance = ({ state }) => {
         }
         const res = await UserTeamPerformance(data)
         if (res.status == 'success') {
-            user.balance[0].refProfit = res.profit
             setRefProfit(res.profit)
+            user.balance[0].refProfit = res.profit
+            user.forexBalance[0].refProfit = res.profit
         }
     }
 
@@ -161,7 +162,7 @@ const Balance = ({ state }) => {
 
                 <div className="bg-white border-2 w-full h-max rounded-2xl p-4">
                     <h2 className='font-bold'>My Referral Profit</h2>
-                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ {user?.role != 'vendor' ? formatNum(user?.balance[0]?.refProfit || refProfit) : formatNum(user?.forexBalance[0]?.refProfit || refProfit)}</h1>
+                    <h1 className={`font-black text-4xl mt-4 text-cyan-500`}>$ { formatNum(refProfit) }</h1>
                 </div>
             </section>
         </main>

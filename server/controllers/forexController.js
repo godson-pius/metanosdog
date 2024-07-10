@@ -5,6 +5,7 @@ const { closeDepositAmount, forexTableId } = require("../utils/controlVal");
 const { calculateRefProfit } = require("../utils/refProfit");
 const { rewardUpliners } = require("../utils/rewardUpliners");
 const { startSchedule } = require("../utils/scheduler");
+const cloudinary = require("../utils/cloudinary");
 
 exports.getTransactions = async (req, res) => {
     try {
@@ -16,7 +17,6 @@ exports.getTransactions = async (req, res) => {
 }
 
 exports.getRefProfit = async (req, res) => {
-    console.log("Getting ref profit!")
     try {
         const { userId, role } = req.params;
         let profit = 0;
@@ -26,7 +26,6 @@ exports.getRefProfit = async (req, res) => {
             const user = await User.findById(userId);
             profit = await calculateRefProfit(user, 'user')
 
-            console.log("Ref profit: ", profit)
         } else {
             // do something with vendor
             const vendor = await Vendor.findById(userId)
@@ -42,6 +41,7 @@ exports.getRefProfit = async (req, res) => {
 exports.handleDeposit = async (req, res) => {
     try {
         const data = req.body;
+        data['pop'] = (await cloudinary.uploader.upload(data.pop, { upload_preset: "metanosdog" })).secure_url
         let totalDeposits = 0;
 
         const forexDetails = await Forex.find()
@@ -120,10 +120,18 @@ exports.handleConfirmDeposit = async (req, res) => {
                 const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
                 res.status(200).json({ deposit, status: "success" })
             }
-        } else if (role == "vendor") {
+        } else if (data.role == "vendor") {
             const user = await Vendor.findById(data.id)
             const currentBal = user.forexBalance;
             currentBal[0].deposit += data.amount
+
+            // Update the deposit status
+            updateTransactionStatus(data.txnId);
+
+            //Reward upliner
+            if (user.parentId !== null) {
+                rewardUpliners(user.parentId, data.amount)
+            }
 
             const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
             res.status(200).json({ deposit, status: "success" })

@@ -8,10 +8,8 @@ import { getUser } from '../../utils/refreshGetUser'
 
 const ForexHome = () => {
   const navigate = useNavigate()
+  localStorage.getItem('user') === null ? window.location.href = '/sign-in' : null
 
-  useEffect(() => {
-    localStorage.getItem('user') === null ? navigate('/sign-in') : null
-  }, [])
   return (
     <main className='w-full flex gap-4 bg-[#f5f9f6] z-50'>
       <Sidebar />

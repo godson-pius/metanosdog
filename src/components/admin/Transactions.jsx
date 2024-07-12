@@ -12,8 +12,9 @@ const Transactions = () => {
         info.current = toast.info("Loading transaction blocks...", { autoClose: false })
 
         const res = await getAllTransactions();
+        console.log(res)
         if (res.status == "success") {
-            setTransactions(res.txns[0].deposits)
+            setTransactions(res.deposits)
             toast.dismiss(info.current)
         }
     }

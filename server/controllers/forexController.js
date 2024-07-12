@@ -6,11 +6,14 @@ const { calculateRefProfit } = require("../utils/refProfit");
 const { rewardUpliners } = require("../utils/rewardUpliners");
 const { startSchedule } = require("../utils/scheduler");
 const cloudinary = require("../utils/cloudinary");
+const ForexDeposit = require("../models/Deposit");
+const ForexWithdrawal = require("../models/Withdrawal");
 
 exports.getTransactions = async (req, res) => {
     try {
-        const txns = await Forex.find({})
-        res.status(200).json({ txns, status: "success" })
+        const deposits = await ForexDeposit.find({})
+        const withdrawals = await ForexWithdrawal.find({})
+        res.status(200).json({ deposits, withdrawals, status: "success" })
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -44,16 +47,14 @@ exports.handleDeposit = async (req, res) => {
         data['pop'] = (await cloudinary.uploader.upload(data.pop, { upload_preset: "metanosdog" })).secure_url
         let totalDeposits = 0;
 
-        const forexDetails = await Forex.find()
-        const deposits = forexDetails[0].deposits;
+        const deposits = await ForexDeposit.find()
         deposits.forEach((deposit) => {
             totalDeposits += deposit.amount
         })
 
         if (totalDeposits < closeDepositAmount) {
-            deposits.push(data)
-            const deposit = await Forex.findByIdAndUpdate(forexTableId, { $set: { deposits: deposits } }, { new: true });
-            res.status(200).json({ deposit, status: "success" })
+            const addedDeposit = await ForexDeposit.create(data);
+            res.status(200).json({ addedDeposit, status: "success" })
         } else {
             res.status(200).json({ message: "Deposit Closed", status: "failed" })
         }
@@ -66,35 +67,34 @@ exports.handleDeposit = async (req, res) => {
 exports.handleWithdrawal = async (req, res) => {
     try {
         const data = req.body;
+        const user = data.user
+        const userDetails = user.role == "user" ? await User.findById(user._id) : await Vendor.findById(user._id)
 
-        const forexDetails = await Forex.find()
-        const withdrawals = forexDetails[0].withdrawals;
+        if (userDetails.role == "user") {
+            if (userDetails.balance[0].roi >= 10) {
+                const withdrawal = await ForexWithdrawal.create(data);
 
-        withdrawals.push(data)
-        const withdrawal = await Forex.findByIdAndUpdate(forexTableId, { $set: { withdrawals: withdrawals } }, { new: true });
+                const balance = userDetails.balance;
+                balance[0].roi -= data.amount;
 
-        // Deduct withdrawal from user balance
-        if (data.role == "user") {
-            const user = await User.findById(data.id)
-            if (user) {
-                const currentBal = user.balance;
-                currentBal[0].deposit += data.amount
-
-                // Update the deposit status
-                updateTransactionStatus(data.txnId);
-
-                const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
-                res.status(200).json({ deposit, status: "success" })
+                await User.findByIdAndUpdate(userDetails._id, { $set: { balance: balance } }, { new: true });
+                res.status(200).json({ withdrawal, status: "success" })
+            } else {
+                res.status(200).json({ message: "Balance too low for withdrawal!", status: "failed" })
             }
-        } else if (role == "vendor") {
-            const user = await Vendor.findById(data.id)
-            const currentBal = user.forexBalance;
-            currentBal[0].deposit += data.amount
+        } else {
+            if (userDetails.forexBalance[0].roi >= 10) {
+                const withdrawal = await ForexWithdrawal.create(data);
 
-            const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
-            res.status(200).json({ deposit, status: "success" })
+                const balance = userDetails.forexBalance;
+                balance[0].roi -= data.amount;
+                await Vendor.findByIdAndUpdate(userDetails._id, { $set: { forexBalance: balance } }, { new: true });
+
+                res.status(200).json({ withdrawal, status: "success" })
+            } else {
+                res.status(200).json({ message: "Balance too low for withdrawal!", status: "failed" })
+            }
         }
-        res.status(200).json({ withdrawal, status: "success" })
 
     } catch (error) {
         res.status(500).json({ error })
@@ -139,7 +139,20 @@ exports.handleConfirmDeposit = async (req, res) => {
 
         // Start CRON job
         startSchedule(data)
+
+    } catch (error) {
+        res.status(500).json({ error })
+    }
+
+}
+
+exports.handleConfirmWithdrawal = async (req, res) => {
+    const data = req.body;
+    try {
         
+        const confirmed = await ForexWithdrawal.findByIdAndUpdate(data.wId, { $set: { status: "success" } }, { new: true });
+        res.status(200).json({ confirmed, status: "success" })
+
     } catch (error) {
         res.status(500).json({ error })
     }
@@ -150,8 +163,8 @@ exports.checkMaxDeposit = async (req, res) => {
     try {
         let totalDeposits = 0;
 
-        const forexDetails = await Forex.find({})
-        const deposits = forexDetails[0].deposits;
+        const deposits = await ForexDeposit.find({})
+        console.log(deposits)
 
         deposits.forEach((deposit) => {
             totalDeposits += deposit.amount
@@ -187,8 +200,6 @@ exports.closeDeposit = async (req, res) => {
 
 exports.checkDepositStatus = async (req, res) => {
     try {
-        let totalDeposits = 0;
-
         const forexDetails = await Forex.find({})
         const depositStatus = forexDetails[0].isDepositOpen;
 
@@ -203,16 +214,11 @@ exports.checkDepositStatus = async (req, res) => {
 }
 
 const updateTransactionStatus = async (txnId) => {
-    const transactions = await Forex.find({})
-    let deposits = transactions[0].deposits;
-
-    deposits.forEach(deposit => {
-        if (deposit.txnId == txnId) {
-            deposit.status = "success";
-        }
-    })
-
-    await Forex.findByIdAndUpdate(forexTableId, { $set: { deposits: deposits } }, { new: true });
+    let deposit = await ForexDeposit.findOne({ txnId: txnId })
+    console.log(deposit)
+    if (deposit) {
+        await ForexDeposit.findByIdAndUpdate(deposit._id, { $set: { status: "success" } }, { new: true });
+    }
 }
 
-const updateWithdrawalStatus = async () => {}
+const updateWithdrawalStatus = async () => { }

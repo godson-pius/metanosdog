@@ -7,16 +7,17 @@ import { getAllTransactions } from '../../api'
 const AdminWithdrawals = () => {
     const [withdrawals, setWithdrawals] = useState([])
     const [apiStatus, setApiStatus] = useState('Fetching  requests...')
+    const [runOnce, setRunOnce] = useState(false)
     const info = useRef()
 
     const handleGetWithdrawals = async () => {
-        info.current = toast.info('Getting withdrawal requests...', { autoClose: false })
         const res = await getAllTransactions();
         if (res.status == "success") {
-            setWithdrawals(res.txns[0].withdrawals)
+            setWithdrawals(res.withdrawals)
             toast.dismiss(info.current)
+            setRunOnce(true)
             
-            { res.txns[0].withdrawals.length > 0 ? setApiStatus('') : setApiStatus('No  withdrawal yet!') }
+            { res.withdrawals.length > 0 ? setApiStatus('') : setApiStatus('No  withdrawal yet!') }
         } else {
             toast.dismiss(info.current)
             toast.error('Failed to get withdrawal requests!')

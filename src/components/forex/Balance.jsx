@@ -42,6 +42,9 @@ const Balance = ({ state }) => {
 
                 // get user details
                 getUser()
+            } else if (res.status == "failed") {
+                toast.warning(res.message)
+                toast.dismiss(info.current)
             } else {
                 toast.error('Transaction failed! Please try again.')
                 toast.dismiss(info.current)

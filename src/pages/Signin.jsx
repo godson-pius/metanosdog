@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { handleUserLogin } from "../api";
 
 const Signin = () => {
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   const submitBtn = useRef();
@@ -18,7 +18,7 @@ const Signin = () => {
     submitBtn.current.classList.add("text-black");
 
     const data = {
-      email,
+      email: email.toLowerCase(),
       password,
     };
 

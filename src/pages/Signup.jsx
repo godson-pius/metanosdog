@@ -8,7 +8,7 @@ const Signup = () => {
   const { ref } = useParams()
   const [firstname, setFname] = useState();
   const [lastname, setLname] = useState();
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState();
   const [cpass, setCpass] = useState();
   const [shippingAddress, setShippingAddress] = useState();
@@ -41,7 +41,7 @@ const Signup = () => {
       const formdata = {
         firstname,
         lastname,
-        email,
+        email: email.toLowerCase(),
         password,
         cpass,
         refId,

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
+  FiBarChart,
   FiHome,
   FiMail,
   FiSettings,
@@ -87,6 +88,16 @@ const VendorNav = () => {
           >
             <FiSettings size={17} />
             <span className="hidden md:block">Settings</span>
+          </Link>
+          
+          <Link
+            to="/forex-home"
+            className={`w-full md:flex items-center gap-2 rounded text-[#727272] text-sm duration-700 hover:text-black md:hover:bg-[#f4dbad] md:hover:p-3 ${setActive(
+              "vendor-settings"
+            )}`}
+          >
+            <FiBarChart size={17} />
+            <span className="hidden md:block">Forex</span>
           </Link>
 
           {/* Ads */}

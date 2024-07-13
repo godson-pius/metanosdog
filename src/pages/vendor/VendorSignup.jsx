@@ -103,7 +103,7 @@ const VendorSignup = () => {
                 managerFullname,
                 managerPhone,
                 additionalPhone,
-                emailAddress,
+                emailAddress: emailAddress.toLowerCase(),
                 refId,
                 parentRefId: referralId || null,
                 password,

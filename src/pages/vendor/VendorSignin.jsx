@@ -4,7 +4,7 @@ import { handleVendorLogin } from "../../api";
 import { toast } from "react-toastify";
 
 const VendorSignin = () => {
-  const [emailAddress, setEmailAddress] = useState();
+  const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState();
 
   const submitBtn = useRef();
@@ -19,7 +19,7 @@ const VendorSignin = () => {
     submitBtn.current.classList.add("text-black");
 
     const data = {
-      emailAddress,
+      emailAddress: emailAddress.toLowerCase(),
       password,
     };
 

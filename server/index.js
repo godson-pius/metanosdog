@@ -13,6 +13,7 @@ const referralRoute = require("./routes/referralRoute");
 const orderRoute = require("./routes/orderRoute");
 const forexRoute = require("./routes/forexRoute");
 const BasePrice = require("./models/BasePrice");
+const { startSchedule } = require("./utils/scheduler");
 
 const app = express();
 const PORT = process.env.PORT;
@@ -49,6 +50,8 @@ mongoose.connect(
     });
   }
 );
+
+// startSchedule()
 
 //Default Route
 app.get('/', (req, res) => {

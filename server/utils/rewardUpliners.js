@@ -3,7 +3,7 @@ const { rewardSystem } = require("./rewardVendor");
 
 exports.rewardUpliners = async (directParent, price) => {
     for (let i = 0; i <= 7; i++) {
-        const getUpliner = await Vendor.findOne({ refId: directParent.parentId })
+        const getUpliner = await Vendor.findOne({ refId: directParent?.parentId })
         if (getUpliner) {
             refReward = rewardSystem(i, price) + getUpliner.balance;
             await Vendor.findByIdAndUpdate(getUpliner._id, { $set: { balance: refReward } }, { new: true })

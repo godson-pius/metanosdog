@@ -346,6 +346,15 @@ export const UserTeamPerformance = async (data) => {
   }
 }
 
+export const testRoi = async (data) => {
+  try {
+    const response = await Axios.post(`${API}/forex/testroi`, data)
+    return response.data
+  } catch (error) {
+    return error
+  }
+}
+
 export {
   handleUserReg,
   handleUserLogin,

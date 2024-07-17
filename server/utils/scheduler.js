@@ -1,60 +1,82 @@
 const cron = require("node-cron");
 const User = require("../models/User");
+const Vendor = require("../models/Vendor");
 
-// Every week in eight months
-exports.startSchedule = (data) => {
+exports.startScheduleForUsers = (data) => {
     const userTasks = new Map();
 
-    // Get the current date
-    const startDate = new Date()
+    const schedule = '0 0 * * *';
+    // const schedule = '*/5 * * * * *';
 
-    // Calculate the end date, which is eight months from the start date
-    const endDate = new Date();
-    endDate.setMonth(startDate.getMonth() + 8);
+    const task = cron.schedule(schedule, async () => {
 
-    // Define the cron schedule for weekly execution. Runs every Sunday at midnight.
-    const schedule = '0 0 * * 0';
-
-    // Define the amount to add
-    const amountToAdd = 0.2 * data.amount
-
-    const task = cron.schedule(schedule, async() => {
+        // Get the current date
         const currentDate = new Date()
 
+        // Calculate the end date, which is eight months from the start date
+        const endDate = new Date();
+        endDate.setMonth(currentDate.getMonth() + 8);
+
         if (currentDate <= endDate) {
-            // Balance topping starts here
-            try {
-                if (data.role == "user") {
-                    const user = await User.findById(data.id)
-                    if (user) {
-                        const currentBal = user.balance;
-                        currentBal[0].roi += amountToAdd
-        
-                        // Update the roi status
-                        updateTransactionStatus(data.txnId);
-        
-                        const roi = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
-                        res.status(200).json({ roi, status: "success" })
-        
-                        // Start CRON job
-                        
-                    }
-                } else if (role == "vendor") {
-                    const user = await Vendor.findById(data.id)
-                    const currentBal = user.forexBalance;
-                    currentBal[0].roi += amountToAdd
-        
-                    const roi = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
-                    res.status(200).json({ roi, status: "success" })
-                }
-            } catch (error) {
-                res.status(500).json({ error })
+            const amount = (0.2 * data.amount) / this.getNumberOfDaysInAMonth()
+            const user = await User.findOne({ _id: data.id });
+            if (user) {
+                const balance = user.balance;
+                balance[0].roi += amount;
+                await User.findByIdAndUpdate(data.id, { $set: { balance: balance } }, { new: true });
+                console.log(`Return of investment added: ${amount}`)
+            } else {
+                console.log("No user found")
             }
         } else {
             task.stop();
-            userTasks.delete(data.id)
         }
+
     }, { scheduled: true })
 
-    userTasks.set(data.id, task)
+    userTasks.set(2, task)
+    // cron.schedule("* * * * *", task)
+}
+
+exports.startScheduleForVendors = (data) => {
+    const userTasks = new Map();
+
+    const schedule = '0 0 * * *';
+    // const schedule = '*/5 * * * * *';
+
+    const task = cron.schedule(schedule, async () => {
+
+        // Get the current date
+        const currentDate = new Date()
+
+        // Calculate the end date, which is eight months from the start date
+        const endDate = new Date();
+        endDate.setMonth(currentDate.getMonth() + 8);
+
+        if (currentDate <= endDate) {
+            const amount = (0.2 * data.amount) / this.getNumberOfDaysInAMonth()
+            const user = await Vendor.findOne({ _id: data.id });
+            if (user) {
+                const balance = user.forexBalance;
+                balance[0].roi += amount;
+                await User.findByIdAndUpdate(data.id, { $set: { forexBalance: balance } }, { new: true });
+                console.log(`Return of investment added: ${amount}`)
+            } else {
+                console.log("No user found")
+            }
+        } else {
+            task.stop();
+        }
+
+    }, { scheduled: true })
+
+    userTasks.set(2, task)
+    // cron.schedule("* * * * *", task)
+}
+
+exports.getNumberOfDaysInAMonth = () => {
+    const currentYear = new Date().getFullYear()
+    const currentMonthIndex = new Date().getMonth() + 1;
+
+    return new Date(currentYear, currentMonthIndex, 0).getDate()
 }

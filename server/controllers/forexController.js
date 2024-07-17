@@ -4,7 +4,7 @@ const Vendor = require("../models/Vendor");
 const { closeDepositAmount, forexTableId } = require("../utils/controlVal");
 const { calculateRefProfit } = require("../utils/refProfit");
 const { rewardUpliners } = require("../utils/rewardUpliners");
-const { startSchedule } = require("../utils/scheduler");
+const { startScheduleForUsers, startScheduleForVendors } = require("../utils/scheduler");
 const cloudinary = require("../utils/cloudinary");
 const ForexDeposit = require("../models/Deposit");
 const ForexWithdrawal = require("../models/Withdrawal");
@@ -118,6 +118,10 @@ exports.handleConfirmDeposit = async (req, res) => {
                 rewardUpliners(user.parentId, data.amount)
 
                 const deposit = await User.findByIdAndUpdate(data.id, { $set: { balance: currentBal } }, { new: true });
+
+                // Start CRON job for users
+                startScheduleForUsers(data)
+
                 res.status(200).json({ deposit, status: "success" })
             }
         } else if (data.role == "vendor") {
@@ -134,11 +138,12 @@ exports.handleConfirmDeposit = async (req, res) => {
             }
 
             const deposit = await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: currentBal } }, { new: true });
+
+            // Start CRON job for vendors
+            startScheduleForVendors(data)
+
             res.status(200).json({ deposit, status: "success" })
         }
-
-        // Start CRON job
-        startSchedule(data)
 
     } catch (error) {
         res.status(500).json({ error })
@@ -149,7 +154,7 @@ exports.handleConfirmDeposit = async (req, res) => {
 exports.handleConfirmWithdrawal = async (req, res) => {
     const data = req.body;
     try {
-        
+
         const confirmed = await ForexWithdrawal.findByIdAndUpdate(data.wId, { $set: { status: "success" } }, { new: true });
         res.status(200).json({ confirmed, status: "success" })
 
@@ -218,6 +223,16 @@ const updateTransactionStatus = async (txnId) => {
     console.log(deposit)
     if (deposit) {
         await ForexDeposit.findByIdAndUpdate(deposit._id, { $set: { status: "success" } }, { new: true });
+    }
+}
+
+exports.sendRoi = async (req, res) => {
+    const data = req.body;
+    try {
+        startSchedule(data)
+        res.status(200).json({ message: "Adding..." })
+    } catch (error) {
+        res.status(500).json({ message: "Error adding" })
     }
 }
 

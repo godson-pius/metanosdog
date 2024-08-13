@@ -18,7 +18,7 @@ module.exports = async function () {
     for (const deposit of deposits) {
 
       // CHECK IF IT'S UP TO A WEEK YET
-      const { isAWeek, monthsDifference } = calculateDateDifference(new Date(deposit.createdAt))
+      const { isAWeek, monthsDifference } = calculateDateDifference(new Date(deposit.date_deposited))
       if(isAWeek) {
         const profix = (deposit.amount * 2) / 100 
 
@@ -36,8 +36,9 @@ module.exports = async function () {
 
         // CHECK IF IT'S UP TO 8 MONTHS
         if(monthsDifference >= 8) {
-          // UPDATE DEPOSI
+          // UPDATE DEPOSIT
           deposit.has_expired = true
+          deposit.date_deposited = new Date()
           await deposit.save()
         }
       }

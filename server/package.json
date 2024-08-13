@@ -4,8 +4,8 @@
   "description": "This is server for metanosdog",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon cluster.js",
+    "start": "node cluster.js"
   },
   "keywords": [
     "metanosdog"

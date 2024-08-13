@@ -59,7 +59,7 @@ exports.startScheduleForVendors = (data) => {
             if (user) {
                 const balance = user.forexBalance;
                 balance[0].roi += amount;
-                await User.findByIdAndUpdate(data.id, { $set: { forexBalance: balance } }, { new: true });
+                await Vendor.findByIdAndUpdate(data.id, { $set: { forexBalance: balance } }, { new: true });
                 console.log(`Return of investment added: ${amount}`)
             } else {
                 console.log("No user found")

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "serve": "node index.js",
+    "start": "node cluster.js"
   },
   "keywords": [
     "metanosdog"
@@ -16,6 +17,7 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.1",
     "cloudinary": "^1.36.1",
+    "cluster": "^0.7.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

@@ -1,34 +1,37 @@
-const cluster = require('cluster');
-require('dotenv').config()
-const appServer = require('./index')
-const cronJob = require('./cron');
+const cluster = require('cluster')
+const server = require('./')
+const setupCronJob = require('./cron')
 
-const types = {
-    SERVER: "SERVER",
-    CRON_JOB: "CRON_JOB",
+const SERVICE_TYPE = {
+  SERVER: "SERVER",
+  CRON_JOB: "CRON_JOB",
 }
 
 if (cluster.isPrimary) {
-    cluster.setupPrimary({
-        serialization: 'advanced'
-    })
 
-    cluster.fork({
-        TYPE: types.SERVER,
-    })
+	cluster.setupPrimary({
+		serialization: 'advanced',
+	});
 
-    cluster.fork({
-        TYPE: types.CRON_JOB,
-    })
-}
-else {
-    switch (process.env.TYPE) {
-        case types.SERVER:
-            appServer()
-            break
+  // CREATE CLUSTER FOR SERVER
+  cluster.fork({
+    SERVICE_TYPE: SERVICE_TYPE.SERVER,
+  });
 
-        case types.CRON_JOB:
-            cronJob()
-            break
-    }
+  // CREATE CLUSTER FOR CRON_JOB
+  cluster.fork({
+    SERVICE_TYPE: SERVICE_TYPE.CRON_JOB,
+  });
+
+} else {
+
+  switch(process.env.SERVICE_TYPE) {
+    case SERVICE_TYPE.SERVER:
+      server()
+      break;
+
+    case SERVICE_TYPE.CRON_JOB:
+      setupCronJob();
+      break;
+  }
 }

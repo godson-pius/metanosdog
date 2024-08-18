@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const depositSchema = new mongoose.Schema({
-
     user: { type: Object, required: [true, 'User details is required'] },
     txnId: { type: String, required: [true, 'Transaction id is required'] },
     amount: { type: Number, required: [true, 'Amount is required'] },
@@ -9,8 +8,8 @@ const depositSchema = new mongoose.Schema({
     plan: { type: String, required: [true, 'Plan is required'] },
     pop: { type: String, required: [true, 'Proof of payment is required'] },
     role: { type: String, required: [true, 'Role is required'] },
-    status: { type: String, default: 'pending' }
-
+    status: { type: String, default: 'pending' },
+    has_expired: { type: Boolean, nullable: true, default: false  }
 }, { timestamps: true });
 
 const ForexDeposit = mongoose.model('ForexDeposit', depositSchema);

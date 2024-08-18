@@ -13,51 +13,51 @@ const referralRoute = require("./routes/referralRoute");
 const orderRoute = require("./routes/orderRoute");
 const forexRoute = require("./routes/forexRoute");
 const BasePrice = require("./models/BasePrice");
-const { startSchedule } = require("./utils/scheduler");
 
 const appServer = () => {
-  const app = express();
-  const PORT = process.env.PORT;
 
-  //MiddleWare
-  app.use(cors());
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ extended: true }));
+  module.exports = function () {
+    const app = express();
+    const PORT = process.env.PORT;
 
-  //Routes
-  app.use('/api/user', userRoute)
-  app.use('/api/product', productRoute)
-  app.use('/api/vendor', vendorRoute)
-  app.use('/api/ticket', ticketRoute)
-  app.use('/api/cart', cartRoute)
-  app.use('/api/review', reviewRoute)
-  app.use('/api/referral', referralRoute)
-  app.use('/api/order', orderRoute)
-  app.use('/api/forex', forexRoute)
+    //MiddleWare
+    app.use(cors());
+    app.use(express.json({ limit: "50mb" }));
+    app.use(express.urlencoded({ extended: true }));
 
-  app.get('/api/basePrice', async(req, res) => {
-    const price = await BasePrice.find({})
-    res.status(200).json({ price, status: 200 })
-  })
+    //Routes
+    app.use('/api/user', userRoute)
+    app.use('/api/product', productRoute)
+    app.use('/api/vendor', vendorRoute)
+    app.use('/api/ticket', ticketRoute)
+    app.use('/api/cart', cartRoute)
+    app.use('/api/review', reviewRoute)
+    app.use('/api/referral', referralRoute)
+    app.use('/api/order', orderRoute)
+    app.use('/api/forex', forexRoute)
 
-  // DB SET-UP
-  mongoose.set('strictQuery', false);
-  mongoose.connect(
-    process.env.MONGODB_URL,
-    { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true },
-    () => {
-      app.listen(PORT, () => {
-        console.log("App is running on port", PORT);
-      });
-    }
-  );
+    app.get('/api/basePrice', async (req, res) => {
+      const price = await BasePrice.find({})
+      res.status(200).json({ price, status: 200 })
+    })
 
-  // startSchedule()
+    // DB SET-UP
+    mongoose.set('strictQuery', false);
+    mongoose.connect(
+      process.env.MONGODB_URL,
+      { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true },
+      () => {
+        app.listen(PORT, () => {
+          console.log("App is running on port", PORT);
+        });
+      }
+    );
 
-  //Default Route
-  app.get('/', (req, res) => {
+    // startSchedule()
+
+    //Default Route
+    app.get('/', (req, res) => {
       res.json({ state: 'Running...' })
-  })
+    })
+  }
 }
-
-module.exports = appServer

@@ -18,13 +18,13 @@ module.exports = async function () {
     for (const deposit of deposits) {
 
       // CHECK IF IT'S UP TO A WEEK YET
-      const { isAWeek, monthsDifference } = calculateDateDifference(new Date(deposit.createdAt))
-      if(isAWeek) {
-        const profix = (deposit.amount * 2) / 100 
+      const { isAWeek, monthsDifference } = calculateDateDifference(new Date(deposit.date_deposited))
+      if (isAWeek) {
+        const profix = (deposit.amount * 2) / 100
 
         // CREDIT WALLET
         const user = await User.findOne({ _id: deposit.user._id })
-        if(!user) continue;
+        if (!user) continue;
 
         const wallets = [...user.balance] // ARRAY
         wallets[0]['forex'] = (wallets[0]['forex'] ?? 0) + profix
@@ -34,12 +34,16 @@ module.exports = async function () {
         await user.save()
         console.log("PROFIT CREDITED TO WALLET", user.balance)
 
-        // CHECK IF IT'S UP TO 8 MONTHS
-        if(monthsDifference >= 8) {
-          // UPDATE DEPOSI
-          deposit.has_expired = true
-          await deposit.save()
-        }
+        // UPDATE DEPOSIT
+        deposit.date_deposited = new Date()
+        await deposit.save()
+      }
+
+      // CHECK IF IT'S UP TO 8 MONTHS
+      if (monthsDifference >= 8) {
+        // UPDATE DEPOSIT
+        deposit.has_expired = true
+        await deposit.save()
       }
 
     }

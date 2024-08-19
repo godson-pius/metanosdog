@@ -10,7 +10,7 @@ const calculateDateDifference = (date) => {
   const timeDifference = Math.abs(now.getTime() - date.getTime());
   const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-  const isAWeek = daysDifference <= 7;
+  const isAWeek = daysDifference >= 7;
 
   return {
     monthsDifference,

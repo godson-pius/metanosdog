@@ -9,6 +9,7 @@ const depositSchema = new mongoose.Schema({
     pop: { type: String, required: [true, 'Proof of payment is required'] },
     role: { type: String, required: [true, 'Role is required'] },
     status: { type: String, default: 'pending' },
+    date_deposited: { type: Date, default: new Date() },
     has_expired: { type: Boolean, nullable: true, default: false  }
 }, { timestamps: true });
 

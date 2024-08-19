@@ -14,8 +14,6 @@ const orderRoute = require("./routes/orderRoute");
 const forexRoute = require("./routes/forexRoute");
 const BasePrice = require("./models/BasePrice");
 
-const appServer = () => {
-
   module.exports = function () {
     const app = express();
     const PORT = process.env.PORT;
@@ -60,4 +58,3 @@ const appServer = () => {
       res.json({ state: 'Running...' })
     })
   }
-}

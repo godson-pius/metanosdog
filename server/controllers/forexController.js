@@ -48,15 +48,21 @@ exports.handleDeposit = async (req, res) => {
         let totalDeposits = 0;
 
         const deposits = await ForexDeposit.find()
+        const findDuplicate = await ForexDeposit.findOne({ txnId: data.txnId })
         deposits.forEach((deposit) => {
             totalDeposits += deposit.amount
         })
 
-        if (totalDeposits < closeDepositAmount) {
-            const addedDeposit = await ForexDeposit.create(data);
-            res.status(200).json({ addedDeposit, status: "success" })
+        if (findDuplicate) {
+            res.status(409).json({ message: "Transaction Id exists", status: "exists" })
         } else {
-            res.status(200).json({ message: "Deposit Closed", status: "failed" })
+
+            if (totalDeposits < closeDepositAmount) {
+                const addedDeposit = await ForexDeposit.create(data);
+                res.status(200).json({ addedDeposit, status: "success" })
+            } else {
+                res.status(200).json({ message: "Deposit Closed", status: "failed" })
+            }
         }
     } catch (error) {
         res.status(500).json({ error })
@@ -222,7 +228,7 @@ const updateTransactionStatus = async (txnId) => {
     let deposit = await ForexDeposit.findOne({ txnId: txnId })
     console.log(deposit)
     if (deposit) {
-        await ForexDeposit.findByIdAndUpdate(deposit._id, { $set: { status: "success" } }, { new: true });
+        await ForexDeposit.findByIdAndUpdate(deposit._id, { status: "success" }, { new: true });
     }
 }
 

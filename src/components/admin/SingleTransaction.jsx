@@ -18,6 +18,10 @@ const SingleTransaction = ({ txn, getTxns }) => {
             txnId: txn.txnId,
             amount: txn.amount
         }
+
+        // console.log(data);
+        // return;
+        
         const res = await confirmTransaction(data);
         if (res.status == "success") {
             toast.success("Transaction confirmed!")

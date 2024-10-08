@@ -79,6 +79,8 @@ const ForexDeposit = () => {
 
         const data = { ...inputs }
         const res = await forexDeposit(data)
+        console.log(res);
+        
 
         if (res.status === "success") {
             toast.success('Transaction is being processed')
@@ -89,6 +91,9 @@ const ForexDeposit = () => {
 
             // get user details
             getUser(currentUser.email)
+        } else if (res.response.data?.status === "exists") {
+            toast.error('Transaction failed! Please check details and try again')
+            toast.dismiss(info.current)
         } else {
             toast.error('Transaction failed! Please try again.')
             toast.dismiss(info.current)

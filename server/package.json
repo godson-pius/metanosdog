@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "serve": "node index.js",
-    "start": "node cluster.js"
+    "start": "node index.js"
   },
   "keywords": [
     "metanosdog"
